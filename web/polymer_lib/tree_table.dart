@@ -1,6 +1,7 @@
 library tree_table;
 
 import 'package:polymer/polymer.dart';
+import 'package:observe/observe.dart';
 import 'dart:html';
 
 /**
@@ -83,7 +84,7 @@ typedef void RenderFunction(TreeTableRow ttr, LogicalRow logicalRow);
  * method.
  */
 @CustomTag('tree-table-row')
-class TreeTableRow extends TableRowElement with Polymer {
+class TreeTableRow extends TableRowElement with Polymer, Observable {
   LogicalRow logicalRow;
   bool populated = false;  
   
