@@ -83,7 +83,7 @@ typedef void RenderFunction(TreeTableRow ttr, LogicalRow logicalRow);
  * method.
  */
 @CustomTag('tree-table-row')
-class TreeTableRow extends TableRowElement with Polymer, Observable {
+class TreeTableRow extends TableRowElement with Polymer {
   LogicalRow logicalRow;
   bool populated = false;  
   
