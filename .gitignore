@@ -5,3 +5,4 @@
 !build/*
 !build/**/*
 !index.html
+!dump-info-viewer.png
