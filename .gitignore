@@ -1,0 +1,12 @@
+build/
+packages/
+**/packages
+
+*.dart.js
+*.dart.precompiled.js
+*.js_
+*.js.deps
+*.js.map
+
+pubspec.lock
+.buildlog
