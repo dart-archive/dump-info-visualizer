@@ -1,0 +1,65 @@
+<link rel="import" href="packages/polymer/polymer.html">
+<polymer-element name="tree-table">
+  <template>
+    <style>
+      #inner_table {
+        width: 100%;
+        table-layout: fixed;
+      }
+      thead > td {
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: center;
+      }
+      tr:nth-child(odd) {
+        background: rgba(0, 0, 100, 0.1);
+      }
+    </style>
+    <table id="inner_table">
+        <thead id="inner_table_head">
+        </thead>
+        <tbody id="inner_table_body">
+        </tbody>
+    </table>
+  </template>
+</polymer-element>
+
+<polymer-element name="tree-table-row" extends="tr">
+  <template>
+    <style>
+      td {
+        padding: 5px;
+        height: 10px;
+      }
+      td>table td {
+        padding: 0px;
+      }
+      td.odd {
+        background-color: rgb(230,230,230);
+      }
+      #first-cell {
+        padding: 5px;
+      }
+      pre {
+        margin: 0px;
+      }
+      #arrow {
+        min-width: 100px;
+      }
+    </style>
+    <!--
+      The first column in a row.  This column is special because it contains
+      the open/close arrow and is padded for a visual tree structure.  It is 
+      a div because the Polymer transformer wont let me use <td> outside of a 
+      <tr>.
+     -->
+    <div id="first-cell" class="odd">
+      <nobr>
+         <span id="arrow"></span>
+         <span id="content"></span>
+      </nobr>
+    </div>
+    <!-- The rest of the <td>s will be inserted here -->
+  </template>
+</polymer-element>
+<script type="application/dart" src="tree_table.dart"></script>
