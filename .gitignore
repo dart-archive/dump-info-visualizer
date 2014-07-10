@@ -11,3 +11,4 @@ packages/
 
 pubspec.lock
 .buildlog
+samples/
