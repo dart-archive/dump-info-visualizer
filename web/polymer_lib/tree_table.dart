@@ -49,6 +49,14 @@ class TreeTable extends PolymerElement {
   // for LogicalRows sorting on a key in the data section.
   void sort(String key) {
     var comparator = (LogicalRow a, LogicalRow b) {
+      if (a.sortable && !b.sortable) {
+        return 1;
+      } else if (!a.sortable && b.sortable) {
+        return -1;        
+      } else if (!a.sortable && !b.sortable) {
+        return a.nonSortablePriority.compareTo(b.nonSortablePriority);
+      }
+      
       var d1 = a.data[key];
       var d2 = b.data[key];
       if (d1 == null) d1 = "";
@@ -131,6 +139,8 @@ class LogicalRow {
   bool open = false;
   Map<String, dynamic> data;
   List<LogicalRow> children = [];
+  bool sortable = true;
+  int nonSortablePriority = 0;
   
   RenderFunction renderFunction;
   TreeTableRow rowElement;

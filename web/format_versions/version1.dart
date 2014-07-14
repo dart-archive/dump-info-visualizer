@@ -26,11 +26,14 @@ void processData1(Map document, TreeTable tt) {
                   HtmlElement tbody, 
                   int level) {
     
-    LogicalRow renderSelfWith(Function renderFn) {
+    LogicalRow renderSelfWith(Function renderFn, {int sortPriority: 0}) {
       void render(TreeTableRow row, LogicalRow lRow) {
         row.data = renderFn();
       }
-      return new LogicalRow(node, render, row.parentElement, level);
+      LogicalRow lrow =  new LogicalRow(node, render, row.parentElement, level);
+      lrow.sortable = false;
+      lrow.nonSortablePriority = sortPriority;
+      return lrow;
     }
     
     switch (node['kind']) {
@@ -65,14 +68,16 @@ void processData1(Map document, TreeTable tt) {
         // Code
         if (node['code'] != null && node['code'].length != 0) {
           row.addChild(renderSelfWith(() =>
-            [_cell("code"), _cell(node['code'], colspan: '4', pre: true)]));     
+            [_cell("code"), _cell(node['code'], colspan: '4', pre: true)], 
+            sortPriority: -1));     
         }
         break;
       case 'field':
         // Code
         if (node['code'] != null && node['code'].length != 0) {
           row.addChild(renderSelfWith(() =>
-            [_cell("code"), _cell(node['code'], colspan: '4', pre: true)]));     
+            [_cell("code"), _cell(node['code'], colspan: '4', pre: true)],
+            sortPriority: -1));     
         }
         String returnTypeString = 
             "inferred: ${node['inferredType']}, declared: ${node['type']}";
