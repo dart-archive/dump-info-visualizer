@@ -79,10 +79,13 @@ void processData1(Map document, TreeTable tt) {
             [_cell("code"), _cell(node['code'], colspan: '4', pre: true)],
             sortPriority: -1));     
         }
-        String returnTypeString = 
-            "inferred: ${node['inferredType']}, declared: ${node['type']}";
-        row.addChild(renderSelfWith(() => 
-            [_cell("type"), _cell(returnTypeString, colspan: '4', pre: true)]));
+        // Types
+        if (node['inferredType'] != null && node['type'] != null) {
+          String returnTypeString = 
+              "inferred: ${node['inferredType']}, declared: ${node['type']}";
+          row.addChild(renderSelfWith(() => 
+              [_cell("type"), _cell(returnTypeString, colspan: '4', pre: true)]));
+        }
         break;
         // TODO(tyoverby): add more cases
     }
