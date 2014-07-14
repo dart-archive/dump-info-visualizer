@@ -37,11 +37,10 @@ void processData1(Map document, TreeTable tt) {
       case 'function':
       case 'closure':
       case 'constructor':
-      case 'field':
       case 'method':
         // Side Effects
         row.addChild(renderSelfWith(() =>
-          [_cell("Side Effects"), _cell(node['sideEffects'], colspan: '4')]));
+          [_cell("side effects"), _cell(node['sideEffects'], colspan: '4')]));
         // Modifiers
         if (node.containsKey('modifiers')) {
           (node['modifiers'] as Map<String, bool>).forEach((k, v) {
@@ -52,8 +51,10 @@ void processData1(Map document, TreeTable tt) {
           });
         }
         // Return type
+        String returnTypeString =
+            "inferred: ${node['inferredReturnType']}, declared: ${node['returnType']}";
         row.addChild(renderSelfWith(() =>
-          [_cell("return type"), _cell(node['returnType'], colspan: '4')]));
+          [_cell("return type"), _cell(returnTypeString, colspan: '4')]));
         // Parameters
         if (node.containsKey('parameters')) {
           for (Map<String, dynamic> param in node['parameters']) {
@@ -66,6 +67,17 @@ void processData1(Map document, TreeTable tt) {
           row.addChild(renderSelfWith(() =>
             [_cell("code"), _cell(node['code'], colspan: '4', pre: true)]));     
         }
+        break;
+      case 'field':
+        // Code
+        if (node['code'] != null && node['code'].length != 0) {
+          row.addChild(renderSelfWith(() =>
+            [_cell("code"), _cell(node['code'], colspan: '4', pre: true)]));     
+        }
+        String returnTypeString = 
+            "inferred: ${node['inferredType']}, declared: ${node['type']}";
+        row.addChild(renderSelfWith(() => 
+            [_cell("type"), _cell(returnTypeString, colspan: '4', pre: true)]));
         break;
         // TODO(tyoverby): add more cases
     }
