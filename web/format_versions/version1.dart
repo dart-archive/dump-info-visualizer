@@ -1,6 +1,7 @@
 part of versions;
 
 void processData1(Map document, TreeTable tt) {
+  tt.columnTitles = ["Kind", "Name", "Bytes", "%", "Type"];
   Map<String, dynamic> elements = document['elements'];
   Map<String, dynamic> prog = document['program'];
   Map<String, dynamic> fetch(String id) {
