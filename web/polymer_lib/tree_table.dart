@@ -34,12 +34,16 @@ class TreeTable extends PolymerElement {
   void set columnTitles(List<String> names) {
     this.$["inner_table_head"].children.addAll(names.map((name) {
       var tableCell = new TableCellElement()..text = name;
-      // TODO: special cases are bad
+      // TODO(tyoverby): special cases are bad
+      
       if (name == "Bytes" || name == "%") {
         tableCell.style.width = "70px";
       }
       if (name == "Kind") {
         tableCell.style.width = "160px";
+      }
+      if (name == "Name") {
+        tableCell.style.width = "300px";        
       }
       return tableCell;
     }));

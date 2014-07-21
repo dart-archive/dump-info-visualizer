@@ -20,6 +20,24 @@ void processData1(Map document, TreeTable tt) {
           prog['toJsonDuration']
         ].map((t) => new HeadingElement.h3()..text = t));
   
+  programInfoDiv.children.add(
+    new ButtonElement()
+      ..text = "Extract Function Names"
+      ..onClick.listen((_) {
+        String text = elements['function']
+                        .values
+                        .map((a) => '"${a['name']}"')
+                        .join(', ');
+        text = "[$text]";
+        String encoded = 'data:text/plain;charset=utf-8,${Uri.encodeComponent(text)}';
+        
+        AnchorElement downloadLink = new AnchorElement(href: encoded);
+        downloadLink.text = "download file";
+        downloadLink.setAttribute("download", "functions.txt");
+        downloadLink.click();
+      })
+  );
+  
   int programSize = prog['size'];
   
   void addMetadata(Map<String, dynamic> node, 
@@ -63,7 +81,7 @@ void processData1(Map document, TreeTable tt) {
         if (node.containsKey('parameters')) {
           for (Map<String, dynamic> param in node['parameters']) {
             row.addChild(renderSelfWith(() =>
-              [_cell("parameter"), _cell(param['name']), _cell(param['type'])]));
+              [_cell("parameter"), _cell(param['name']), _cell(param['type'], colspan: '3')]));
           }
         }
         // Code
@@ -94,8 +112,8 @@ void processData1(Map document, TreeTable tt) {
   
   LogicalRow buildTree(String id, bool isTop, HtmlElement tbody, int level){
     Map<String, dynamic> node = fetch(id);  
-    if (node['size'] == null || node['kind'] == 'class') {
-      node['size'] = _computeSize(node, fetch, force: node['kind'] == 'class');
+    if (node['size'] == null) {
+      node['size'] = _computeSize(node, fetch);
     }
     node['size_percent'] = 
         (100 * node['size'] / programSize).toStringAsFixed(2) + "%";
@@ -140,7 +158,7 @@ void _renderRow1(TreeTableRow row, LogicalRow logicalRow) {
       break;
     case 'library':
       cells.addAll([
-        _cell(props['size']),
+        _cell(props['size'], align: 'right'),
         _cell(props['size_percent'], align: 'right'),
         _cell("")
       ]);
