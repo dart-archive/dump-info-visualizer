@@ -20,6 +20,11 @@ int _toInt(dynamic n) {
   }
 }
 
+/**
+ * A helper method for creating TableCellElements with options 
+ * for alignment, colspan and wrapping the inner text inside of 
+ * a <pre></pre> element.
+ */
 TableCellElement _cell(dynamic text, {String align: 'left', String colspan: "1", bool pre: false}) {
   TableCellElement element = new TableCellElement()
   ..style.textAlign = align
@@ -36,7 +41,12 @@ TableCellElement _cell(dynamic text, {String align: 'left', String colspan: "1",
   return element;
 }
 
-/// Compute the size of a node in the node tree.
+/**
+ * Compute the size of a node in the node tree by first checking to see if 
+ * that node has a size property.  If it does, use that unless [force] is 
+ * set to true.  Otherwise, aquire the size by summing the sizes of 
+ * the children.
+ */
 int _computeSize(Map<String, dynamic> info, Function fetchElement, {bool force: false}) {
   if (info.containsKey('size') && info['size'] != null && !force) {
     return _toInt(info['size']);

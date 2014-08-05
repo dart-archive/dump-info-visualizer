@@ -74,15 +74,19 @@ class TreeTable extends PolymerElement {
       return d2.toString().compareTo(d1.toString());
     };
 
+    // Clear all of the rows in the table because 
+    // we will be sorting the `logical` rows and then
+    // re-add them all.
     tbody.children.clear();
     this._rootNodes.sort(comparator);
 
-    for (var child in this._rootNodes) {
-      child._sort(comparator);
+    for (var rootNode in this._rootNodes) {
+      rootNode._sort(comparator);
     }
     
-    for (var child in this._rootNodes) {
-      child.show();
+    // Re-add the now-sorted rows.
+    for (var rootNode in this._rootNodes) {
+      rootNode.show();
     }
   }
 }
@@ -99,6 +103,7 @@ final int _PADDING_SIZE = 25;
 @CustomTag('tree-table-row')
 class TreeTableRow extends TableRowElement with Polymer, Observable {
   LogicalRow logicalRow;
+  // True if data has been rendered into this row.
   bool populated = false;  
   
   TreeTableRow.created() : super.created() {
@@ -157,7 +162,8 @@ class LogicalRow {
   List<GenRowFn> generatorFns = [];
   
   // After the generatorFns array is processed when this 
-  // node is expanded, this children array will be filled.
+  // node is expanded, this children array will be filled with
+  // [LogicalRow]s 
   List<LogicalRow> children = [];
   
   // If this row is sortable.  An example of a non-sortable row
@@ -181,7 +187,7 @@ class LogicalRow {
   // The depth of this row in the overall tree.
   int level;
   
-  // Stored comparator for the sorting funciton.  
+  // Stored comparator for the sorting function.  
   // Because the tree is generated lazily, this needs to be stored to
   // be called on generation of future children.
   Function sortComparator;
@@ -199,29 +205,36 @@ class LogicalRow {
     if (open) {
       if (children.isEmpty) {
         children = generatorFns.map((a) => a()).toList();
-        // Resort because we just generated some more children.
+        // Resort because more children were generated.
         _sort(sortComparator);
       }
-      this.children.forEach((child){child.show(before: this.rowElement);});
+      this.children.forEach((child) => child.show(before: this.rowElement));
     } else {
-      this.children.forEach((child){child.hide();});
+      this.children.forEach((child) => child.hide());
     }
     this.rowElement._setArrow(this.children.isNotEmpty, open);
   }
   
   void hide() {
-    this.parentElement.children.remove(this.asElement());
+    this.parentElement.children.remove(this.getElement());
     if (this.open) {
-      this.children.forEach((child)=> child.hide());
+      this.children.forEach((child) => child.hide());
     }
   }
   
+  /**
+   * Adds this row to the TreeTableElement.  
+   * [before] is an optional element that this row 
+   * will be inserted after.
+   */
   void show({HtmlElement before}) {
     if (before != null) {
+      // Place this element right after [before]
       int loc = this.parentElement.children.indexOf(before) + 1;
-      this.parentElement.children.insert(loc, this.asElement());
+      this.parentElement.children.insert(loc, this.getElement());
     } else {
-      this.parentElement.children.insert(0, this.asElement());
+      // Prepend this element into the table
+      this.parentElement.children.insert(0, this.getElement());
     }
     this.rowElement._level = this.level;
     if (!this.rowElement.populated) {
@@ -230,11 +243,12 @@ class LogicalRow {
       this.rowElement.populated = true;
     }
     if (this.open) {
-      this.children.forEach((child) {child.show(before: this.rowElement);});
+      // Open up children spatially after this element
+      this.children.forEach((child) => child.show(before: this.rowElement));
     }
   }
   
-  TreeTableRow asElement() {
+  TreeTableRow getElement() {
     if (rowElement != null) {
       return rowElement;
     } else {

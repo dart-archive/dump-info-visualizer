@@ -6,28 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample app</title>
     <link rel="stylesheet" href="viewer.css">
-    
-    <!--<script src="packages/web_components/platform.js"></script>-->
-    <link rel="import" href="packages/polymer/polymer.html">
+    <script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>
     <link rel="import" href="polymer_lib/tree_table.html">
   </head>
   <body>
     <h1>Info-Dump Visualizer</h1>
+    <!-- whole-program information -->
     <div id="prog-info"></div>
+    <!-- sorting -->
     <h2>
       Sort
       <select name="sort" id="sort">
-        <option value="name"> Name </option>
+        <option value="name"> Name </option> 
         <option value="kind"> Kind </option>
         <option value="size"> Size </option>
       </select>
     </h2>
+    <!-- main hierarcy table -->
     <tree-table></tree-table>
+    <!-- drag and drop file input -->
     <div id="drag-target">
       Drop .info.json file here
       <br/><br/>
       <input id="file_upload" type="file"/>
-    </div>    
+    </div>
+    
+    <!-- entry point dart file -->
     <script type="application/dart" src="./viewer.dart"></script>
   </body>
 </html>
