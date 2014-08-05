@@ -9,6 +9,7 @@ import 'dart:html';
  */
 @CustomTag('tree-table')
 class TreeTable extends PolymerElement {
+  // The top-level rows in the tree.
   List<LogicalRow> _rootNodes = [];
 
   TreeTable.created() : super.created() {}
@@ -49,8 +50,10 @@ class TreeTable extends PolymerElement {
     }));
   }
 
-  // Sorts this TreeTable by creating a comparator function 
-  // for LogicalRows sorting on a key in the data section.
+  /** 
+   * Sorts this TreeTable by creating a comparator function 
+   * for LogicalRows sorting on a key in the data section.
+   */
   void sort(String key) {
     var comparator = (LogicalRow a, LogicalRow b) {
       if (a.sortable && !b.sortable) {
@@ -87,8 +90,6 @@ class TreeTable extends PolymerElement {
 /// The amount of padding to be added to each level in the tree.
 final int _PADDING_SIZE = 25;
 
-typedef void RenderFunction(TreeTableRow ttr, LogicalRow logicalRow);
-
 /**
  * A TreeTableRow element.  TreeTableRows are only to be inserted into
  * a TreeTable element.  Because TreeTableRows are nodes in the tree
@@ -121,6 +122,7 @@ class TreeTableRow extends TableRowElement with Polymer, Observable {
     }
   }
   
+  // Set the level of indentation for this row.
   void set _level(int level) {
      this.$['first-cell'].style.paddingLeft =
       (level * _PADDING_SIZE).toString() + "px";
@@ -139,28 +141,67 @@ class TreeTableRow extends TableRowElement with Polymer, Observable {
   }
 }
 
+typedef LogicalRow GenRowFn();
+typedef void RenderFunction(TreeTableRow ttr, LogicalRow logicalRow);
+
 class LogicalRow {
+  // If the row is currently in an opened state.
   bool open = false;
+  
+  // A pointer into the data 
   Map<String, dynamic> data;
+  
+  // A list of "soon to be children" row functions.  
+  // This is the key part of having the entire data 
+  // structure be lazily evaluated.
+  List<GenRowFn> generatorFns = [];
+  
+  // After the generatorFns array is processed when this 
+  // node is expanded, this children array will be filled.
   List<LogicalRow> children = [];
+  
+  // If this row is sortable.  An example of a non-sortable row
+  // would be the "code" and "parameters" rows of a function
+  // element properties.
   bool sortable = true;
+  
+  // If this row is not sortable, use this priority instead.
   int nonSortablePriority = 0;
   
+  // A function that is called when this tree needs to be rendered 
+  // into the DOM.
   RenderFunction renderFunction;
+  
+  // The actual rendered row.
   TreeTableRow rowElement;
+  
+  // The TreeTableRow element.  Stored here to make show/hide easier.
   HtmlElement parentElement;
+  
+  // The depth of this row in the overall tree.
   int level;
+  
+  // Stored comparator for the sorting funciton.  
+  // Because the tree is generated lazily, this needs to be stored to
+  // be called on generation of future children.
+  Function sortComparator;
   
   LogicalRow(this.data, this.renderFunction, this.parentElement, this.level);
   
-  LogicalRow addChild(LogicalRow child) {
-    this.children.add(child);
-    return child;
+  // Add a child function lazilly.
+  GenRowFn addChild(GenRowFn genRowFn) {
+    this.generatorFns.add(genRowFn);
+    return genRowFn;
   }
   
   void click() {
     open = !open;
     if (open) {
+      if (children.isEmpty) {
+        children = generatorFns.map((a) => a()).toList();
+        // Resort because we just generated some more children.
+        _sort(sortComparator);
+      }
       this.children.forEach((child){child.show(before: this.rowElement);});
     } else {
       this.children.forEach((child){child.hide();});
@@ -185,7 +226,7 @@ class LogicalRow {
     this.rowElement._level = this.level;
     if (!this.rowElement.populated) {
       this.renderFunction(this.rowElement, this);
-      this.rowElement._setArrow(this.children.isNotEmpty, open);
+      this.rowElement._setArrow(this.generatorFns.isNotEmpty, open);
       this.rowElement.populated = true;
     }
     if (this.open) {
@@ -203,6 +244,7 @@ class LogicalRow {
   }
   
   void _sort(Function comparator) {
+    sortComparator = comparator;
     this.children.sort(comparator);
     this.children.forEach((child) => child._sort(comparator));
   }

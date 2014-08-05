@@ -15,7 +15,8 @@ main() {
   
   var dnd = new DndFile(querySelector("#drag-target"), querySelector("#file_upload"));
   
-  dnd.onFile.listen((String jsonString){
+  // When a file is loaded
+  dnd.onFile.listen((String jsonString) {
     Map<String, dynamic> json = JSON.decode(jsonString);
     TreeTable tt = querySelector("tree-table");
     if (!json.containsKey('dump_version')) {
@@ -30,14 +31,17 @@ main() {
       }
     }
     
-    tt.sort('kind');
+    // Sort by name as default
+    tt.sort('name');
 
+    // Sort by chosen sorting methods.
     var select = querySelector("#sort") as SelectElement;
     select.onChange.listen((e) {
       var sortby = select.options[select.selectedIndex].value;
       tt.sort(sortby);
     });
     
+    // Hide the drag-and-drop element.
     dnd.hide();
   });
 }

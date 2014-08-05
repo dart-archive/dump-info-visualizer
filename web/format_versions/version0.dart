@@ -31,8 +31,8 @@ void processData0(Map document, TreeTable tt) {
     
     if (node.containsKey('children')) {
       for (var child in node['children']) {
-        var built = buildTree(child, false, tbody, level + 1);
-        row.addChild(built);
+        LogicalRow built = buildTree(child, false, tbody, level + 1);
+        row.addChild(() => built);
       }
     }
     return row;
