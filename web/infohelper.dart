@@ -1,5 +1,6 @@
 class InfoHelper {
-  final Map<String, Map<String, Map<String, dynamic>>> _properties;
+  final Map<String, Map<String, Map<String, dynamic>>> _elementProperties;
+  final Map<String, dynamic> _programProperties;
   
   // A map from the ids of an element to the 
   // properties of that element.
@@ -15,21 +16,46 @@ class InfoHelper {
   
   // A mapping from an ID of an element to that elements path.
   // A path for a function might look like 
-  // [libraryName, className, functionName]
+  // [library name, class name, function name]
   final Map<String, List<String>> _path = {};
   
-  List<String> dependencies(String id) => _dependencies[id];
-  List<String> reverseDependencies(String id) => _reverseDependencies[id];
+  Iterable<Map<String, dynamic>> allOfType(String type) => _elementProperties[type].values;
+  
+  List<String> dependencies(String id) {
+    if (_dependencies[id] != null) {
+      return _dependencies[id];
+    } else {
+      return const [];
+    }
+  }
+  
+  List<String> reverseDependencies(String id) {
+    if (_reverseDependencies[id] != null) {
+      return _reverseDependencies[id];
+    } else {
+      return const [];
+    }
+  }
+  
   Map<String, dynamic> properties(String id) => _idToProperties[id];
+  List<String> path(String id) => _path[id];
+  
+  String get compilationMoment => _programProperties['compilationMoment'];
+  String get compilationDuration => _programProperties['compilationDuration'];
+  String get dart2jsVersion => _programProperties['dart2jsVersion'];
+  int get size => _programProperties['size'];
   
   // Given an id, returns the node associated with it.
-  dynamic fetchElementById(String id) {
+  dynamic elementById(String id) {
     var split =  id.split("/");
-    return _properties[split[0]][split[1]];
+    return _elementProperties[split[0]][split[1]];
   }
   
   InfoHelper(Map<String, Map<String, Map<String, dynamic>>> properties, 
-             Map<String, List<String>> deps): _properties = properties {
+             Map<String, List<String>> deps,
+             Map<String, dynamic> programProperties): 
+               _elementProperties = properties,
+               _programProperties = programProperties{
     // Set up dependencies
     for (Map<String, dynamic> section in properties.values) {
       for (var prop in section.values) {
@@ -40,9 +66,9 @@ class InfoHelper {
     }
     
     // Set up reverse dependencies
-    _dependencies.forEach((e, deps) {
+    deps.forEach((e, deps) {
       for (var dep in deps) {
-        _reverseDependencies.putIfAbsent(dep, ()=> <String>[])
+        _reverseDependencies.putIfAbsent(dep, () => <String>[])
             .add(e);
       }
     });
@@ -54,7 +80,7 @@ class InfoHelper {
       
       if (node['children'] != null) {
         for (String id in node['children']) {
-          traverseNames(fetchElementById(id), newPath);
+          traverseNames(elementById(id), newPath);
         }
       }
     }

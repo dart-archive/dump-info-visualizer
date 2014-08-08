@@ -3,33 +3,73 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <link rel="import" href="packages/paper_elements/roboto.html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sample app</title>
+    <title>Dump Info Visauliser</title>
     <link rel="stylesheet" href="viewer.css">
     <script src="packages/web_components/platform.js"></script>
     <script src="packages/web_components/dart_support.js"></script>
     <link rel="import" href="polymer_lib/tree_table.html">
+    <link rel="import" href="polymer_lib/dep_view.html">
+    <link rel="import" href="packages/core_elements/core_toolbar.html">
+    <link rel="import" href="packages/paper_elements/paper_tab.html">
+    <link rel="import" href="packages/paper_elements/paper_tabs.html">
+
   </head>
   <body>
-    <h1>Info-Dump Visualizer</h1>
-    <!-- whole-program information -->
-    <div id="prog-info"></div>
-    <!-- sorting -->
-    <h2>
-      Sort
-      <select name="sort" id="sort">
-        <option value="name"> Name </option> 
-        <option value="kind"> Kind </option>
-        <option value="size"> Size </option>
-      </select>
-    </h2>
-    <!-- main hierarcy table -->
-    <tree-table></tree-table>
-    <!-- drag and drop file input -->
-    <div id="drag-target">
-      Drop .info.json file here
-      <br/><br/>
-      <input id="file_upload" type="file"/>
+    
+    <core-toolbar class="medium-tall">
+      <div id="title">--dump-info Visualiser</div>
+      <!-- whole-program information -->
+      
+      <div class="bottom fit" horizontal layout>
+        <paper-tabs selected="-1">
+          <paper-tab slide="prog-info-slide">
+            PROGRAM INFO
+          </paper-tab>
+          <paper-tab slide="hier-slide">
+            HIERARCHY
+          </paper-tab>
+          <paper-tab slide="dep-slide">
+            DEPENDENCY
+          </paper-tab>
+          <paper-tab>
+            GRAPH
+          </paper-tab>
+        </paper-tabs>
+      </div>
+      <!-- sorting -->
+
+    </core-toolbar>
+    <div class = "slidecontainer">
+      <div id="prog-info-slide" class = "slide">
+        <div id="prog-info"></div>
+      </div>
+      <div id="hier-slide" class="slide">
+        <div>
+          <h2>
+            Sort
+            <select name="sort" id="sort">
+              <option value="name"> Name </option> 
+              <option value="kind"> Kind </option>
+              <option value="size"> Size </option>
+            </select>
+          </h2>
+          <!-- main hierarcy table -->
+          <tree-table></tree-table>
+        </div>        
+      </div>   
+      <div id="dep-slide" class = "slide">
+          <dep-view></dep-view>
+        </div>
+      <div id="load-slide" class = "slide">
+          <!-- drag and drop file input -->
+          <div id="drag-target">
+            Drop .info.json file here
+            <br/><br/>
+            <input id="file_upload" type="file"/>
+          </div>
+        </div> 
     </div>
     
     <!-- entry point dart file -->

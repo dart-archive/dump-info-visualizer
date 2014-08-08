@@ -113,7 +113,7 @@ class TreeTableRow extends TableRowElement with Polymer, Observable {
   factory TreeTableRow(LogicalRow logicalRow) {
     var ttr = document.createElement("tr", "tree-table-row") as TreeTableRow;
     ttr.logicalRow = logicalRow;
-    ttr.onClick.listen((_) {ttr.logicalRow.click();});
+    ttr.onClick.listen((_) => ttr.logicalRow.click());
     return ttr;
   }
   
