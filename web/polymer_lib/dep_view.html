@@ -1,0 +1,46 @@
+<link rel="import" href="../packages/polymer/polymer.html">
+<polymer-element name="dep-view">
+  <template>
+    <style>
+      table {
+        padding: 5px;
+      }
+      
+      table tr {
+        padding: 2.5px;
+      }
+      
+      #owners {
+        background: #C76476;
+        min-width: 640px;
+        
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      
+      #current {
+        background: #AEB8D1;
+        margin-left: 20px;
+        min-width: 620px;
+        
+        border-bottom-left-radius: 5px;
+      }
+      
+      #owned {
+        background: #C6D068;
+        margin-left: 40px;
+        min-width: 600px;
+        
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+    </style>
+    <table id="owners"></table>
+    
+    <table id="current"></table>
+    
+    <table id="owned"></table>
+  </template>
+</polymer-element>
+<script type="application/dart" src="dep_view.dart"></script>

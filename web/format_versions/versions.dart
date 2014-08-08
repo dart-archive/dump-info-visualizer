@@ -2,6 +2,8 @@ library versions;
 
 import 'dart:html';
 import '../polymer_lib/tree_table.dart';
+import '../polymer_lib/dep_view.dart';
+import '../infohelper.dart';
 
 part './version0.dart';
 part './version1.dart';
