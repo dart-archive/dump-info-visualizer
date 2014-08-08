@@ -23,17 +23,17 @@
       <!-- whole-program information -->
       
       <div class="bottom fit" horizontal layout>
-        <paper-tabs selected="-1">
-          <paper-tab slide="prog-info-slide">
+        <paper-tabs selected="-10">
+          <paper-tab id="info-tab" slide="info" offset="0">
             PROGRAM INFO
           </paper-tab>
-          <paper-tab slide="hier-slide">
+          <paper-tab id="hier-tab" slide="hier" offset="1">
             HIERARCHY
           </paper-tab>
-          <paper-tab slide="dep-slide">
+          <paper-tab id="dep-tab" slide="dep" offset="2" >
             DEPENDENCY
           </paper-tab>
-          <paper-tab>
+          <paper-tab id="graph-tab" slide="graph" offset="3">
             GRAPH
           </paper-tab>
         </paper-tabs>
@@ -42,7 +42,7 @@
 
     </core-toolbar>
     <div class = "slidecontainer">
-      <div id="prog-info-slide" class = "slide">
+      <div id="info-slide" class = "slide">
         <div id="prog-info"></div>
       </div>
       <div id="hier-slide" class="slide">
@@ -59,10 +59,10 @@
           <tree-table></tree-table>
         </div>        
       </div>   
-      <div id="dep-slide" class = "slide">
+      <div id="dep-slide" class="slide">
           <dep-view></dep-view>
         </div>
-      <div id="load-slide" class = "slide">
+      <div id="load-slide" class="slide">
           <!-- drag and drop file input -->
           <div id="drag-target">
             Drop .info.json file here

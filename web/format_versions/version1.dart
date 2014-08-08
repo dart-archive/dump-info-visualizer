@@ -5,7 +5,10 @@ class ViewVersion1 {
   final TreeTable treeTable;
   final DepView depView;
   
-  ViewVersion1(this.model, this.treeTable, this.depView) {
+  final Function switchToHierTab;
+  final Function switchToDepsTab;
+  
+  ViewVersion1(this.model, this.treeTable, this.depView, this.switchToHierTab, this.switchToDepsTab) {
     this.depView.dumpInfo = this.model;
   }
   
@@ -179,7 +182,10 @@ class ViewVersion1 {
           new TableCellElement()..children.addAll([
             new SpanElement()..text = props['name'],
             new AnchorElement(href: "#")
-            ..onClick.listen((_)=> _depsVisible(props['id']))
+            ..onClick.listen((_) {
+              this.depView.target = props['id'];
+              this.switchToDepsTab();
+            })
             ..children.add(new ImageElement(src: "deps_icon.svg")..style.float = "right"),
           ]),
           _cell(props['size'], align: 'right'),
@@ -212,6 +218,7 @@ class ViewVersion1 {
     }
     row.data = cells;
   }
+  
   _depsVisible(String id) {
     this.depView.target = id;
   }

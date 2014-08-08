@@ -20,6 +20,7 @@ h1, p {
 
 #drag-target {
   text-align: center;
+  color: rgb(150,150,150);
   font-size: 4em;
   height: 100px;
   padding: 50px;
@@ -52,7 +53,7 @@ paper-tab {
   position: relative;
 }
 
-.slide {  
+.slide {
   display: block;
   position: absolute;
   height: auto;
@@ -62,8 +63,8 @@ paper-tab {
   margin-right: auto;
   margin-bottom: 15px;
   padding: 20px;
-  
-  
+
+
   overflow: hidden;
   transition: opacity 1s, height 5s;
   -webkit-transition: opacity 0.5s;
