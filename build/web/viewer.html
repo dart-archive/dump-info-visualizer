@@ -1,12 +1,9 @@
-<!DOCTYPE html><html><head><script src="packages/web_components/platform.js"></script>
-<script src="packages/web_components/dart_support.js"></script>
-
+<!DOCTYPE html><html><head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample app</title>
     
     
-    <!--<script src="packages/web_components/platform.js"></script>-->
     
     
   </head>
@@ -37,7 +34,8 @@ h1, p {
   font-size: 4em;
   height: 100px;
   padding: 50px;
-}</style>
+}</style><script src="packages/web_components/platform.js"></script><script src="packages/web_components/dart_support.js"></script>
+
 
 
 <!-- unminfied for debugging:
@@ -319,8 +317,7 @@ html /deep/ [segment], html /deep/ segment {
 </style><script src="packages/polymer/src/js/polymer/polymer.js"></script><script>
 // TODO(sigmund): remove this script tag (dartbug.com/19650). This empty
 // script tag is necessary to work around a bug in Chrome 36.
-</script>.
-<polymer-element name="tree-table">
+</script><polymer-element name="tree-table">
   <template>
     <style>
       #inner_table {
@@ -351,6 +348,7 @@ html /deep/ [segment], html /deep/ segment {
       td {
         padding: 5px;
         height: 10px;
+        overflow:hidden;
       }
       td>table td {
         padding: 0px;
@@ -375,7 +373,7 @@ html /deep/ [segment], html /deep/ segment {
       a div because the Polymer transformer wont let me use <td> outside of a 
       <tr>.
      -->
-    <div id="first-cell" class="odd">
+    <div id="first-cell" class="odd" style="overflow:hidden;">
       <nobr>
          <span id="arrow"></span>
          <span id="content"></span>
@@ -386,21 +384,27 @@ html /deep/ [segment], html /deep/ segment {
 </polymer-element>
 
     <h1>Info-Dump Visualizer</h1>
+    <!-- whole-program information -->
     <div id="prog-info"></div>
+    <!-- sorting -->
     <h2>
       Sort
       <select name="sort" id="sort">
+        <option value="name"> Name </option> 
         <option value="kind"> Kind </option>
-        <option value="name"> Name </option>
         <option value="size"> Size </option>
       </select>
     </h2>
+    <!-- main hierarcy table -->
     <tree-table></tree-table>
+    <!-- drag and drop file input -->
     <div id="drag-target">
       Drop .info.json file here
       <br><br>
       <input id="file_upload" type="file">
-    </div>    
+    </div>
+    
+    <!-- entry point dart file -->
     
   
 <script src="viewer.html_bootstrap.dart.js"></script></body></html>
