@@ -4,23 +4,26 @@
     <style>
       table {
         padding: 5px;
+        box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
       }
       
       table tr {
         padding: 2.5px;
+        cursor:  pointer;        
       }
       
-      #owners {
-        background: #C76476;
+      table thead {
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+      
+      #owners {        
         min-width: 640px;
         
-        border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
-        border-top-right-radius: 5px;
       }
       
       #current {
-        background: #AEB8D1;
         margin-left: 20px;
         min-width: 620px;
         
@@ -28,7 +31,6 @@
       }
       
       #owned {
-        background: #C6D068;
         margin-left: 40px;
         min-width: 600px;
         
@@ -36,11 +38,20 @@
         border-bottom-right-radius: 5px;
       }
     </style>
-    <table id="owners"></table>
-    
-    <table id="current"></table>
-    
-    <table id="owned"></table>
+    <table id="owners">
+      <thead>
+        <tr><td>Uses Current Element</td></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <table id="current">
+      <thead><tr><td>Current Element</td></tr></thead>
+      <tbody></tbody>
+    </table>
+    <table id="owned">
+      <thead><tr><td>Current Element Uses</td></tr></thead>
+      <tbody></tbody>
+    </table>
   </template>
 </polymer-element>
 <script type="application/dart" src="dep_view.dart"></script>
