@@ -5,6 +5,7 @@
       #inner_table {
         width: 100%;
         table-layout: fixed;
+        border-size: 0;
       }
       thead > td {
         font-size: 1.5em;
@@ -12,7 +13,7 @@
         text-align: center;
       }
       tr:nth-child(odd) {
-        background: rgba(0, 0, 100, 0.1);
+        background: rgba(0,188,212, 0.2);
       }
     </style>
     <table id="inner_table">
@@ -31,12 +32,10 @@
         padding: 5px;
         height: 10px;
         overflow:hidden;
+        font-family: RobotoDraft;
       }
       td>table td {
         padding: 0px;
-      }
-      td.odd {
-        background-color: rgb(230,230,230);
       }
       #first-cell {
         padding: 5px;
@@ -47,6 +46,7 @@
       }
       #arrow {
         min-width: 100px;
+        padding: 8px;
       }
     </style>
     <!--

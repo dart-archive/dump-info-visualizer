@@ -9,8 +9,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="20"
-   height="20"
+   width="13.7"
+   height="16"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
@@ -95,9 +95,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="22.627417"
-     inkscape:cx="5.3887595"
-     inkscape:cy="8.1269754"
+     inkscape:zoom="32"
+     inkscape:cx="9.5542702"
+     inkscape:cy="13.050147"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -118,18 +118,6 @@
        id="guide5595" />
     <sodipodi:guide
        orientation="0,1"
-       position="-1.8125,17.75"
-       id="guide5649" />
-    <sodipodi:guide
-       orientation="1,0"
-       position="2.3125,12.875"
-       id="guide5651" />
-    <sodipodi:guide
-       orientation="1,0"
-       position="17.625,7.4375"
-       id="guide5653" />
-    <sodipodi:guide
-       orientation="0,1"
        position="-0.875,2.25"
        id="guide5655" />
   </sodipodi:namedview>
@@ -141,7 +129,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -149,29 +137,29 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-1032.3622)">
+     transform="translate(0,-1036.3622)">
     <rect
-       style="fill:none;fill-opacity:1;stroke:none"
+       style="fill:none;stroke:none"
        id="rect5647"
        width="11.84849"
        height="15.45899"
-       x="4.0474272"
-       y="1034.6521" />
+       x="-1.6531312"
+       y="1036.9021" />
     <g
        id="g5611"
-       style="fill:#c76476;fill-opacity:1"
-       transform="matrix(1.2976778,0,0,0.96502001,-2.9646398,36.160855)">
+       style="fill:#323232;fill-opacity:1"
+       transform="matrix(1.2976778,0,0,0.69981376,-3.6092955,317.02297)">
       <g
-         style="fill:#c76476;fill-opacity:1"
+         style="fill:#323232;fill-opacity:1"
          id="g5603">
         <path
            inkscape:connector-curvature="0"
            id="path2985"
            d="m 5.09375,1034.6875 0,15.25 0.59375,0 0,-15.25 -0.59375,0 z"
-           style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#c76476;fill-opacity:1;stroke:none;stroke-width:0.59299999;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+           style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#323232;fill-opacity:1;stroke:none;stroke-width:0.59299999;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
         <path
            id="path5609"
-           style="fill:#c76476;fill-opacity:1;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+           style="fill:#323232;fill-opacity:1;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
            d="m 8.0228689,1043.5833 -2.62076,7.1269 -2.6207594,-7.1269 c 1.5472953,1.1386 3.6642639,1.132 5.2415194,0 z"
            inkscape:connector-curvature="0" />
       </g>
@@ -182,23 +170,23 @@
          height="10.777316"
          width="2.6253195"
          id="rect5563"
-         style="fill:#c76476;fill-opacity:1;stroke:none" />
+         style="fill:#323232;fill-opacity:1;stroke:none" />
     </g>
     <g
-       transform="matrix(-1.2976778,0,0,-0.96502001,22.908267,2048.6039)"
+       transform="matrix(-1.2976778,0,0,-0.6549627,17.207708,1725.074)"
        id="g5611-7"
-       style="fill:#7768c8;fill-opacity:1">
+       style="fill:#323232;fill-opacity:1">
       <g
-         style="fill:#7768c8;fill-opacity:1"
+         style="fill:#323232;fill-opacity:1"
          id="g5603-9">
         <path
            inkscape:connector-curvature="0"
            id="path2985-4"
            d="m 5.09375,1034.6875 0,15.25 0.59375,0 0,-15.25 -0.59375,0 z"
-           style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#7768c8;fill-opacity:1;stroke:none;stroke-width:0.59299999000000003;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
+           style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#323232;fill-opacity:1;stroke:none;stroke-width:0.59299999;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans" />
         <path
            id="path5609-4"
-           style="fill:#7768c8;fill-opacity:1;fill-rule:evenodd;stroke-width:0.62500000000000000;stroke-linejoin:round"
+           style="fill:#323232;fill-opacity:1;fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
            d="m 8.0228689,1043.5833 -2.62076,7.1269 -2.6207594,-7.1269 c 1.5472953,1.1386 3.6642639,1.132 5.2415194,0 z"
            inkscape:connector-curvature="0" />
       </g>
@@ -209,7 +197,7 @@
          height="10.777316"
          width="2.6253195"
          id="rect5563-5"
-         style="fill:#7768c8;fill-opacity:1;stroke:none" />
+         style="fill:#323232;fill-opacity:1;stroke:none" />
     </g>
   </g>
 </svg>

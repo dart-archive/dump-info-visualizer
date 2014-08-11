@@ -17,11 +17,11 @@
 
   </head>
   <body>
-    
+
     <core-toolbar class="medium-tall">
       <div id="title">--dump-info Visualiser</div>
       <!-- whole-program information -->
-      
+
       <div class="bottom fit" horizontal layout>
         <paper-tabs selected="-10">
           <paper-tab id="info-tab" slide="info" offset="0">
@@ -31,37 +31,51 @@
             HIERARCHY
           </paper-tab>
           <paper-tab id="dep-tab" slide="dep" offset="2" >
-            DEPENDENCY
+            DEPENDENCIES
           </paper-tab>
+          <!--
+            TODO(tyoverby): Enable this when graphviz graphs are added.
           <paper-tab id="graph-tab" slide="graph" offset="3">
             GRAPH
           </paper-tab>
+          -->
         </paper-tabs>
       </div>
       <!-- sorting -->
 
     </core-toolbar>
     <div class = "slidecontainer">
+
+      <!-- Whole Program Information -->
       <div id="info-slide" class = "slide">
         <div id="prog-info"></div>
       </div>
+
+      <!-- Hierarchy View -->
       <div id="hier-slide" class="slide">
         <div>
           <h2>
             Sort
             <select name="sort" id="sort">
-              <option value="name"> Name </option> 
+              <option value="name"> Name </option>
               <option value="kind"> Kind </option>
               <option value="size"> Size </option>
             </select>
           </h2>
+
           <!-- main hierarcy table -->
           <tree-table></tree-table>
-        </div>        
-      </div>   
-      <div id="dep-slide" class="slide">
-          <dep-view></dep-view>
         </div>
+      </div>
+
+      <!-- Dependency Viewer -->
+      <div id="dep-slide" class="slide hidden">
+          <dep-view></dep-view>
+      </div>
+
+
+      <!-- File Loading Slide
+        This slide can not be returned to-->:w
       <div id="load-slide" class="slide">
           <!-- drag and drop file input -->
           <div id="drag-target">
@@ -69,9 +83,10 @@
             <br/><br/>
             <input id="file_upload" type="file"/>
           </div>
-        </div> 
+      </div>
+
     </div>
-    
+
     <!-- entry point dart file -->
     <script type="application/dart" src="./viewer.dart"></script>
   </body>
