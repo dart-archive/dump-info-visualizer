@@ -58,7 +58,7 @@ class DepView extends PolymerElement {
                  ..style.float = "right"
           )
         ])
-        ..onClick.listen((_)=> this.target = id);
+        ..onClick.listen((_) => this.target = id);
   }
 
   void _populate(String id) {
