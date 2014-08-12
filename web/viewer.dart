@@ -67,11 +67,11 @@ main() {
   _switchSlide('load');
 
 
-  var dnd = new DndFile(querySelector('#drag-target'),
+  var dragDrop = new DragDropFile(querySelector('#drag-target'),
       querySelector('#file_upload'));
 
   // When a file is loaded
-  dnd.onFile.listen((String jsonString) {
+  dragDrop.onFile.listen((String jsonString) {
     _switchSlide('info');
 
     List<PaperTab> tabs = querySelectorAll('paper-tab');
@@ -86,7 +86,7 @@ main() {
 
     Map<String, dynamic> json = JSON.decode(jsonString);
     TreeTable treeTable = querySelector('tree-table');
-    DependencyView dv = querySelector('dependency-view');
+    DependencyView dependencyView = querySelector('dependency-view');
     if (!json.containsKey('dump_version')) {
       processData0(json, treeTable);
     } else {
@@ -95,10 +95,9 @@ main() {
         case 2:
           var info = new InfoHelper(json['elements'], json['holding'],
               json['program']);
-          var view = new ViewVersion1(info, treeTable, dv,
+          var view = new ViewVersion1(info, treeTable, dependencyView,
               () => _switchSlide('hier'), () =>_switchSlide('dep'));
           view.display();
-          print("displaying");
           break;
         default:
           window.alert('Unknown dump-info version');

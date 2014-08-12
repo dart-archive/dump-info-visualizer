@@ -1,6 +1,6 @@
 part of viewer;
 
-class DndFile {
+class DragDropFile {
   Element _dropZone;
   Element _fileUpload;
 
@@ -21,7 +21,7 @@ class DndFile {
     reader.readAsDataUrl(file);
   }
 
-  DndFile(this._dropZone, this._fileUpload) {
+  DragDropFile(this._dropZone, this._fileUpload) {
     this._streamController = new StreamController();
     this.onFile = _streamController.stream;
 
