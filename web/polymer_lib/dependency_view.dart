@@ -1,12 +1,12 @@
-library dep_view;
+library dependency_view;
 
 import 'package:polymer/polymer.dart';
 import 'dart:html';
 
 import '../infohelper.dart';
 
-@CustomTag('dep-view')
-class DepView extends PolymerElement {
+@CustomTag('dependency-view')
+class DependencyView extends PolymerElement {
   InfoHelper _dumpInfo;
   String _currentlyTargeting;
 
@@ -14,7 +14,7 @@ class DepView extends PolymerElement {
   TableSectionElement currentTable;
   TableSectionElement ownedTable;
 
-  DepView.created() : super.created() {}
+  DependencyView.created() : super.created() {}
 
   set target(String id) {
     _currentlyTargeting = id;
@@ -25,20 +25,14 @@ class DepView extends PolymerElement {
     return _currentlyTargeting;
   }
 
-  factory DepView(InfoHelper dumpinfo) {
-    DepView dv = document.createElement("tree-table") as DepView;
-    dv.dumpInfo = dumpinfo;
-    return dv;
-  }
-
   set dumpInfo(InfoHelper dumpInfo) {
     TableSectionElement getTbody(TableElement table) =>
-      table.querySelector("tbody");
+      table.querySelector('tbody');
 
     _dumpInfo = dumpInfo;
-    ownersTable = getTbody($['owners']);
+    ownersTable = getTbody($['in']);
     currentTable = getTbody($['current']);
-    ownedTable = getTbody($['owned']);
+    ownedTable = getTbody($['out']);
   }
 
   TableRowElement _generateRow(String id) {
@@ -48,14 +42,14 @@ class DepView extends PolymerElement {
       ..children.addAll([
           // Name Column
           new TableCellElement()
-            ..text = path.join("."),
+            ..text = path.join('.'),
           // Stats Column
           new TableCellElement()
             ..children.add(
               new SpanElement()
-                 ..text = "↖ ${_dumpInfo.reverseDependencies(id).length} | " +
-                           "${_dumpInfo.dependencies(id).length} ↘"
-                 ..style.float = "right"
+                 ..text = '↖ ${_dumpInfo.reverseDependencies(id).length} | '
+                          '${_dumpInfo.dependencies(id).length} ↘'
+                 ..style.float = 'right'
           )
         ])
         ..onClick.listen((_) => this.target = id);

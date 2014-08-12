@@ -12,3 +12,6 @@ packages/
 pubspec.lock
 .buildlog
 samples/
+
+*.swo
+*.swp

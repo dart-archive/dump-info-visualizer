@@ -2,7 +2,7 @@ library versions;
 
 import 'dart:html';
 import '../polymer_lib/tree_table.dart';
-import '../polymer_lib/dep_view.dart';
+import '../polymer_lib/dependency_view.dart';
 import '../infohelper.dart';
 
 part './version0.dart';
@@ -23,15 +23,16 @@ int _toInt(dynamic n) {
 }
 
 /**
- * A helper method for creating TableCellElements with options 
- * for alignment, colspan and wrapping the inner text inside of 
+ * A helper method for creating TableCellElements with options
+ * for alignment, colspan and wrapping the inner text inside of
  * a <pre></pre> element.
  */
-TableCellElement _cell(dynamic text, {String align: 'left', String colspan: "1", bool pre: false}) {
+TableCellElement _cell(dynamic text,
+    {String align: 'left', String colspan: '1', bool pre: false}) {
   TableCellElement element = new TableCellElement()
   ..style.textAlign = align
   ..attributes['colspan'] = colspan;
-  
+
   if (pre) {
     PreElement pre = new PreElement();
     pre.text = text.toString();
@@ -39,17 +40,18 @@ TableCellElement _cell(dynamic text, {String align: 'left', String colspan: "1",
   } else {
     element.text = text.toString();
   }
-  
+
   return element;
 }
 
 /**
- * Compute the size of a node in the node tree by first checking to see if 
- * that node has a size property.  If it does, use that unless [force] is 
- * set to true.  Otherwise, aquire the size by summing the sizes of 
+ * Compute the size of a node in the node tree by first checking to see if
+ * that node has a size property.  If it does, use that unless [force] is
+ * set to true.  Otherwise, aquire the size by summing the sizes of
  * the children.
  */
-int _computeSize(Map<String, dynamic> info, Function fetchElement, {bool force: false}) {
+int _computeSize(Map<String, dynamic> info, Function fetchElement,
+    {bool force: false}) {
   if (info.containsKey('size') && info['size'] != null && !force) {
     return _toInt(info['size']);
   } else if (info.containsKey('children')) {

@@ -1,44 +1,44 @@
 <link rel="import" href="../packages/polymer/polymer.html">
-<polymer-element name="dep-view">
+<polymer-element name="dependency-view">
   <template>
     <style>
       table {
         padding: 5px;
         box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
       }
-      
+
       table tr {
         padding: 2.5px;
-        cursor:  pointer;        
+        cursor:  pointer;
       }
-      
+
       table thead {
         font-weight: bold;
         font-size: 1.3em;
       }
-      
-      #owners {        
+
+      #in {
         min-width: 640px;
-        
+
         border-bottom-left-radius: 5px;
       }
-      
+
       #current {
         margin-left: 20px;
         min-width: 620px;
-        
+
         border-bottom-left-radius: 5px;
       }
-      
-      #owned {
+
+      #out {
         margin-left: 40px;
         min-width: 600px;
-        
+
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
       }
     </style>
-    <table id="owners">
+    <table id="in">
       <thead>
         <tr><td>Uses Current Element</td></tr>
       </thead>
@@ -48,10 +48,10 @@
       <thead><tr><td>Current Element</td></tr></thead>
       <tbody></tbody>
     </table>
-    <table id="owned">
+    <table id="out">
       <thead><tr><td>Current Element Uses</td></tr></thead>
       <tbody></tbody>
     </table>
   </template>
 </polymer-element>
-<script type="application/dart" src="dep_view.dart"></script>
+<script type="application/dart" src="dependency_view.dart"></script>
