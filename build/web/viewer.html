@@ -84,10 +84,10 @@ paper-tab {
 
 
   overflow: hidden;
-  -webkit-transition: opacity 0.15s ease-in-out, 
+  -webkit-transition: opacity 0.15s ease-in-out,
                          left 0.15s ease-in-out,
                          max-height 0.2s ease-out 0.15s;
-  transition: opacity 0.15s ease-in-out, 
+  transition: opacity 0.15s ease-in-out,
                          left 0.15s ease-in-out,
                          max-height 0.2s ease-out 0.15s;
   opacity: 0;
@@ -98,8 +98,6 @@ paper-tab {
 .slide.hidden {
   box-shadow: none;
   padding: 2px;
-    
-}
 }
 </style><script src="packages/web_components/platform.js"></script><script src="packages/web_components/dart_support.js"></script>
 
@@ -450,46 +448,46 @@ html /deep/ [segment], html /deep/ segment {
   </template>
 </polymer-element>
 
-<polymer-element name="dep-view">
+<polymer-element name="dependency-view">
   <template>
     <style>
       table {
         padding: 5px;
         box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
       }
-      
+
       table tr {
         padding: 2.5px;
-        cursor:  pointer;        
+        cursor:  pointer;
       }
-      
+
       table thead {
         font-weight: bold;
         font-size: 1.3em;
       }
-      
-      #owners {        
+
+      #in {
         min-width: 640px;
-        
+
         border-bottom-left-radius: 5px;
       }
-      
+
       #current {
         margin-left: 20px;
         min-width: 620px;
-        
+
         border-bottom-left-radius: 5px;
       }
-      
-      #owned {
+
+      #out {
         margin-left: 40px;
         min-width: 600px;
-        
+
         border-bottom-left-radius: 5px;
         border-bottom-right-radius: 5px;
       }
     </style>
-    <table id="owners">
+    <table id="in">
       <thead>
         <tr><td>Uses Current Element</td></tr>
       </thead>
@@ -499,12 +497,13 @@ html /deep/ [segment], html /deep/ segment {
       <thead><tr><td>Current Element</td></tr></thead>
       <tbody></tbody>
     </table>
-    <table id="owned">
+    <table id="out">
       <thead><tr><td>Current Element Uses</td></tr></thead>
       <tbody></tbody>
     </table>
   </template>
 </polymer-element>
+
 
 
 
@@ -1774,12 +1773,12 @@ polyfill-next-selector { content: '#tabsContainer > *:not(#selectionBar)'; }
 
       <!-- Dependency Viewer -->
       <div id="dep-slide" class="slide hidden">
-          <dep-view></dep-view>
+          <dependency-view></dependency-view>
       </div>
 
 
       <!-- File Loading Slide
-        This slide can not be returned to-->:w
+        This slide can not be returned to-->
       <div id="load-slide" class="slide">
           <!-- drag and drop file input -->
           <div id="drag-target">
