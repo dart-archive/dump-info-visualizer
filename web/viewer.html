@@ -17,33 +17,27 @@
 
   </head>
   <body>
-
-    <core-toolbar class="medium-tall">
-      <div id="title">--dump-info Visualiser</div>
-      <!-- whole-program information -->
-
-      <div class="bottom fit" horizontal layout>
+    <core-toolbar>
+      <div id="title"> --dump-info Visualiser</div>
         <paper-tabs selected="-10">
-          <paper-tab id="info-tab" slide="info" offset="0">
+            <paper-tab id="info-tab" slide="info" offset="0">
             PROGRAM INFO
-          </paper-tab>
-          <paper-tab id="hier-tab" slide="hier" offset="1">
+            </paper-tab>
+            <paper-tab id="hier-tab" slide="hier" offset="1">
             HIERARCHY
-          </paper-tab>
-          <paper-tab id="dep-tab" slide="dep" offset="2" >
+            </paper-tab>
+            <paper-tab id="dep-tab" slide="dep" offset="2" >
             DEPENDENCIES
-          </paper-tab>
-          <!--
+            </paper-tab>
+            <!--
             TODO(tyoverby): Enable this when graphviz graphs are added.
-          <paper-tab id="graph-tab" slide="graph" offset="3">
+            <paper-tab id="graph-tab" slide="graph" offset="3">
             GRAPH
-          </paper-tab>
-          -->
+            </paper-tab>
+            -->
         </paper-tabs>
-      </div>
-      <!-- sorting -->
-
     </core-toolbar>
+    <div id="dummy-toolbar"></div>
     <div class = "slidecontainer">
 
       <!-- Whole Program Information -->
