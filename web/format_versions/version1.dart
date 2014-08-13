@@ -177,8 +177,8 @@ class ViewVersion1 {
     Map<String, dynamic> props = logicalRow.data;
     List<TableCellElement> cells = [
       _cell(props['kind']),
-
     ];
+
     switch (props['kind']) {
       case 'function':
       case 'closure':
