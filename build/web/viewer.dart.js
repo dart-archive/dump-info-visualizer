@@ -389,7 +389,9 @@ j:function(a,b){if(typeof b!=="number"||Math.floor(b)!==b)throw H.b(P.u(b))
 if(b<0)throw H.b(P.N(b))
 if(b>=a.length)throw H.b(P.N(b))
 return a.charCodeAt(b)},
-dd:function(a,b){return H.ZT(a,b)},
+dm:function(a,b,c){if(c>b.length)throw H.b(P.TE(c,0,b.length))
+return H.ZT(a,b,c)},
+dd:function(a,b){return this.dm(a,b,0)},
 g:function(a,b){if(typeof b!=="string")throw H.b(P.u(b))
 return a+b},
 Tc:function(a,b){var z,y
@@ -1572,16 +1574,16 @@ $.NF=new H.dC(v)
 $.TX=new H.wN(u)
 $.x7=new H.VX(t)},
 ud:function(a,b){return a(b)||b},
-ZT:function(a,b){var z,y,x,w,v,u
+ZT:function(a,b,c){var z,y,x,w,v
 z=H.VM([],[P.Od])
 y=b.length
 x=a.length
-for(w=0;!0;){v=C.xB.XU(b,a,w)
-if(v===-1)break
-z.push(new H.tQ(v,b,a))
-u=v+x
-if(u===y)break
-else w=v===u?w+1:u}return z},
+for(;!0;){w=C.xB.XU(b,a,c)
+if(w===-1)break
+z.push(new H.tQ(w,b,a))
+v=w+x
+if(v===y)break
+else c=w===v?c+1:v}return z},
 m2:function(a,b,c){var z,y
 if(typeof b==="string")return C.xB.XU(a,b,c)!==-1
 else{z=J.x(b)
@@ -1933,7 +1935,9 @@ this.HN=z
 return z},
 zD:function(a){if(typeof a!=="string")H.vh(P.u(a))
 return this.Yr.test(a)},
-dd:function(a,b){return new H.KW(this,b)},
+dm:function(a,b,c){if(c>b.length)throw H.b(P.TE(c,0,b.length))
+return new H.KW(this,b,c)},
+dd:function(a,b){return this.dm(a,b,0)},
 vh:function(a,b){var z,y
 z=this.gHc()
 z.lastIndex=b
@@ -1961,27 +1965,29 @@ static:{yx:function(a,b){var z=new H.EK(a,b)
 z.fw(a,b)
 return z}}},
 KW:{
-"^":"mW;ve,ze",
-gA:function(a){return new H.Pb(this.ve,this.ze,null)},
+"^":"mW;ve,ze,Mt",
+gA:function(a){return new H.Pb(this.ve,this.ze,this.Mt,null)},
 $asmW:function(){return[P.Od]},
 $ascX:function(){return[P.Od]}},
 Pb:{
-"^":"a;UW,ze,Wh",
+"^":"a;UW,ze,XB,Wh",
 gl:function(){return this.Wh},
-G:function(){var z,y,x
-if(this.ze==null)return!1
-z=this.Wh
-if(z!=null){z=z.pX
+G:function(){var z,y,x,w,v
+z=this.ze
+if(z==null)return!1
+y=this.XB
+if(y<=z.length){x=this.UW.vh(z,y)
+if(x!=null){this.Wh=x
+z=x.pX
 y=z.index
 if(0>=z.length)return H.e(z,0)
-z=J.q8(z[0])
-if(typeof z!=="number")return H.s(z)
-x=y+z
-if(this.Wh.pX.index===x)++x}else x=0
-z=this.UW.vh(this.ze,x)
-this.Wh=z
-if(z==null){this.ze=null
-return!1}return!0}},
+w=J.q8(z[0])
+if(typeof w!=="number")return H.s(w)
+v=y+w
+this.XB=z.index===v?v+1:v
+return!0}}this.Wh=null
+this.ze=null
+return!1}},
 tQ:{
 "^":"a;M,J9,zO",
 t:function(a,b){if(!J.de(b,0))H.vh(P.N(b))
@@ -8779,7 +8785,7 @@ BG9:{
 "^":"XA+vA;"},
 vA:{
 "^":"a;",
-XB:function(a){var z
+h5:function(a){var z
 for(;z=J.RE(a),z.gKV(a)!=null;){if(!!z.$iszs&&J.UQ(a.n7,"eventController")!=null)return J.UQ(z.gCp(a),"eventController")
 a=z.gKV(a)}return!!z.$isI0?a.host:null},
 Z8:function(a,b,c){var z={}
@@ -8799,7 +8805,7 @@ AC:{
 $1:[function(a){var z,y,x,w
 z=this.a
 y=z.a
-if(y==null||!J.x(y).$iszs){x=this.b.XB(this.c)
+if(y==null||!J.x(y).$iszs){x=this.b.h5(this.c)
 z.a=x
 y=x}if(!!J.x(y).$iszs){y=J.x(a)
 if(!!y.$isHe){w=y.gey(a)
@@ -9245,7 +9251,7 @@ y.ih(z,"template-bound")},"$1",null,2,0,null,73,"call"],
 $isEH:true},
 zp:{
 "^":"G3;dq,D1,oe",
-XB:function(a){return this.dq}}}],["","",,T,{
+h5:function(a){return this.dq}}}],["","",,T,{
 "^":"",
 ya:[function(a){var z=J.x(a)
 if(!!z.$isL8)z=J.vo(a.gvc(),new T.o8(a)).zV(0," ")
@@ -11753,12 +11759,15 @@ Y.PL("load",!1)
 Y.pq(document.querySelector("#drag-target"),document.querySelector("#file_upload")).yS.yI(new Y.em())},"$0","Pc",0,0,66],
 Ba:{
 "^":"a;HY,eJ,Gh,yS",
-b6:function(a){var z,y
-document.title=a.name
-z=new FileReader()
-y=H.VM(new W.RO(z,C.fK.fA,!1),[null])
-H.VM(new W.xC(0,y.J6,y.fA,W.VF(new Y.FV(this,z)),y.el),[H.Kp(y,0)]).DN()
-z.readAsDataURL(a)},
+b6:function(a){var z,y,x
+z=document
+y=a.name
+if(typeof y!=="string")return y.g()
+z.title=y+" - Dump Info Viewer"
+x=new FileReader()
+y=H.VM(new W.RO(x,C.fK.fA,!1),[null])
+H.VM(new W.xC(0,y.J6,y.fA,W.VF(new Y.FV(this,x)),y.el),[H.Kp(y,0)]).DN()
+x.readAsDataURL(a)},
 qj:function(){J.oH(this.HY.style,"none")},
 nE:function(a){J.oH(this.HY.style,"block")},
 oO:function(a,b){var z,y,x
@@ -11818,7 +11827,7 @@ x=document.querySelector("paper-tabs")
 x.toString
 x.setAttribute("selected",y.getAttribute("offset"))
 if(!this.b){w=(y.shadowRoot||y.webkitShadowRoot).querySelector("paper-ripple")
-v=P.EF(["x",C.CD.yu(C.CD.UD(y.offsetLeft))+C.CD.yu(C.CD.UD(y.clientWidth))/2,"y",0],null,null)
+v=P.EF(["x",C.CD.yu(C.CD.UD(x.offsetLeft))+C.CD.yu(C.CD.UD(y.offsetLeft))+C.CD.yu(C.CD.UD(y.clientWidth))/2,"y",0],null,null)
 z=J.fE(w)
 z.V7("downAction",[P.ND(P.M0(v))])
 C.ol.gm6(window).ml(new Y.OR(w))}}},"$0",null,0,0,null,"call"],
