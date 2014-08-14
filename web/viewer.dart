@@ -66,6 +66,7 @@ main() {
   _noSlide();
   _switchSlide('load');
 
+  int hierarchyScrollPosition = 0;
 
   var dragDrop = new DragDropFile(querySelector('#drag-target'),
       querySelector('#file_upload'));
@@ -96,7 +97,13 @@ main() {
           var info = new InfoHelper(json['elements'], json['holding'],
               json['program']);
           var view = new ViewVersion1(info, treeTable, dependencyView,
-              () => _switchSlide('hier'), () =>_switchSlide('dep'));
+              () {
+                _switchSlide('hier');
+                document.body.scrollTop = hierarchyScrollPosition;
+              }, () {
+                hierarchyScrollPosition = document.body.scrollTop;
+                _switchSlide('dep');
+              });
           view.display();
           break;
         default:
