@@ -51,7 +51,7 @@ void _switchSlide(String id, {bool fromMouse: false}) {
       // Draw a ripple on the tab if we didn't already click on it.
       if (!fromMouse) {
         PaperRipple ripple = tab.shadowRoot.querySelector('paper-ripple');
-        var pos = {'x': tab.offsetLeft + tab.clientWidth / 2, 'y': 0};
+        var pos = {'x': tabs.offsetLeft + tab.offsetLeft + tab.clientWidth / 2, 'y': 0};
         ripple.jsElement.callMethod('downAction', [new JsObject.jsify(pos)]);
         window.animationFrame.then((_) =>
             ripple.jsElement.callMethod('upAction', []));
