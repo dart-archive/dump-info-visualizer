@@ -9,7 +9,7 @@ class DragDropFile {
   Stream<String> onFile;
 
   void handleFile(File file) {
-    document.title = file.name;
+    document.title = file.name + " - Dump Info Viewer";
     FileReader reader = new FileReader();
     reader.onLoad.listen((e) {
       String fileContents = reader.result;
