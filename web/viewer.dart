@@ -16,6 +16,7 @@ import './infohelper.dart';
 part './dragdrop.dart';
 
 final List<String> slides = const <String>['info', 'hier', 'dep', 'load'];
+final Duration animationTime = const Duration(milliseconds: 100);
 
 void _noSlide() {
   // Disable all of the slides and tabs
@@ -39,7 +40,7 @@ void _switchSlide(String id, {bool fromMouse: false}) {
   slide.style.maxHeight = '10000px';
   slide.style.zIndex = '1';
 
-  new Timer(const Duration(milliseconds: 150), () {
+  new Timer(animationTime, () {
     slide.style.opacity = '1';
     slide.style.left = '0px';
     var tab = document.querySelector('#$id-tab');
@@ -66,6 +67,7 @@ main() {
   _noSlide();
   _switchSlide('load');
 
+  int hierarchyScrollPosition = 0;
 
   var dragDrop = new DragDropFile(querySelector('#drag-target'),
       querySelector('#file_upload'));
@@ -80,6 +82,13 @@ main() {
         String link = tab.attributes['slide'];
         if (link != null) {
           _switchSlide(link, fromMouse: true);
+          if (link != 'hier') {
+            hierarchyScrollPosition = document.body.scrollTop;
+          } else {
+            new Timer(animationTime * 2, () {
+              document.body.scrollTop = hierarchyScrollPosition;
+            });
+          }
         }
       });
     }
@@ -96,7 +105,12 @@ main() {
           var info = new InfoHelper(json['elements'], json['holding'],
               json['program']);
           var view = new ViewVersion1(info, treeTable, dependencyView,
-              () => _switchSlide('hier'), () =>_switchSlide('dep'));
+              () {
+                _switchSlide('hier');
+              }, () {
+                hierarchyScrollPosition = document.body.scrollTop;
+                _switchSlide('dep');
+              });
           view.display();
           break;
         default:
