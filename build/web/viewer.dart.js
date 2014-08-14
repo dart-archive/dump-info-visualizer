@@ -11752,11 +11752,13 @@ Y.Rm()
 z=document.querySelector("#"+H.d(a)+"-slide")
 J.B6(z.style,"10000px")
 J.Vn(z.style,"1")
-P.rT(C.rA,new Y.ix(a,b,z))},
-QL:[function(){A.Ok()
+P.rT(C.Hk,new Y.ix(a,b,z))},
+QL:[function(){var z={}
+A.Ok()
 Y.Rm()
 Y.PL("load",!1)
-Y.pq(document.querySelector("#drag-target"),document.querySelector("#file_upload")).yS.yI(new Y.em())},"$0","Pc",0,0,66],
+z.a=0
+Y.pq(document.querySelector("#drag-target"),document.querySelector("#file_upload")).yS.yI(new Y.em(z))},"$0","Pc",0,0,66],
 Ba:{
 "^":"a;HY,eJ,Gh,yS",
 b6:function(a){var z,y,x
@@ -11837,48 +11839,64 @@ OR:{
 $1:[function(a){return J.fE(this.d).V7("upAction",[])},"$1",null,2,0,null,73,"call"],
 $isEH:true},
 em:{
-"^":"Tp:3;",
-$1:[function(a){var z,y,x,w,v,u,t,s
+"^":"Tp:3;a",
+$1:[function(a){var z,y,x,w,v,u,t,s,r
 Y.PL("info",!1)
 z=W.vD(document.querySelectorAll("paper-tab"),null)
-for(y=z.gA(z);y.G();){x=y.Ff
-J.Vg(x).yI(new Y.VW(x))}w=C.xr.kV(a)
-v=document.querySelector("tree-table")
-u=document.querySelector("dependency-view")
-if(w.x4("dump_version")!==!0)A.cn(w,v)
-else{y=J.U6(w)
-switch(y.t(w,"dump_version")){case 1:case 2:t=Z.Y6(y.t(w,"elements"),y.t(w,"holding"),y.t(w,"program"))
-J.xV(H.Go(u,"$isJU"),t)
-new A.zi(t,v,u,new Y.oZ(),new Y.y8()).Ou(0)
+for(y=z.gA(z),x=this.a;y.G();){w=y.Ff
+J.Vg(w).yI(new Y.VW(x,w))}v=C.xr.kV(a)
+u=document.querySelector("tree-table")
+t=document.querySelector("dependency-view")
+if(v.x4("dump_version")!==!0)A.cn(v,u)
+else{y=J.U6(v)
+switch(y.t(v,"dump_version")){case 1:case 2:s=Z.Y6(y.t(v,"elements"),y.t(v,"holding"),y.t(v,"program"))
+J.xV(H.Go(t,"$isJU"),s)
+new A.zi(s,u,t,new Y.oZ(),new Y.y8(x)).Ou(0)
 break
-default:window.alert("Unknown dump-info version")}}J.LH(v,"name")
-s=H.Go(document.querySelector("#sort"),"$islp")
-s.toString
-y=H.VM(new W.Cq(s,C.mt.fA,!1),[null])
-H.VM(new W.xC(0,y.J6,y.fA,W.VF(new Y.Hi(v,s)),y.el),[H.Kp(y,0)]).DN()},"$1",null,2,0,null,143,"call"],
+default:window.alert("Unknown dump-info version")}}J.LH(u,"name")
+r=H.Go(document.querySelector("#sort"),"$islp")
+r.toString
+y=H.VM(new W.Cq(r,C.mt.fA,!1),[null])
+H.VM(new W.xC(0,y.J6,y.fA,W.VF(new Y.Hi(u,r)),y.el),[H.Kp(y,0)]).DN()},"$1",null,2,0,null,143,"call"],
 $isEH:true},
 VW:{
-"^":"Tp:49;a",
-$1:[function(a){var z=J.Vs(this.a).dA.getAttribute("slide")
-if(z!=null)Y.PL(z,!0)},"$1",null,2,0,null,73,"call"],
+"^":"Tp:49;a,b",
+$1:[function(a){var z,y,x
+z=J.Vs(this.b).dA.getAttribute("slide")
+if(z!=null){Y.PL(z,!0)
+y=this.a
+if(z!=="hier"){x=document.body
+x.toString
+y.a=C.CD.yu(C.CD.UD(x.scrollTop))}else P.rT(P.k5(0,0,C.CD.yu(C.jn.UD(C.Hk.m5*2)),0,0,0),new Y.jr(y))}},"$1",null,2,0,null,73,"call"],
+$isEH:true},
+jr:{
+"^":"Tp:66;a",
+$0:[function(){var z,y
+z=document.body
+y=this.a.a
+z.toString
+z.scrollTop=C.CD.yu(C.jn.UD(y))},"$0",null,0,0,null,"call"],
 $isEH:true},
 oZ:{
 "^":"Tp:66;",
-$0:function(){return Y.PL("hier",!1)},
+$0:function(){Y.PL("hier",!1)},
 $isEH:true},
 y8:{
-"^":"Tp:66;",
-$0:function(){return Y.PL("dep",!1)},
+"^":"Tp:66;a",
+$0:function(){var z=document.body
+z.toString
+this.a.a=C.CD.yu(C.CD.UD(z.scrollTop))
+Y.PL("dep",!1)},
 $isEH:true},
 Hi:{
-"^":"Tp:49;b,c",
+"^":"Tp:49;c,d",
 $1:[function(a){var z,y
-z=this.c
+z=this.d
 y=J.x5(z)
 z=z.selectedIndex
 y=y.G4
 if(z>>>0!==z||z>=y.length)return H.e(y,z)
-J.LH(this.b,J.Vm(y[z]))},"$1",null,2,0,null,2,"call"],
+J.LH(this.c,J.Vm(y[z]))},"$1",null,2,0,null,2,"call"],
 $isEH:true}},1],])
 I.$finishClasses($$,$,null)
 $$=null
@@ -11902,11 +11920,11 @@ y.$isqU=z
 y.$isfR=z
 y.$asfR=[P.qU]
 y.$isa=z
-P.a.$isa=z
 y=P.FK
 y.$isfR=z
 y.$asfR=[P.FK]
 y.$isa=z
+P.a.$isa=z
 y=P.a6
 y.$isa6=z
 y.$isfR=z
@@ -12344,7 +12362,7 @@ C.Wj=new P.JF()
 C.zm=new L.mr()
 C.NU=new P.R8()
 C.ny=new P.a6(0)
-C.rA=new P.a6(150000)
+C.Hk=new P.a6(100000)
 C.mt=H.VM(new W.e0("change"),[W.ea])
 C.T1=H.VM(new W.e0("click"),[W.Oq])
 C.pL=H.VM(new W.e0("dragover"),[W.Oq])
