@@ -74,6 +74,7 @@ main() {
 
   // When a file is loaded
   dragDrop.onFile.listen((String jsonString) {
+    document.querySelector('core-toolbar').style.top = "0";
     _switchSlide('info');
 
     List<PaperTab> tabs = querySelectorAll('paper-tab');
