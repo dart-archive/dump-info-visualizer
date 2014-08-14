@@ -16,7 +16,7 @@ import './infohelper.dart';
 part './dragdrop.dart';
 
 final List<String> slides = const <String>['info', 'hier', 'dep', 'load'];
-final Duration animationTime = const Duration(milliseconds: 150);
+final Duration animationTime = const Duration(milliseconds: 100);
 
 void _noSlide() {
   // Disable all of the slides and tabs
@@ -84,11 +84,9 @@ main() {
           _switchSlide(link, fromMouse: true);
           if (link != 'hier') {
             hierarchyScrollPosition = document.body.scrollTop;
-            print(hierarchyScrollPosition);
           } else {
             new Timer(animationTime * 2, () {
               document.body.scrollTop = hierarchyScrollPosition;
-              print(hierarchyScrollPosition);
             });
           }
         }
