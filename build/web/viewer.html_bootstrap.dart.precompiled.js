@@ -6814,6 +6814,7 @@ seo:function(a,b){this.hV(a,"opacity",b,"")},
 svF:function(a,b){this.hV(a,"padding-left",b,"")},
 gT8:function(a){return this.T2(a,"right")},
 sqU:function(a,b){this.hV(a,"text-align",b,"")},
+sG6:function(a,b){this.hV(a,"top",b,"")},
 sR:function(a,b){this.hV(a,"width",b,"")},
 sVx:function(a,b){this.hV(a,"z-index",b,"")}},
 VG:{
@@ -8109,7 +8110,7 @@ return this.P-z},
 giO:function(a){return this.P},
 bu:function(a){return this.oc},
 $isNg:true,
-static:{"^":"V7K,cU,pR,J2,IQ,Fn,EN,BC,BZ,wC,B9"}},
+static:{"^":"V7K,cU,IX,J2,IQ,Fn,EN,BC,BZ,wC,B9"}},
 HV:{
 "^":"a;QG<,G1,iJ,P2,O0,kc>,I4<",
 bu:function(a){return"["+this.QG.oc+"] "+this.iJ+": "+this.G1},
@@ -12282,6 +12283,7 @@ $isEH:true},
 wf:{
 "^":"Tp:3;a",
 $1:[function(a){var z,y,x,w,v,u,t,s,r
+J.pR(document.querySelector("core-toolbar").style,"0")
 Y.PL("info",!1)
 z=W.vD(document.querySelectorAll("paper-tab"),null)
 for(y=z.gA(z),x=this.a;y.G();){w=y.lo
@@ -12770,6 +12772,7 @@ J.oj=function(a,b){return J.RE(a).sMf(a,b)}
 J.pB=function(a,b){return J.U6(a).OY(a,b)}
 J.pO=function(a){return J.U6(a).gor(a)}
 J.pP=function(a){return J.RE(a).gDD(a)}
+J.pR=function(a,b){return J.RE(a).sG6(a,b)}
 J.pb=function(a,b){return J.w1(a).Vr(a,b)}
 J.q8=function(a){return J.U6(a).gB(a)}
 J.qA=function(a){return J.w1(a).br(a)}
