@@ -50,6 +50,7 @@ class InfoHelper {
   String get compilationDuration => _programProperties['compilationDuration'];
   String get dart2jsVersion => _programProperties['dart2jsVersion'];
   int get size => _programProperties['size'];
+  bool get noSuchMethodEnabled => _programProperties['noSuchMethodEnabled'];
 
   // Given an id, returns the node associated with it.
   dynamic elementById(String id) {
