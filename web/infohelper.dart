@@ -1,3 +1,9 @@
+class Selection {
+  String elementId;
+  String mask;
+  Selection(this.elementId, this.mask);
+}
+
 class InfoHelper {
   // A Map of type (kind -> (id -> element properties)) that
   // stores the properties of elements.
@@ -13,11 +19,11 @@ class InfoHelper {
 
   // A map of dependencies from an ID of an element
   // to the IDs of the elements that it depends on.
-  final Map<String, List<String>> _dependencies = {};
+  final Map<String, List<Selection>> _dependencies = {};
 
   // A map of depedencies from an ID of an element
   // to the IDS of the elements that depend on it.
-  final Map<String, List<String>> _reverseDependencies = {};
+  final Map<String, List<Selection>> _reverseDependencies = {};
 
   // A mapping from an ID of an element to that elements path.
   // A path for a function might look like
@@ -27,7 +33,7 @@ class InfoHelper {
   Iterable<Map<String, dynamic>> allOfType(String type) =>
     _elementProperties[type].values;
 
-  List<String> dependencies(String id) {
+  List<Selection> dependencies(String id) {
     if (_dependencies[id] != null) {
       return _dependencies[id];
     } else {
@@ -35,7 +41,7 @@ class InfoHelper {
     }
   }
 
-  List<String> reverseDependencies(String id) {
+  List<Selection> reverseDependencies(String id) {
     if (_reverseDependencies[id] != null) {
       return _reverseDependencies[id];
     } else {
@@ -58,6 +64,16 @@ class InfoHelper {
     return _elementProperties[split[0]][split[1]];
   }
 
+  Selection selectionFor(dynamic input) {
+    if (input is String) {
+      return new Selection(input, null);
+    } else if (input is Map<String, String>) {
+      return new Selection(input['id'], input['mask']);
+    } else {
+      throw new ArgumentError("$input is unexpected.");
+    }
+  }
+
   InfoHelper(Map<String, Map<String, Map<String, dynamic>>> properties,
              Map<String, List<String>> deps,
              Map<String, dynamic> programProperties):
@@ -68,15 +84,19 @@ class InfoHelper {
       for (var prop in section.values) {
         String id = prop['id'];
         _idToProperties[id] = prop;
-        _dependencies[id] = deps[id];
+        if (deps[id] != null) {
+          _dependencies[id] = deps[id].map(selectionFor);
+        }
       }
     }
 
     // Set up reverse dependencies
     deps.forEach((e, deps) {
       for (var dep in deps) {
-        _reverseDependencies.putIfAbsent(dep, () => <String>[])
-            .add(e);
+        Selection selection = selectionFor(dep);
+        _reverseDependencies.putIfAbsent(selection.elementId, () =>
+            <Selection>[])
+              .add(selection..elementId = e);
       }
     });
 
