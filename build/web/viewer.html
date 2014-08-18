@@ -479,30 +479,39 @@ html /deep/ [segment], html /deep/ segment {
         cursor:  pointer;
       }
 
+      td {
+        min-width: 100px;
+      }
+
       table thead {
         font-weight: bold;
         font-size: 1.3em;
       }
 
       #in {
-        min-width: 640px;
+        position: relative;
+        width: 100%;
 
-        border-bottom-left-radius: 5px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
       }
 
       #current {
-        margin-left: 20px;
-        min-width: 620px;
+        position: relative;
+        width: 96%;
+        left: 2%;
 
-        border-bottom-left-radius: 5px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
       }
 
       #out {
-        margin-left: 40px;
-        min-width: 600px;
+        position: relative;
+        width: 92%;
+        left: 4%;
 
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
       }
     </style>
     <table id="in">
