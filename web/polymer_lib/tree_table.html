@@ -10,7 +10,7 @@
       thead > td {
         font-size: 1.5em;
         font-weight: bold;
-        text-align: center;
+        vertical-align: middle;
       }
       tr:nth-child(odd) {
         background: rgba(0,188,212, 0.2);
@@ -39,6 +39,8 @@
       }
       #first-cell {
         padding: 5px;
+        overflow:hidden;
+        position: relative;
       }
       pre {
         margin: 0px;
@@ -48,14 +50,21 @@
         min-width: 100px;
         padding: 8px;
       }
+      #content {
+      }
+      #first-cell {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
     </style>
     <!--
       The first column in a row.  This column is special because it contains
-      the open/close arrow and is padded for a visual tree structure.  It is 
-      a div because the Polymer transformer wont let me use <td> outside of a 
+      the open/close arrow and is padded for a visual tree structure.  It is
+      a div because the Polymer transformer wont let me use <td> outside of a
       <tr>.
      -->
-    <div id="first-cell" class="odd" style="overflow:hidden;">
+    <div id="first-cell" class="odd">
       <nobr>
          <span id="arrow"></span>
          <span id="content"></span>
