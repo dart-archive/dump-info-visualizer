@@ -141,17 +141,25 @@ class ViewVersion1 {
           });
         }
         // Return type
-        String returnTypeString =
-            'inferred: ${node['inferredReturnType']},'
-            ' declared: ${node['returnType']}';
         row.addChild(renderSelfWith(() =>
-          [_cell('return type'), _cell(returnTypeString, colspan: '4')]));
+          [_cell('return type'), _verticalCell(
+            'inferred: ${node['inferredReturnType']},',
+            ' declared: ${node['returnType']}',
+            colspan: '4')
+          ]));
         // Parameters
         if (node.containsKey('parameters')) {
           for (Map<String, dynamic> param in node['parameters']) {
+            String declaredType = param['declaredType'] == null
+                ? "unavailable" : param['declaredType'];
             row.addChild(renderSelfWith(() =>
               [_cell('parameter'), _cell(param['name']),
-               _cell(param['type'], colspan: '3')]));
+               _verticalCell(
+                  "inferred: ${param['type']}",
+                  "declared: ${declaredType}",
+                  colspan: '3'
+               )]
+            ));
           }
         }
         // Code
@@ -174,7 +182,10 @@ class ViewVersion1 {
               'inferred: ${node['inferredType']}, declared: ${node['type']}';
           row.addChild(renderSelfWith(() =>
               [_cell('type'),
-               _cell(returnTypeString, colspan: '4', pre: true)]));
+               _verticalCell(
+                 'inferred: ${node['inferredType']}',
+                 'declared: ${node['type']}',
+                 returnTypeString, colspan: '4', pre: true)]));
         }
         break;
         case 'class':
