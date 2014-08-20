@@ -41,11 +41,25 @@ TableCellElement _cell(dynamic text,
     PreElement pre = new PreElement();
     pre.text = text.toString();
     element.append(pre);
+  } else if (text is Node) {
+    element.children.add(text);
   } else {
     element.text = text.toString();
   }
 
+
   return element;
+}
+
+TableCellElement _verticalCell(dynamic upper, dynamic lower,
+    {String align: 'left', String colspan: '1', bool pre: false}) {
+  DivElement div = new DivElement();
+  div.children.addAll([
+    new SpanElement()..text = upper,
+    new BRElement(),
+    new SpanElement()..text = lower
+  ]);
+  return _cell(div, align: align, colspan: colspan, pre:pre);
 }
 
 /**

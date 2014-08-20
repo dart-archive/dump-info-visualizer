@@ -9,7 +9,7 @@ void processData0(Map document, TreeTable tt) {
   var prog = document['program'];
 
   // Information about the whole program.
-  DivElement programInfoDiv = querySelector('#prog-info') as DivElement;
+  TableElement programInfoDiv = querySelector('#prog-info');
   programInfoDiv.children.addAll([
         'Program Size: ' + prog['program_size'].toString() + ' bytes',
         'Compile Time: ' + prog['compile_time'],
