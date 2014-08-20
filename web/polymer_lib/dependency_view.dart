@@ -21,6 +21,8 @@ class DependencyView extends PolymerElement {
   DependencyView.created() : super.created() {}
 
   set target(String id) {
+    $['information'].style.display = 'none';
+    $['tables'].style.display = 'block';
     _currentlyTargeting = id;
     _populate(id);
   }
