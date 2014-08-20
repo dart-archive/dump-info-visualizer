@@ -1,3 +1,7 @@
+// Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 library viewer;
 
 import 'dart:async';
@@ -103,6 +107,7 @@ main() {
       switch (json['dump_version'] as dynamic) {
         case 1:
         case 2:
+        case 3:
           var info = new InfoHelper(json['elements'], json['holding'],
               json['program']);
           var view = new ViewVersion1(info, treeTable, dependencyView,

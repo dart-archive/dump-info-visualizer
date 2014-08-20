@@ -1,3 +1,7 @@
+// Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 part of versions;
 
 class ViewVersion1 {
@@ -10,7 +14,7 @@ class ViewVersion1 {
 
   ViewVersion1(this.model, this.treeTable, this.depView, this.switchToHierTab,
                this.switchToDepsTab) {
-    (depView as DependencyView).dumpInfo = this.model;
+    depView.dumpInfo = this.model;
   }
 
   void display() {
