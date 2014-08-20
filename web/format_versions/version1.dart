@@ -178,14 +178,12 @@ class ViewVersion1 {
         }
         // Types
         if (node['inferredType'] != null && node['type'] != null) {
-          String returnTypeString =
-              'inferred: ${node['inferredType']}, declared: ${node['type']}';
           row.addChild(renderSelfWith(() =>
               [_cell('type'),
                _verticalCell(
                  'inferred: ${node['inferredType']}',
                  'declared: ${node['type']}',
-                 returnTypeString, colspan: '4', pre: true)]));
+                 colspan: '4', pre: true)]));
         }
         break;
         case 'class':
