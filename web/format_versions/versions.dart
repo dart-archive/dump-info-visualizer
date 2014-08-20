@@ -41,13 +41,12 @@ TableCellElement _cell(dynamic text,
     PreElement pre = new PreElement();
     pre.text = text.toString();
     element.append(pre);
+  } else if (text is Node) {
+    element.children.add(text);
   } else {
-    if (text is Node) {
-      element.children.add(text);
-    } else {
-      element.text = text.toString();
-    }
+    element.text = text.toString();
   }
+
 
   return element;
 }
