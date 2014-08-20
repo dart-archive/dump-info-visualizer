@@ -1,4 +1,8 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html><!--
+Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+for details. All rights reserved. Use of this source code is governed by a
+BSD-style license that can be found in the LICENSE file.
+--><html><head>
     <meta charset="utf-8">
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +20,11 @@
   <body>
 
 
-<link href="//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css"><style>body {
+<link href="//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css"><style>/* Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file */
+/* for details. All rights reserved. Use of this source code is governed by a */
+/* BSD-style license that can be found in the LICENSE file. */
+
+body {
   font-family: 'RobotoDraft', 'Open Sans', sans-serif;
   font-size: 14px;
   font-weight: normal;
@@ -411,7 +419,7 @@ html /deep/ [segment], html /deep/ segment {
       thead > td {
         font-size: 1.5em;
         font-weight: bold;
-        text-align: center;
+        vertical-align: middle;
       }
       tr:nth-child(odd) {
         background: rgba(0,188,212, 0.2);
@@ -440,6 +448,8 @@ html /deep/ [segment], html /deep/ segment {
       }
       #first-cell {
         padding: 5px;
+        overflow:hidden;
+        position: relative;
       }
       pre {
         margin: 0px;
@@ -449,14 +459,21 @@ html /deep/ [segment], html /deep/ segment {
         min-width: 100px;
         padding: 8px;
       }
+      #content {
+      }
+      #first-cell {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
     </style>
     <!--
       The first column in a row.  This column is special because it contains
-      the open/close arrow and is padded for a visual tree structure.  It is 
-      a div because the Polymer transformer wont let me use <td> outside of a 
+      the open/close arrow and is padded for a visual tree structure.  It is
+      a div because the Polymer transformer wont let me use <td> outside of a
       <tr>.
      -->
-    <div id="first-cell" class="odd" style="overflow:hidden;">
+    <div id="first-cell" class="odd">
       <nobr>
          <span id="arrow"></span>
          <span id="content"></span>
@@ -465,6 +482,7 @@ html /deep/ [segment], html /deep/ segment {
     <!-- The rest of the <td>s will be inserted here -->
   </template>
 </polymer-element>
+
 
 <polymer-element name="dependency-view">
   <template>
