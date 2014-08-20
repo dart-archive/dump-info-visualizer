@@ -103,6 +103,7 @@ main() {
       switch (json['dump_version'] as dynamic) {
         case 1:
         case 2:
+        case 3:
           var info = new InfoHelper(json['elements'], json['holding'],
               json['program']);
           var view = new ViewVersion1(info, treeTable, dependencyView,

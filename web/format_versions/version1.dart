@@ -10,7 +10,7 @@ class ViewVersion1 {
 
   ViewVersion1(this.model, this.treeTable, this.depView, this.switchToHierTab,
                this.switchToDepsTab) {
-    (depView as DependencyView).dumpInfo = this.model;
+    depView.dumpInfo = this.model;
   }
 
   void display() {
