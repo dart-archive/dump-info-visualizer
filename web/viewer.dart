@@ -16,6 +16,7 @@ import './format_versions/versions.dart';
 import './polymer_lib/tree_table.dart';
 import './polymer_lib/dependency_view.dart';
 import './infohelper.dart';
+import './history.dart' show HistoryState;
 
 part './dragdrop.dart';
 
@@ -56,7 +57,10 @@ void _switchSlide(String id, {bool fromMouse: false}) {
       // Draw a ripple on the tab if we didn't already click on it.
       if (!fromMouse) {
         PaperRipple ripple = tab.shadowRoot.querySelector('paper-ripple');
-        var pos = {'x': tabs.offsetLeft + tab.offsetLeft + tab.clientWidth / 2, 'y': 0};
+        var pos = {
+          'x': tabs.offsetLeft + tab.offsetLeft + tab.clientWidth / 2,
+          'y': 0
+        };
         ripple.jsElement.callMethod('downAction', [new JsObject.jsify(pos)]);
         window.animationFrame.then((_) =>
             ripple.jsElement.callMethod('upAction', []));
@@ -67,34 +71,24 @@ void _switchSlide(String id, {bool fromMouse: false}) {
 
 main() {
   initPolymer();
-
+  HistoryState.setup(_switchSlide, animationTime);
   _noSlide();
   _switchSlide('load');
 
-  int hierarchyScrollPosition = 0;
-
-  var dragDrop = new DragDropFile(querySelector('#drag-target'),
+  var dragDrop = new DragDropFile(
+      querySelector('#drag-target'),
       querySelector('#file_upload'));
 
   // When a file is loaded
   dragDrop.onFile.listen((String jsonString) {
     document.querySelector('core-toolbar').style.top = "0";
-    _switchSlide('info');
+    HistoryState.switchTo(new HistoryState('info'));
 
     List<PaperTab> tabs = querySelectorAll('paper-tab');
     for (PaperTab tab in tabs) {
       tab.onClick.listen((_){
         String link = tab.attributes['slide'];
-        if (link != null) {
-          _switchSlide(link, fromMouse: true);
-          if (link != 'hier') {
-            hierarchyScrollPosition = document.body.scrollTop;
-          } else {
-            new Timer(animationTime * 2, () {
-              document.body.scrollTop = hierarchyScrollPosition;
-            });
-          }
-        }
+        HistoryState.switchTo(new HistoryState(link));
       });
     }
 
@@ -108,15 +102,13 @@ main() {
         case 1:
         case 2:
         case 3:
-          var info = new InfoHelper(json['elements'], json['holding'],
+          var info = new InfoHelper(
+              json['elements'],
+              json['holding'],
               json['program']);
           var view = new ViewVersion1(info, treeTable, dependencyView,
-              () {
-                _switchSlide('hier');
-              }, () {
-                hierarchyScrollPosition = document.body.scrollTop;
-                _switchSlide('dep');
-              });
+              () => HistoryState.switchTo(new HistoryState('hier')),
+              () => HistoryState.switchTo(new HistoryState('dep')));
           view.display();
           break;
         default:

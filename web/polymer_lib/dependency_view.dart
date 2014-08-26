@@ -8,6 +8,7 @@ import 'package:polymer/polymer.dart';
 import 'dart:html' hide Selection;
 
 import '../infohelper.dart';
+import '../history.dart';
 
 @CustomTag('dependency-view')
 class DependencyView extends PolymerElement {
@@ -61,7 +62,8 @@ class DependencyView extends PolymerElement {
                  ..style.float = 'right'
             )
         ])
-        ..onClick.listen((_) => this.target = id);
+        ..onClick.listen((_) =>
+              HistoryState.switchTo(new HistoryState('dep', depTarget: id)));
   }
 
   void _populate(String id) {

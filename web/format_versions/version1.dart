@@ -214,10 +214,9 @@ class ViewVersion1 {
         cells.addAll([
           new TableCellElement()..children.addAll([
             new SpanElement()..text = props['name'],
-            new AnchorElement(href: '#')
+            new AnchorElement()
             ..onClick.listen((_) {
-              this.depView.target = props['id'];
-              this.switchToDepsTab();
+              HistoryState.switchTo(new HistoryState('dep', depTarget: props['id']));
             })
             ..children.add(
               new ImageElement(src: 'deps_icon.svg')..style.float = 'right'),
