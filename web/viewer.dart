@@ -73,13 +73,22 @@ main() {
 
   int hierarchyScrollPosition = 0;
 
-  var dragDrop = new DragDropFile(querySelector('#drag-target'),
+  var dragDrop = new DragDropFile(
+      querySelector('#drag-target'),
       querySelector('#file_upload'));
+
+  var refreshButton = querySelector('#refresh');
+  refreshButton.onClick.listen((e){
+    e.preventDefault();
+    e.stopPropagation();
+    dragDrop.reload();
+  });
+
+  bool alreadyLoaded = false;
 
   // When a file is loaded
   dragDrop.onFile.listen((String jsonString) {
     document.querySelector('core-toolbar').style.top = "0";
-    _switchSlide('info');
 
     List<PaperTab> tabs = querySelectorAll('paper-tab');
     for (PaperTab tab in tabs) {
@@ -101,6 +110,13 @@ main() {
     Map<String, dynamic> json = JSON.decode(jsonString);
     TreeTable treeTable = querySelector('tree-table');
     DependencyView dependencyView = querySelector('dependency-view');
+
+    if (alreadyLoaded) {
+      treeTable.clear();
+    } else {
+      _switchSlide('info');
+    }
+
     if (!json.containsKey('dump_version')) {
       processData0(json, treeTable);
     } else {
@@ -133,5 +149,7 @@ main() {
       var sortby = select.options[select.selectedIndex].value;
       treeTable.sort(sortby);
     });
+
+    alreadyLoaded = true;
   });
 }

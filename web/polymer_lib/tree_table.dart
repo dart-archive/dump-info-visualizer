@@ -34,6 +34,28 @@ class TreeTable extends PolymerElement {
   HtmlElement get tbody => this.$['inner_table_body'];
 
   /**
+   * Clears the table.  Used when reloading the file.
+   */
+  void clear(Function fetchPath) {
+    this.children.clear();
+    _rootNodes.clear();
+    this.$['inner_table_head'].children.clear();
+
+
+    if (fetchPath != null) {
+      Set<List<String>> openedPaths = new Set<List<String>>();
+      Queue<LogicalRow> possiblyOpen = new Queue();
+      possiblyOpen.addAll(_rootNodes);
+      while (possiblyOpen.isNotEmpty) {
+        LogicalRow next = possiblyOpen.removeFront();
+        if (next.open) {
+          openedPaths.push(fetchPath(next.data['id']));
+        }
+      }
+    }
+  }
+
+  /**
    * Sets the titles for the columns of the table.
    */
   void set columnTitles(List<String> names) {

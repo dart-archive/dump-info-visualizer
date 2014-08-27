@@ -72,6 +72,7 @@ class ViewVersion1 {
 
   void _setupProgramwideInfo() {
     TableElement programInfoTable = querySelector('#prog-info') as TableElement;
+    programInfoTable.children.clear();
     mapToTable(programInfoTable, {
       'Program Size': model.size.toString() + ' bytes',
       'Compile Time': model.compilationMoment,

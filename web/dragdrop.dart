@@ -12,7 +12,10 @@ class DragDropFile {
 
   Stream<String> onFile;
 
-  void handleFile(File file) {
+  File selectedFile;
+
+  void loadFile(File file) {
+    selectedFile = file;
     document.title = file.name + " - Dump Info Viewer";
     FileReader reader = new FileReader();
     reader.onLoad.listen((e) {
@@ -31,7 +34,7 @@ class DragDropFile {
 
     _fileUpload.onChange.listen((event){
       var file = (event.target as InputElement).files.first;
-      handleFile(file);
+      loadFile(file);
     });
 
     _dropZone.onDragOver.listen((e) {
@@ -44,7 +47,7 @@ class DragDropFile {
       e.stopPropagation();
       e.preventDefault();
       File file = e.dataTransfer.files.first;
-      handleFile(file);
+      loadFile(file);
     });
   }
   void hide() {
@@ -52,5 +55,9 @@ class DragDropFile {
   }
   void show() {
     this._dropZone.style.display = 'block';
+  }
+
+  void reload() {
+    loadFile(selectedFile);
   }
 }
