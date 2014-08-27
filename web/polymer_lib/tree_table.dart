@@ -36,22 +36,18 @@ class TreeTable extends PolymerElement {
   /**
    * Sets the titles for the columns of the table.
    */
-  void set columnTitles(List<String> names) {
-    this.$['inner_table_head'].children.addAll(names.map((name) {
-      var tableCell = new TableCellElement()..text = name;
-      // TODO(tyoverby): special cases are bad
-
-      if (name == 'Bytes' || name == '%') {
-        tableCell.style.width = '70px';
+  void columnInfo(List<String> names, List<String> helps, List<String> sizes) {
+    for (int i = 0; i < names.length; i ++) {
+      TableCellElement cell = new TableCellElement();
+      cell.style.textAlign = 'center';
+      cell.text = names[i];
+      cell.title = helps[i];
+      int size = sizes[i];
+      if (size != null) {
+        cell.style.width = size;
       }
-      if (name == 'Kind') {
-        tableCell.style.width = '160px';
-      }
-      if (name == 'Name') {
-        tableCell.style.width = '300px';
-      }
-      return tableCell;
-    }));
+      this.$['inner_table_head'].children.add(cell);
+    }
   }
 
   /**
