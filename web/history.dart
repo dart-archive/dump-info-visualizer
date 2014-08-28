@@ -36,7 +36,6 @@ abstract class HistoryState {
   static void setup(Function slideSwitcher, int animationTime) {
     window.onPopState.listen((popStateEvent) {
       var newState = HistoryState.fromJson(popStateEvent.state);
-      print("poping $newState");
       switchTo(newState, fromPop: true);
     });
     HistoryState._slideSwitcher = slideSwitcher;
@@ -48,7 +47,6 @@ abstract class HistoryState {
       _currentState.finalize();
     }
     if (!fromPop) {
-      print("pushing $newState");
       window.history.pushState(newState.toJson(), "test", "?" + newState.asUrl);
     }
     newState.apply();
