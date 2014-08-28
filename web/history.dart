@@ -6,6 +6,7 @@ library history;
 
 import 'dart:html';
 import 'dart:async';
+import 'polymer_lib/dependency_view.dart';
 
 abstract class HistoryState {
   /// Apply this history state and modify the view.
@@ -33,7 +34,7 @@ abstract class HistoryState {
     }
   }
 
-  static void setup(Function slideSwitcher, int animationTime) {
+  static void setup(Function slideSwitcher, Duration animationTime) {
     window.onPopState.listen((popStateEvent) {
       var newState = HistoryState.fromJson(popStateEvent.state);
       switchTo(newState, fromPop: true);
@@ -73,7 +74,7 @@ abstract class HistoryState {
   static String _lastDepFocus = null;
   static HistoryState _currentState = null;
   static Function _slideSwitcher;
-  static int _animationTime;
+  static Duration _animationTime;
 }
 
 class _InfoHistoryState implements HistoryState {
@@ -95,7 +96,7 @@ class _HierHistoryState implements HistoryState {
 
   void apply() {
     HistoryState._slideSwitcher('hier');
-    new Timer(HistoryState._animationTime * 2, () {
+    new Timer(HistoryState._animationTime * 3, () {
       document.body.scrollTop = pos;
     });
   }
