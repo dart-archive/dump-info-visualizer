@@ -8,9 +8,10 @@ import 'dart:html';
 import '../polymer_lib/tree_table.dart';
 import '../polymer_lib/dependency_view.dart';
 import '../infohelper.dart';
+import '../history.dart';
 
-part './version0.dart';
-part './version1.dart';
+part 'version0.dart';
+part 'version1.dart';
 
 //
 // Common utilities.

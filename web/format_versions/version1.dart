@@ -18,7 +18,22 @@ class ViewVersion1 {
   }
 
   void display() {
-    treeTable.columnTitles = ['Kind', 'Name', 'Bytes', '%', 'Type'];
+    treeTable.columnInfo(
+        // Names
+        ['Kind', 'Name', 'Bytes', 'Bytes R', '%', 'Type'],
+        // Help Info
+        [
+          '',
+          'The given name of the element',
+          'The direct size attributed to the element',
+          'The sum of the sizes of all the elements that can '
+              'only be reached from this element',
+          'The percentage of the direct size compared to the '
+              'program size',
+          'The given type of the element'
+        ],
+        // Sizes
+        ["200px", null, "100px", "100px", "70px", null]);
 
     _setupProgramwideInfo();
 
@@ -111,7 +126,8 @@ class ViewVersion1 {
                     int level, Function fetch) {
 
     // A helper method for generating a row-generating function.
-    GenerateRowFunction renderSelfWith(Function renderFn, {int sortPriority: 0}) {
+    GenerateRowFunction renderSelfWith(Function renderFn,
+        {int sortPriority: 0}) {
       void render(TreeTableRow row, LogicalRow lRow) {
         row.data = renderFn();
       }
@@ -131,13 +147,13 @@ class ViewVersion1 {
       case 'method':
         // Side Effects
         row.addChild(renderSelfWith(() =>
-          [_cell('side effects'), _cell(node['sideEffects'], colspan: '4')]));
+          [_cell('side effects'), _cell(node['sideEffects'], colspan: '5')]));
         // Modifiers
         if (node.containsKey('modifiers')) {
           (node['modifiers'] as Map<String, bool>).forEach((k, v) {
             if (v) {
               row.addChild(renderSelfWith(() =>
-                [_cell('modifier'), _cell(k, colspan: '4')]));
+                [_cell('modifier'), _cell(k, colspan: '5')]));
             }
           });
         }
@@ -146,7 +162,7 @@ class ViewVersion1 {
           [_cell('return type'), _verticalCell(
             'inferred: ${node['inferredReturnType']},',
             ' declared: ${node['returnType']}',
-            colspan: '4')
+            colspan: '5')
           ]));
         // Parameters
         if (node.containsKey('parameters')) {
@@ -166,7 +182,7 @@ class ViewVersion1 {
         // Code
         if (node['code'] != null && node['code'].length != 0) {
           row.addChild(renderSelfWith(() =>
-            [_cell('code'), _cell(node['code'], colspan: '4', pre: true)],
+            [_cell('code'), _cell(node['code'], colspan: '5', pre: true)],
             sortPriority: -1));
         }
         break;
@@ -174,7 +190,7 @@ class ViewVersion1 {
         // Code
         if (node['code'] != null && node['code'].length != 0) {
           row.addChild(renderSelfWith(() =>
-            [_cell('code'), _cell(node['code'], colspan: '4', pre: true)],
+            [_cell('code'), _cell(node['code'], colspan: '5', pre: true)],
             sortPriority: -1));
         }
         // Types
@@ -184,7 +200,7 @@ class ViewVersion1 {
                _verticalCell(
                  'inferred: ${node['inferredType']}',
                  'declared: ${node['type']}',
-                 colspan: '4', pre: true)]));
+                 colspan: '5', pre: true)]));
         }
         break;
         case 'class':
@@ -212,18 +228,21 @@ class ViewVersion1 {
       case 'constructor':
       case 'method':
       case 'field':
+        var span = new SpanElement();
+        span.text = props['name'];
+
+        var anchor = new AnchorElement();
+        anchor.onClick.listen((_) {
+          HistoryState.switchTo(
+              new HistoryState('dep', depTarget: props['id']));
+        });
+        anchor.children.add(
+            new ImageElement(src: 'deps_icon.svg')..style.float = 'right');
+
         cells.addAll([
-          new TableCellElement()..children.addAll([
-            new SpanElement()..text = props['name'],
-            new AnchorElement(href: '#')
-            ..onClick.listen((_) {
-              this.depView.target = props['id'];
-              this.switchToDepsTab();
-            })
-            ..children.add(
-              new ImageElement(src: 'deps_icon.svg')..style.float = 'right'),
-          ]),
+          new TableCellElement()..children.addAll([span, anchor]),
           _cell(props['size'], align: 'right'),
+          _cell(model.triviallyOwnedSize(props['id']), align: 'right'),
           _cell(props['size_percent'], align: 'right'),
           _cell(props['type'], pre: true)
         ]);
@@ -232,6 +251,7 @@ class ViewVersion1 {
         cells.addAll([
           _cell(props['name']),
           _cell(props['size'], align: 'right'),
+          _cell(''),
           _cell(props['size_percent'], align: 'right'),
           _cell('')
         ]);
@@ -240,6 +260,7 @@ class ViewVersion1 {
         cells.addAll([
           _cell(props['name']),
           _cell('0', align: 'right'),
+          _cell('0', align: 'right'),
           _cell('0.00%', align:'right')
         ]);
         break;
@@ -247,6 +268,7 @@ class ViewVersion1 {
         cells.addAll([
           _cell(props['name']),
           _cell(props['size'], align: 'right'),
+          _cell(''),
           _cell(props['size_percent'], align:'right'),
           _cell(props['name'], pre: true)
         ]);

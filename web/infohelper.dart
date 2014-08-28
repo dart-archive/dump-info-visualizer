@@ -1,3 +1,5 @@
+import 'dart:collection' show Queue;
+
 class Selection {
   String elementId;
   String mask;
@@ -116,4 +118,31 @@ class InfoHelper {
       traverseNames(node, []);
     }
   }
+
+  bool _parentsAllContained(String id, Set<String> container) =>
+    reverseDependencies(id).every((a) => container.contains(a.elementId));
+
+  Set<String> _triviallyReachedFrom(String id) {
+    Queue<String> queue = new Queue<String>();
+    Set<String> owns = new Set<String>();
+
+    queue.add(id);
+    owns.add(id);
+
+    while (queue.isNotEmpty) {
+      String next = queue.removeFirst();
+      for (String child in dependencies(next).map((a) => a.elementId)) {
+        if (!owns.contains(child) && _parentsAllContained(child, owns)) {
+          queue.add(child);
+          owns.add(child);
+        }
+      }
+    }
+    return owns;
+  }
+
+  int triviallyOwnedSize(String id) =>
+    _triviallyReachedFrom(id)
+      .map((a) => properties(a)['size'])
+      .reduce((a, b) => a + b);
 }

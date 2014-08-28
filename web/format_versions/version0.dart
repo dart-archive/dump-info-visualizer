@@ -16,9 +16,22 @@ void processData0(Map document, TreeTable tt) {
         'Compile Duration: ' + prog['compile_duration']
       ].map((t) => new HeadingElement.h3()..text = t));
 
-  // Information about specific pieces of the program
-  tt.columnTitles = ['Kind', 'Name', 'Bytes', '%', 'Type'];
-
+  tt.columnInfo(
+    // Names
+    ['Kind', 'Name', 'Bytes', 'Bytes R', '%', 'Type'],
+    // Help Info
+    [
+      '',
+      'The given name of the element',
+      'The direct size attributed to the element',
+      'The sum of the sizes of all the elements that can '
+          'only be reached from this element',
+      'The percentage of the direct size compared to the '
+          'program size',
+      'The given type of the element'
+    ],
+    // Sizes
+    ["200px", null, "100px", "100px", "70px", null]);
   // A recursive function that builds up a tree of LogicalRows
   LogicalRow buildTree(Map<String, dynamic> node, bool isTop,
                        HtmlElement tbody, int level) {
