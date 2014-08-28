@@ -211,16 +211,19 @@ class ViewVersion1 {
       case 'constructor':
       case 'method':
       case 'field':
+        var span = new SpanElement();
+        span.text = props['name'];
+
+        var anchor = new AnchorElement();
+        anchor.onClick.listen((_) {
+          HistoryState.switchTo(
+              new HistoryState('dep', depTarget: props['id']));
+        });
+        anchor.children.add(
+            new ImageElement(src: 'deps_icon.svg')..style.float = 'right');
+
         cells.addAll([
-          new TableCellElement()..children.addAll([
-            new SpanElement()..text = props['name'],
-            new AnchorElement()
-            ..onClick.listen((_) {
-              HistoryState.switchTo(new HistoryState('dep', depTarget: props['id']));
-            })
-            ..children.add(
-              new ImageElement(src: 'deps_icon.svg')..style.float = 'right'),
-          ]),
+          new TableCellElement()..children.addAll([span, anchor]),
           _cell(props['size'], align: 'right'),
           _cell(props['size_percent'], align: 'right'),
           _cell(props['type'], pre: true)

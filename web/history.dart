@@ -1,3 +1,7 @@
+// Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 library history;
 
 import 'dart:html';
@@ -56,13 +60,10 @@ abstract class HistoryState {
     switch (json['kind']) {
       case 'info':
         return new _InfoHistoryState();
-        break;
       case 'hier':
         return new _HierHistoryState(json['pos']);
-        break;
       case 'dep':
         return new _DepHistoryState(json['focus']);
-        break;
       default: return null;
     }
   }
