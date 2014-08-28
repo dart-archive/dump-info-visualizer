@@ -110,9 +110,13 @@ main() {
     Map<String, dynamic> json = JSON.decode(jsonString);
     TreeTable treeTable = querySelector('tree-table');
     DependencyView dependencyView = querySelector('dependency-view');
+    var info = new InfoHelper(
+        json['elements'],
+        json['holding'],
+        json['program']);
 
     if (alreadyLoaded) {
-      treeTable.clear();
+      treeTable.clear(info.path);
     } else {
       _switchSlide('info');
     }
@@ -124,8 +128,6 @@ main() {
         case 1:
         case 2:
         case 3:
-          var info = new InfoHelper(json['elements'], json['holding'],
-              json['program']);
           var view = new ViewVersion1(info, treeTable, dependencyView,
               () {
                 _switchSlide('hier');

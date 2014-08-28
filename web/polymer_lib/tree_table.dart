@@ -7,6 +7,7 @@ library tree_table;
 import 'package:polymer/polymer.dart';
 import 'package:observe/observe.dart';
 import 'dart:html';
+import 'dart:collection' show Queue;
 
 /**
  * A Polymer TreeTable element.
@@ -15,6 +16,12 @@ import 'dart:html';
 class TreeTable extends PolymerElement {
   // The top-level rows in the tree.
   List<LogicalRow> _rootNodes = [];
+
+  // A set of the nodes that were opened in the tree-table
+  // before the json was reloaded.  Storing this information
+  // makes it possible to re-open the tree to where it
+  // was before.
+  Set<List<String>> previouslyOpened = null;
 
   TreeTable.created() : super.created() {}
 
@@ -37,22 +44,24 @@ class TreeTable extends PolymerElement {
    * Clears the table.  Used when reloading the file.
    */
   void clear(Function fetchPath) {
-    this.children.clear();
-    _rootNodes.clear();
-    this.$['inner_table_head'].children.clear();
-
-
     if (fetchPath != null) {
       Set<List<String>> openedPaths = new Set<List<String>>();
       Queue<LogicalRow> possiblyOpen = new Queue();
       possiblyOpen.addAll(_rootNodes);
+      // print(possiblyOpen);
       while (possiblyOpen.isNotEmpty) {
-        LogicalRow next = possiblyOpen.removeFront();
+        LogicalRow next = possiblyOpen.removeFirst();
         if (next.open) {
-          openedPaths.push(fetchPath(next.data['id']));
+          openedPaths.add(fetchPath(next.data['id']));
+          possiblyOpen.addAll(next.children);
         }
       }
+      print(openedPaths);
     }
+
+    _rootNodes.clear();
+    this.children.clear();
+    this.$['inner_table_head'].children.clear();
   }
 
   /**
