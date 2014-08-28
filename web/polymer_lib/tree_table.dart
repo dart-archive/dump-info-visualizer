@@ -21,7 +21,7 @@ class TreeTable extends PolymerElement {
   // before the json was reloaded.  Storing this information
   // makes it possible to re-open the tree to where it
   // was before.
-  Set<List<String>> previouslyOpened = null;
+  Set<String> previouslyOpened = new Set<String>();
 
   TreeTable.created() : super.created() {}
 
@@ -43,25 +43,35 @@ class TreeTable extends PolymerElement {
   /**
    * Clears the table.  Used when reloading the file.
    */
-  void clear(Function fetchPath) {
-    if (fetchPath != null) {
-      Set<List<String>> openedPaths = new Set<List<String>>();
-      Queue<LogicalRow> possiblyOpen = new Queue();
-      possiblyOpen.addAll(_rootNodes);
-      // print(possiblyOpen);
-      while (possiblyOpen.isNotEmpty) {
-        LogicalRow next = possiblyOpen.removeFirst();
-        if (next.open) {
-          openedPaths.add(fetchPath(next.data['id']));
-          possiblyOpen.addAll(next.children);
-        }
+  void clear() {
+    Set<String> openedPaths = new Set<String>();
+    Queue<LogicalRow> possiblyOpen = new Queue();
+    possiblyOpen.addAll(_rootNodes);
+    while (possiblyOpen.isNotEmpty) {
+      LogicalRow next = possiblyOpen.removeFirst();
+      if (next.open) {
+        openedPaths.add(next.id);
+        possiblyOpen.addAll(next.children);
       }
-      print(openedPaths);
     }
+
+    this.previouslyOpened = openedPaths;
 
     _rootNodes.clear();
     this.children.clear();
     this.$['inner_table_head'].children.clear();
+  }
+
+  void reset() {
+    Queue<LogicalRow> couldBeOpened = new Queue<LogicalRow>();
+    couldBeOpened.addAll(_rootNodes);
+    while (couldBeOpened.isNotEmpty) {
+      LogicalRow next = couldBeOpened.removeFirst();
+      if (previouslyOpened.contains(next.id)) {
+        next.click();
+        couldBeOpened.addAll(next.children);
+      }
+    }
   }
 
   /**
@@ -185,6 +195,8 @@ class LogicalRow {
 
   // A pointer into the data
   Map<String, dynamic> data;
+
+  String get id => data['id'];
 
   // A list of 'soon to be children' row functions.
   // This is the key part of having the entire data

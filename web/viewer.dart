@@ -88,31 +88,41 @@ main() {
 
   bool alreadyLoaded = false;
 
+  TreeTable treeTable = querySelector('tree-table');
+  DependencyView dependencyView = querySelector('dependency-view');
+
+
+  List<PaperTab> tabs = querySelectorAll('paper-tab');
+  for (PaperTab tab in tabs) {
+    tab.onClick.listen((_){
+      String link = tab.attributes['slide'];
+      HistoryState.switchTo(new HistoryState(link));
+    });
+  }
+
+  // Sort by chosen sorting methods.
+  var select = querySelector('#sort') as SelectElement;
+  var sortby = 'name';
+  select.onChange.listen((e) {
+    sortby = select.options[select.selectedIndex].value;
+    treeTable.sort(sortby);
+  });
+
   // When a file is loaded
   dragDrop.onFile.listen((String jsonString) {
-    document.querySelector('core-toolbar').style.top = "0";
-    HistoryState.switchTo(new HistoryState('info'));
-
-    List<PaperTab> tabs = querySelectorAll('paper-tab');
-    for (PaperTab tab in tabs) {
-      tab.onClick.listen((_){
-        String link = tab.attributes['slide'];
-        HistoryState.switchTo(new HistoryState(link));
-      });
-    }
-
     Map<String, dynamic> json = JSON.decode(jsonString);
-    TreeTable treeTable = querySelector('tree-table');
-    DependencyView dependencyView = querySelector('dependency-view');
+    document.querySelector('core-toolbar').style.top = "0";
+
     var info = new InfoHelper(
         json['elements'],
         json['holding'],
         json['program']);
 
+
     if (alreadyLoaded) {
-      treeTable.clear(info.path);
+      treeTable.clear();
     } else {
-      _switchSlide('info');
+      HistoryState.switchTo(new HistoryState('info'));
     }
 
     if (!json.containsKey('dump_version')) {
@@ -126,6 +136,8 @@ main() {
               () => HistoryState.switchTo(new HistoryState('hier')),
               () => HistoryState.switchTo(new HistoryState('dep')));
           view.display();
+          treeTable.sort(sortby);
+          treeTable.reset();
           break;
         default:
           window.alert('Unknown dump-info version');
@@ -133,14 +145,7 @@ main() {
     }
 
     // Sort by name as default
-    treeTable.sort('name');
-
-    // Sort by chosen sorting methods.
-    var select = querySelector('#sort') as SelectElement;
-    select.onChange.listen((e) {
-      var sortby = select.options[select.selectedIndex].value;
-      treeTable.sort(sortby);
-    });
+    treeTable.sort(sortby);
 
     alreadyLoaded = true;
   });
