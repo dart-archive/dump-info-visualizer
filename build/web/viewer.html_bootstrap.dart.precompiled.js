@@ -12303,7 +12303,7 @@ if(w!=null)J.pP(w).Rz(0,"core-selected")}},
 PL:[function(a,b){var z
 Y.Rm()
 z=document.querySelector("#"+a+"-slide")
-J.B6(z.style,"10000px")
+J.B6(z.style,"none")
 J.Vn(z.style,"1")
 P.rT(C.Hk,new Y.ix(a,b,z))},function(a){return Y.PL(a,!1)},null,"$2$fromMouse","$1","xp",2,3,67,68],
 E2:function(){A.Ok()
