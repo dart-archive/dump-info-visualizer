@@ -21,7 +21,7 @@ class TreeTable extends PolymerElement {
   // before the json was reloaded.  Storing this information
   // makes it possible to re-open the tree to where it
   // was before.
-  Set<String> previouslyOpened = new Set<String>();
+  Set<String> _previouslyOpened = new Set<String>();
 
   TreeTable.created() : super.created() {}
 
@@ -55,7 +55,7 @@ class TreeTable extends PolymerElement {
       }
     }
 
-    this.previouslyOpened = openedPaths;
+    this._previouslyOpened = openedPaths;
 
     _rootNodes.clear();
     this.children.clear();
@@ -67,7 +67,7 @@ class TreeTable extends PolymerElement {
     couldBeOpened.addAll(_rootNodes);
     while (couldBeOpened.isNotEmpty) {
       LogicalRow next = couldBeOpened.removeFirst();
-      if (previouslyOpened.contains(next.id)) {
+      if (_previouslyOpened.contains(next.id)) {
         next.click();
         couldBeOpened.addAll(next.children);
       }
