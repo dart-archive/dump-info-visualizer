@@ -4,10 +4,10 @@
 
 library tree_table;
 
-import 'package:polymer/polymer.dart';
-import 'package:observe/observe.dart';
-import 'dart:html';
 import 'dart:collection' show Queue;
+import 'dart:html';
+import 'package:observe/observe.dart';
+import 'package:polymer/polymer.dart';
 
 /**
  * A Polymer TreeTable element.

@@ -12,10 +12,10 @@ class DragDropFile {
 
   Stream<String> onFile;
 
-  File selectedFile;
+  File _selectedFile;
 
   void loadFile(File file) {
-    selectedFile = file;
+    _selectedFile = file;
     document.title = file.name + " - Dump Info Viewer";
     FileReader reader = new FileReader();
     reader.onLoad.listen((e) {
@@ -58,6 +58,6 @@ class DragDropFile {
   }
 
   void reload() {
-    loadFile(selectedFile);
+    loadFile(_selectedFile);
   }
 }
