@@ -42,7 +42,7 @@ void _noSlide() {
 void _switchSlide(String id, {bool fromMouse: false}) {
   _noSlide();
   var slide = document.querySelector('#$id-slide');
-  slide.style.maxHeight = '10000px';
+  slide.style.maxHeight = 'none';
   slide.style.zIndex = '1';
 
   new Timer(animationTime, () {
