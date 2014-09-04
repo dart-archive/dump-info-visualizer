@@ -32,6 +32,13 @@ class InfoHelper {
   // [library name, class name, function name]
   final Map<String, List<String>> _path = {};
 
+  // A mapping from an id to a joined path.
+  // A joined path might look like "libname.classname.functionname"
+  final Map<String, String> _joinedPath = {};
+
+  // A mapping from a joined path to an id.
+  final Map<String, String> _reverseJoinedPath = {};
+
   Iterable<Map<String, dynamic>> allOfType(String type) =>
     _elementProperties[type].values;
 
@@ -50,6 +57,16 @@ class InfoHelper {
       return const [];
     }
   }
+  List<String> get joinedPaths => _reverseJoinedPath.keys;
+  String joinedPathFromId(String id) {
+    return _joinedPath[id];
+  }
+
+  String idFromJoinedPath(String path) {
+    return _reverseJoinedPath[path];
+  }
+
+  int sizeOf(String id) => _idToProperties[id]['size'];
 
   Map<String, dynamic> properties(String id) => _idToProperties[id];
   List<String> path(String id) => _path[id];
@@ -105,7 +122,11 @@ class InfoHelper {
     // Set up paths
     void traverseNames(Map<String, dynamic> node, List<String> prevPath) {
       List<String> newPath = new List.from(prevPath)..add(node['name']);
-      _path[node['id']] = newPath;
+      String id = node['id'];
+      _path[id] = newPath;
+      String joined = newPath.join('.');
+      _joinedPath[id] = joined;
+      _reverseJoinedPath[joined] = id;
 
       if (node['children'] != null) {
         for (String id in node['children']) {

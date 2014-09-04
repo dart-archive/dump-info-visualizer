@@ -20,7 +20,8 @@ import './history.dart' show HistoryState;
 
 part './dragdrop.dart';
 
-final List<String> slides = const <String>['info', 'hier', 'dep', 'load'];
+final List<String> slides =
+    const <String>['info', 'hier', 'dep', 'load', 'diff'];
 final Duration animationTime = const Duration(milliseconds: 100);
 
 void _noSlide() {
@@ -90,6 +91,7 @@ main() {
 
   TreeTable treeTable = querySelector('tree-table');
   DependencyView dependencyView = querySelector('dependency-view');
+  DiffView diffView = querySelector('diff-view');
 
 
   List<PaperTab> tabs = querySelectorAll('paper-tab');
@@ -118,6 +120,7 @@ main() {
         json['holding'],
         json['program']);
 
+    diffView.currentlyLoaded = info;
 
     if (alreadyLoaded) {
       treeTable.clear();

@@ -30,6 +30,7 @@ abstract class HistoryState {
           target = _lastDepFocus;
         }
         return new _DepHistoryState(target);
+      case 'diff': return new _DiffHistoryState();
       default: return null;
     }
   }
@@ -63,6 +64,8 @@ abstract class HistoryState {
         return new _HierHistoryState(json['pos']);
       case 'dep':
         return new _DepHistoryState(json['focus']);
+      case 'diff':
+        return new _DiffHistoryState();
       default: return null;
     }
   }
@@ -85,6 +88,17 @@ class _InfoHistoryState implements HistoryState {
   void finalize() { }
   dynamic toJson() {
     return { 'kind': 'info' };
+  }
+}
+
+class _DiffHistoryState implements HistoryState {
+  String get asUrl => "slide=diff";
+  void apply() {
+    HistoryState._slideSwitcher('diff');
+  }
+  void finalize() { }
+  dynamic toJson() {
+    return { 'kind': 'diff' };
   }
 }
 

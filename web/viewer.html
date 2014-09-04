@@ -16,10 +16,11 @@ BSD-style license that can be found in the LICENSE file.
     <script src="packages/web_components/dart_support.js"></script>
     <link rel="import" href="polymer_lib/tree_table.html">
     <link rel="import" href="polymer_lib/dependency_view.html">
+    <link rel="import" href="polymer_lib/diff_view.html">
+
     <link rel="import" href="packages/core_elements/core_toolbar.html">
     <link rel="import" href="packages/paper_elements/paper_tab.html">
     <link rel="import" href="packages/paper_elements/paper_tabs.html">
-
   </head>
   <body>
     <core-toolbar>
@@ -33,6 +34,9 @@ BSD-style license that can be found in the LICENSE file.
         </paper-tab>
         <paper-tab id="dep-tab" slide="dep" offset="2">
             DEPENDENCIES
+        </paper-tab>
+        <paper-tab id="diff-tab" slide="diff" offset="3">
+            DIFF
         </paper-tab>
         <!--
         TODO(tyoverby): Enable this when graphviz graphs are added.
@@ -68,8 +72,12 @@ BSD-style license that can be found in the LICENSE file.
       </div>
 
       <!-- Dependency Viewer -->
-      <div id="dep-slide" class="slide hidden">
+      <div id="dep-slide" class="slide">
           <dependency-view></dependency-view>
+      </div>
+
+      <div id="diff-slide" class="slide">
+          <diff-view></diff-view>
       </div>
 
 
