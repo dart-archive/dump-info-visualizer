@@ -30,7 +30,7 @@ abstract class HistoryState {
           target = _lastDepFocus;
         }
         return new _DepHistoryState(target);
-      case 'diff': return new _DiffHistoryState();
+      case 'diff': return new _DiffHistoryState(_lastDiffPos);
       default: return null;
     }
   }
@@ -65,7 +65,7 @@ abstract class HistoryState {
       case 'dep':
         return new _DepHistoryState(json['focus']);
       case 'diff':
-        return new _DiffHistoryState();
+        return new _DiffHistoryState(json['pos']);
       default: return null;
     }
   }
@@ -74,6 +74,7 @@ abstract class HistoryState {
   // back / forward buttons, we need to track these
   // values ourselves.
   static int _lastHierPos = 0;
+  static int _lastDiffPos = 0;
   static String _lastDepFocus = null;
   static HistoryState _currentState = null;
   static Function _slideSwitcher;
@@ -92,13 +93,23 @@ class _InfoHistoryState implements HistoryState {
 }
 
 class _DiffHistoryState implements HistoryState {
+  int pos;
+  _DiffHistoryState(this.pos);
+
   String get asUrl => "slide=diff";
   void apply() {
     HistoryState._slideSwitcher('diff');
+    new Timer(HistoryState._animationTime * 3, () {
+      document.body.scrollTop = pos;
+    });
   }
-  void finalize() { }
+  void finalize() {
+    pos = document.body.scrollTop;
+    HistoryState._lastDiffPos = pos;
+    window.history.replaceState(this.toJson(), "", "");
+  }
   dynamic toJson() {
-    return { 'kind': 'diff' };
+    return { 'kind': 'diff', 'pos': pos };
   }
 }
 

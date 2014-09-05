@@ -13,11 +13,11 @@ import '../history.dart';
 import '../viewer.dart';
 import '../async.dart';
 
-class DiffElement {
+class DiffItem {
   final String kind;
   final String path;
   final int diff;
-  DiffElement(this.kind, this.path, this.diff);
+  DiffItem(this.kind, this.path, this.diff);
 }
 
 @CustomTag('diff-view')
@@ -59,7 +59,7 @@ class DiffView extends PolymerElement {
     });
   }
 
-  void _addRow(DiffElement row) {
+  void _addRow(DiffItem row) {
     var e = new Element.tag('li')
       ..text = row.path
       ..classes.add(row.kind)
@@ -74,7 +74,7 @@ class DiffView extends PolymerElement {
 
   void diff(InfoHelper before, InfoHelper after) {
     list.children.clear();
-    List<DiffElement> changedElements = [];
+    List<DiffItem> changedElements = [];
     for (String path in before.joinedPaths) {
       String beforeId = before.idFromJoinedPath(path);
       int beforeSize = before.sizeOf(beforeId);
@@ -87,12 +87,12 @@ class DiffView extends PolymerElement {
         if (diff == 0) {
           continue;
         } else if (diff > 0) {
-          changedElements.add(new DiffElement('partial-add', path, diff));
+          changedElements.add(new DiffItem('partial-add', path, diff));
         } else {
-          changedElements.add(new DiffElement('partial-remove', path, diff));
+          changedElements.add(new DiffItem('partial-remove', path, diff));
         }
       } else {
-        changedElements.add(new DiffElement("full-remove", path, -beforeSize));
+        changedElements.add(new DiffItem("full-remove", path, -beforeSize));
       }
     }
 
@@ -101,13 +101,13 @@ class DiffView extends PolymerElement {
       int afterSize = after.sizeOf(afterId);
       if (afterSize == null) continue;
       if (before.idFromJoinedPath(path) == null) {
-        changedElements.add(new DiffElement("full-add", path, afterSize));
+        changedElements.add(new DiffItem("full-add", path, afterSize));
       }
     }
 
     changedElements.sort((a, b) => -a.diff.abs().compareTo(b.diff.abs()));
-    for (DiffElement diffElement in changedElements) {
-      _addRow(diffElement);
+    for (DiffItem DiffItem in changedElements) {
+      _addRow(DiffItem);
     }
   }
 }

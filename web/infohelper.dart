@@ -1,3 +1,7 @@
+// Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
+
 import 'dart:collection' show Queue;
 
 class Selection {
@@ -57,6 +61,7 @@ class InfoHelper {
       return const [];
     }
   }
+
   List<String> get joinedPaths => _reverseJoinedPath.keys;
   String joinedPathFromId(String id) {
     return _joinedPath[id];
