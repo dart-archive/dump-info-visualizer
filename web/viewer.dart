@@ -15,6 +15,7 @@ import 'package:paper_elements/paper_ripple.dart';
 import './format_versions/versions.dart';
 import './polymer_lib/tree_table.dart';
 import './polymer_lib/dependency_view.dart';
+import './polymer_lib/diff_view.dart';
 import './infohelper.dart';
 import './history.dart' show HistoryState;
 

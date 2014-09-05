@@ -7,6 +7,7 @@ library diff;
 import 'package:polymer/polymer.dart';
 import 'dart:html' hide Selection;
 import 'dart:convert';
+import 'dart:async';
 
 import '../infohelper.dart';
 import '../history.dart';
