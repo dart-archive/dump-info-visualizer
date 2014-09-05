@@ -62,7 +62,6 @@ class DiffView extends PolymerElement {
 
   void _addRow(DiffItem row) {
     var e = new Element.tag('li')
-      ..text = row.path
       ..classes.add(row.kind)
       ..children.addAll([
           new SpanElement()
