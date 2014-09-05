@@ -7,3 +7,5 @@ dependencies:
 transformers:
 - polymer:
     entry_points: web/viewer.html
+- $dart2js:
+    commandLineOptions: [--dump-info]
