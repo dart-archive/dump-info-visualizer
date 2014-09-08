@@ -2,7 +2,7 @@
 
 A web based visualizer for the dart2js `--dump-info` option.
 
-[Live Website](http://dart-lang.github.io/dump-info-visualizer/)
+[Live Website](https://dart-lang.github.io/dump-info-visualizer/)
 
 ## Screenshot
 
