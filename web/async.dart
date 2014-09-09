@@ -6,53 +6,84 @@ library async;
 
 import 'dart:async';
 
-// Mixes the two streams into one.  All the events from
-// the incoming streams are placed into the output Stream
-// in the order that they are recieved.
+/// Mixes the two streams into one.  All the events from
+/// the incoming streams are placed into the output Stream
+/// in the order that they are received.
 Stream intermix(Stream a, Stream b) {
   StreamController _streamController = new StreamController();
-  a.listen((e){
+  bool otherDone = false;
+  a.listen((e) {
     _streamController.add(e);
-  }, onError: (e){
+  }, onError: (e) {
     _streamController.addError(e);
+  }, onDone: () {
+    if (otherDone) {
+      _streamController.close();
+    }
+    otherDone = true;
   });
 
-  b.listen((e){
+  b.listen((e) {
     _streamController.add(e);
   }, onError: (e){
     _streamController.addError(e);
+  }, onDone: () {
+    if (otherDone) {
+      _streamController.close();
+    }
+    otherDone = true;
   });
 
   return _streamController.stream;
 }
 
-// Takes a Stream<A> and a Stream<B> and produces
-// a Stream<[A, B]>.  The first item in the stream
-// is produced after all other values have been
-// seen at least once.  After that happens, a new
-// list will be pushed through the stream when
-// either stream gets updated.
+/// Takes a `Stream<A>` [a] and a `Stream<B>` [b] and produces a
+/// `Stream<[A, B]>`
+///
+/// Once the function has received an item of each stream, it pushes the
+/// pair `[lastA, lastB]` for every new value of `lastA` or `lastB` (where
+/// `lastA` and `lastB` are the last received elements of `a` and `b`
+/// respectively.  The element of the non-changing stream is reused.
+///
+/// This stream may discard elements.  For example, if `a` sends two elements
+/// before `b` sends any, the first element from `a` will not exist in the
+/// stream.
 Stream pairStream(Stream a, Stream b) {
+  bool otherDone = false;
   StreamController _streamController = new StreamController();
+  var lastAFound = false;
+  var lastBFound = false;
   var lastA = null;
   var lastB = null;
 
-  a.listen((e){
+  a.listen((e) {
     lastA = e;
-    if (lastB != null) {
+    lastAFound = true;
+    if (lastBFound) {
       _streamController.add([lastA, lastB]);
     }
-  }, onError: (e){
+  }, onError: (e) {
     _streamController.addError(e);
+  }, onDone: () {
+    if (otherDone) {
+      _streamController.close();
+    }
+    otherDone = true;
   });
 
-  b.listen((e){
+  b.listen((e) {
     lastB = e;
-    if (lastA != null) {
+    lastBFound = true;
+    if (lastAFound) {
       _streamController.add([lastA, lastB]);
     }
-  }, onError: (e){
+  }, onError: (e) {
     _streamController.addError(e);
+  }, onDone: () {
+    if (otherDone) {
+      _streamController.close();
+    }
+    otherDone = true;
   });
 
   return _streamController.stream;

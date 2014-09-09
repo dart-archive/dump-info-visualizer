@@ -38,7 +38,7 @@ class InfoHelper {
 
   // A mapping from an id to a joined path.
   // A joined path might look like "libname.classname.functionname"
-  final Map<String, String> _joinedPath = {};
+  final Map<String, String> _joinedPath = <String, String>{};
 
   // A mapping from a joined path to an id.
   final Map<String, String> _reverseJoinedPath = {};
@@ -62,7 +62,8 @@ class InfoHelper {
     }
   }
 
-  List<String> get joinedPaths => _reverseJoinedPath.keys;
+  Iterable<String> get joinedPaths => _reverseJoinedPath.keys;
+
   String joinedPathFromId(String id) {
     return _joinedPath[id];
   }
@@ -140,8 +141,10 @@ class InfoHelper {
       }
     }
 
-    for (var node in properties['library'].values) {
-      traverseNames(node, []);
+    if (properties.containsKey('library')) {
+      for (var node in properties['library'].values) {
+        traverseNames(node, []);
+      }
     }
   }
 

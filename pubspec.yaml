@@ -1,6 +1,7 @@
 name: DumpVis
 description: A sample Polymer application
 dependencies:
+  unittest: any
   core_elements: any
   paper_elements: any
   polymer: '>=0.11.0 <0.12.0'
