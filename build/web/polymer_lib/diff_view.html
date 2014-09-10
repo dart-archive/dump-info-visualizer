@@ -1,0 +1,109 @@
+<!--
+Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+for details. All rights reserved. Use of this source code is governed by a
+BSD-style license that can be found in the LICENSE file.
+-->
+
+<link rel="import" href="../packages/polymer/polymer.html">
+<polymer-element name="diff-view">
+    <template>
+        <style>
+            #selection {
+                width: 100%;
+                float: left;
+                display: block;
+            }
+            ul {
+                float: left;
+                display: block;
+                width:100%;
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+            li {
+                padding: 3px;
+                padding-left: 10px;
+            }
+            .full-add {
+                background-color: rgba(0,255,0,1.0);
+            }
+            .full-add::before {
+                content: "+ added ";
+            }
+
+            .partial-add {
+                background-color: rgba(0,255,0,0.5);
+            }
+            .partial-add::before {
+                content: "+ bigger ";
+            }
+
+            .full-remove {
+                background-color: rgba(255,0,0,1.0);
+            }
+            .full-remove::before {
+                content: "- removed ";
+            }
+
+            .partial-remove {
+                background-color: rgba(255,0,0,0.5);
+            }
+            .partial-remove::before {
+                content: "- smaller ";
+            }
+
+            #before, #after {
+                width: 45%;
+                float:left;
+                margin: 5px;
+                padding: 10px;
+            }
+            #before-drop, #after-drop {
+                background-color: rgba(0,0,0,0.1);
+                width: 45%;
+                height: 80px;
+                color: rgba(0,0,0, 0.5);
+                float: left;
+                height: 100px;
+            }
+            #before-use-current, #after-use-current {
+                width: 50%;
+                float: left;
+            }
+            button {
+                height: 80px;
+            }
+        </style>
+        <div id="selection">
+            <h2> Select two files to diff </h2>
+            <div id="before">
+                <h3> BEFORE </h3>
+                <div id="before-drop">
+                    <h2>
+                        Drop File Here
+                    </h2>
+                    <br/>
+                    <input id="before-file-upload" type="file"/>
+                </div>
+                <div id="before-use-current">
+                    <button id="before-current-btn"> Use current file </button>
+                </div>
+            </div>
+            <div id="after">
+                <h3> AFTER </h3>
+                <div id="after-drop">
+                    <h2>Drop File Here</h2>
+                    <br/>
+                    <input id="after-file-upload" type="file"/>
+                </div>
+                <div id="after-use-current">
+                    <button id="after-current-btn"> Use current file </button>
+                </div>
+            </div>
+        </div>
+        <ul id="list">
+        </ul>
+    </template>
+</polymer-element>
+<script type="application/dart" src="diff_view.dart"></script>
