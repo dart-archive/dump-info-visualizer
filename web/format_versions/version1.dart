@@ -159,10 +159,9 @@ class ViewVersion1 {
         }
         // Return type
         row.addChild(renderSelfWith(() =>
-          [_cell('return type'), _verticalCell(
-            'inferred: ${node['inferredReturnType']},',
-            ' declared: ${node['returnType']}',
-            colspan: '5')
+          [_cell('return type'),
+           _typeCell(node['returnType'], node['inferredReturnType'],
+                colspan: '5')
           ]));
         // Parameters
         if (node.containsKey('parameters')) {
@@ -170,12 +169,9 @@ class ViewVersion1 {
             String declaredType = param['declaredType'] == null
                 ? "unavailable" : param['declaredType'];
             row.addChild(renderSelfWith(() =>
-              [_cell('parameter'), _cell(param['name']),
-               _verticalCell(
-                  "inferred: ${param['type']}",
-                  "declared: ${declaredType}",
-                  colspan: '3'
-               )]
+              [_cell('parameter'),
+               _cell(param['name']),
+               _typeCell(declaredType, param['type'], colspan: '4')]
             ));
           }
         }
@@ -197,22 +193,19 @@ class ViewVersion1 {
         if (node['inferredType'] != null && node['type'] != null) {
           row.addChild(renderSelfWith(() =>
               [_cell('type'),
-               _verticalCell(
-                 'inferred: ${node['inferredType']}',
-                 'declared: ${node['type']}',
-                 colspan: '5', pre: true)]));
+               _typeCell(node['type'], node['inferredType'], colspan: '5')]));
         }
         break;
-        case 'class':
-        case 'library':
-          // Show how much of the size we can't account for.
-          row.addChild(renderSelfWith(() =>
-              [_cell('scaffolding'),
-               _cell('(unaccounted for)'),
-               _cell(node['size'] -
-                     _computeSize(node, fetch, force: true), align: 'right')]
+      case 'class':
+      case 'library':
+        // Show how much of the size we can't account for.
+        row.addChild(renderSelfWith(() =>
+            [_cell('scaffolding'),
+             _cell('(unaccounted for)'),
+             _cell(node['size'] -
+                 _computeSize(node, fetch, force: true), align: 'right')]
           ));
-          break;
+        break;
     }
   }
 
@@ -281,5 +274,16 @@ class ViewVersion1 {
 
   _depsVisible(String id) {
     this.depView.target = id;
+  }
+
+  static _typeCell(String declaredType, String inferredType, {colspan: '1'}) {
+    return _verticalCell(
+        new SpanElement()
+          ..appendText('inferred: ')
+          ..append(_span(inferredType, cssClass: 'preSpan')),
+        new SpanElement()
+          ..appendText('declared: ')
+          ..append(_span(declaredType, cssClass: 'preSpan')),
+        colspan: colspan);
   }
 }

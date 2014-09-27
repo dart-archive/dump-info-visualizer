@@ -175,11 +175,11 @@ class TreeTableRow extends TableRowElement with Polymer, Observable {
 
   void _setArrow(bool hasChildren, bool open) {
     if (hasChildren) {
-        if (open) {
-          this.$['arrow'].text = '▼';
-        } else {
-          this.$['arrow'].text = '▶';
-        }
+      if (open) {
+        this.$['arrow'].text = '▼';
+      } else {
+        this.$['arrow'].text = '▶';
+      }
     } else {
       this.$['arrow'].text = '○';
     }
@@ -258,7 +258,8 @@ class LogicalRow {
   }
 
   void hide() {
-    this.parentElement.children.remove(this.getElement());
+    //this.parentElement.children.remove(this.getElement());
+    this.getElement().remove();
     if (this.open) {
       this.children.forEach((child) => child.hide());
     }
@@ -273,10 +274,12 @@ class LogicalRow {
     if (before != null) {
       // Place this element right after [before]
       int loc = this.parentElement.children.indexOf(before) + 1;
+      print(loc);
       this.parentElement.children.insert(loc, this.getElement());
     } else {
       // Prepend this element into the table
       this.parentElement.children.insert(0, this.getElement());
+      //this.parentElement.append(this.getElement());
     }
     this.rowElement._level = this.level;
     if (!this.rowElement.populated) {

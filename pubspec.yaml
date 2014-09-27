@@ -10,3 +10,4 @@ transformers:
     entry_points: web/viewer.html
 - $dart2js:
     commandLineOptions: [--dump-info]
+    minify: false

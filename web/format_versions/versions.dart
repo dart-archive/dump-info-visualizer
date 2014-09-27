@@ -34,9 +34,10 @@ int _toInt(dynamic n) {
  */
 TableCellElement _cell(dynamic text,
     {String align: 'left', String colspan: '1', bool pre: false}) {
+
   TableCellElement element = new TableCellElement()
-  ..style.textAlign = align
-  ..attributes['colspan'] = colspan;
+      ..style.textAlign = align
+      ..attributes['colspan'] = colspan;
 
   if (pre) {
     PreElement pre = new PreElement();
@@ -48,19 +49,29 @@ TableCellElement _cell(dynamic text,
     element.text = text.toString();
   }
 
-
   return element;
 }
 
+SpanElement _span(dynamic contents, {String cssClass}) {
+  SpanElement span = new SpanElement();
+  if (cssClass != null) span.classes.add(cssClass);
+  if (contents is Node) {
+    span.append(contents);
+  } else {
+    span.appendText('$contents');
+  }
+  return span;
+}
+
 TableCellElement _verticalCell(dynamic upper, dynamic lower,
-    {String align: 'left', String colspan: '1', bool pre: false}) {
+    {String align: 'left', String colspan: '1'}) {
   DivElement div = new DivElement();
   div.children.addAll([
-    new SpanElement()..text = upper,
-    new BRElement(),
-    new SpanElement()..text = lower
+      upper is SpanElement ? upper : _span(upper),
+      new BRElement(),
+      lower is SpanElement ? lower : _span(lower)
   ]);
-  return _cell(div, align: align, colspan: colspan, pre:pre);
+  return _cell(div, align: align, colspan: colspan, pre: false);
 }
 
 /**
