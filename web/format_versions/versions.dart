@@ -55,12 +55,19 @@ TableCellElement _cell(dynamic text,
 TableCellElement _verticalCell(dynamic upper, dynamic lower,
     {String align: 'left', String colspan: '1', bool pre: false}) {
   DivElement div = new DivElement();
+  Node upperNode, lowerNode;
+  if (pre) {
+    upper = new PreElement()..text = (upper.toString());
+    lower = new PreElement()..text = (lower.toString());
+  }
+  if (upper is! Node) upper = new SpanElement()..text = (upper.toString());
+  if (lower is! Node) lower = new SpanElement()..text = (lower.toString());
   div.children.addAll([
-    new SpanElement()..text = upper,
+    upper,
     new BRElement(),
-    new SpanElement()..text = lower
+    lower
   ]);
-  return _cell(div, align: align, colspan: colspan, pre:pre);
+  return _cell(div, align: align, colspan: colspan, pre: false);
 }
 
 /**

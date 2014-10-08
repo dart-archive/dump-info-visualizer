@@ -110,7 +110,7 @@ class InfoHelper {
         String id = prop['id'];
         _idToProperties[id] = prop;
         if (deps[id] != null) {
-          _dependencies[id] = deps[id].map(selectionFor);
+          _dependencies[id] = deps[id].map(selectionFor).toList();
         }
       }
     }
