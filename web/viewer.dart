@@ -23,14 +23,15 @@ part './dragdrop.dart';
 
 final List<String> slides =
     const <String>['info', 'hier', 'dep', 'load', 'diff'];
-final Duration animationTime = const Duration(milliseconds: 100);
+final Duration animationTime = const Duration(milliseconds: 10);
 
 void _noSlide() {
   // Disable all of the slides and tabs
   for (String id in slides) {
     var slide = document.querySelector('#$id-slide');
     slide.style.opacity = '0';
-    slide.style.left = '100px';
+    //slide.style.left = '100px';
+    slide.style.left = '0px';
     slide.style.maxHeight = '0px';
     slide.style.zIndex = '0';
 
