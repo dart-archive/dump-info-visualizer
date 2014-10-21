@@ -117,3 +117,8 @@ paper-tab {
   box-shadow: none;
   padding: 2px;
 }
+
+body /deep/ .preSpan {
+  font-family: monospace;
+  /*white-space: pre;*/
+}

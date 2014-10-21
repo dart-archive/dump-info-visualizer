@@ -140,6 +140,11 @@ paper-tab {
   box-shadow: none;
   padding: 2px;
 }
+
+body /deep/ .preSpan {
+  font-family: monospace;
+  /*white-space: pre;*/
+}
 </style><script src="packages/web_components/platform.js"></script><script src="packages/web_components/dart_support.js"></script>
 
 
@@ -480,7 +485,6 @@ html /deep/ [segment], html /deep/ segment {
         display: table-cell;
         vertical-align: middle;
       }
-
     </style>
     <!--
       The first column in a row.  This column is special because it contains
@@ -1958,4 +1962,4 @@ polyfill-next-selector { content: '#tabsContainer > *:not(#selectionBar)'; }
     
   
 
-<script src="viewer.html_bootstrap.dart.js"></script></body></html>
+<script src="viewer.html_bootstrap.dart.js" async=""></script></body></html>
