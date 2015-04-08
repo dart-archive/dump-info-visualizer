@@ -4546,7 +4546,7 @@ var dart = [
     $isMatch: 1
   }
 }],
-["async", "async.dart", , Z, {
+["async", "package:dump_viz/async.dart", , Z, {
   "^": "",
   intermix: function(a, b) {
     var t1, _streamController;
@@ -16019,7 +16019,7 @@ var dart = [
     }, null, null, 2, 0, null, 134, "call"]
   }
 }],
-["diff_alg", "polymer_lib/diff_alg.dart", , Z, {
+["diff_alg", "package:dump_viz/diff_alg.dart", , Z, {
   "^": "",
   diff0: function(before, after) {
     var changedElements, t1, path, beforeSize, afterSize, diff, t2;
@@ -16650,7 +16650,7 @@ var dart = [
     }
   }
 }],
-["", "infohelper.dart", , Z, {
+["", "package:dump_viz/infohelper.dart", , Z, {
   "^": "",
   Selection: {
     "^": "Object;elementId<,mask>"

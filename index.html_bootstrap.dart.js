@@ -4598,7 +4598,7 @@ var dart = [
     $isMatch: 1
   }
 }],
-["app_bootstrap", "viewer.html_bootstrap.dart", , E, {
+["app_bootstrap", "index.html_bootstrap.dart", , E, {
   "^": "",
   main0: [function() {
     var t1, t2, t3, t4, t5;
@@ -4670,7 +4670,7 @@ var dart = [
   }
 },
 1],
-["async", "async.dart", , Z, {
+["async", "package:dump_viz/async.dart", , Z, {
   "^": "",
   intermix: function(a, b) {
     var t1, _streamController;
@@ -16364,7 +16364,7 @@ var dart = [
     }, null, null, 2, 0, null, 137, "call"]
   }
 }],
-["diff_alg", "polymer_lib/diff_alg.dart", , Z, {
+["diff_alg", "package:dump_viz/diff_alg.dart", , Z, {
   "^": "",
   diff0: function(before, after) {
     var changedElements, t1, path, beforeSize, afterSize, diff, t2;
@@ -16995,7 +16995,7 @@ var dart = [
     }
   }
 }],
-["", "infohelper.dart", , Z, {
+["", "package:dump_viz/infohelper.dart", , Z, {
   "^": "",
   Selection: {
     "^": "Object;elementId<,mask>"
