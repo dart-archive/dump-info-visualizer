@@ -8,15 +8,17 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html';
 import 'dart:js';
-import 'package:polymer/polymer.dart';
-import 'package:paper_elements/paper_tab.dart';
+
 import 'package:paper_elements/paper_ripple.dart';
+import 'package:paper_elements/paper_tab.dart';
+import 'package:polymer/polymer.dart';
+
+import 'package:dump_viz/infohelper.dart';
 
 import './format_versions/versions.dart';
 import './polymer_lib/tree_table.dart';
 import './polymer_lib/dependency_view.dart';
 import './polymer_lib/diff_view.dart';
-import './infohelper.dart';
 import './history.dart' show HistoryState;
 
 part './dragdrop.dart';

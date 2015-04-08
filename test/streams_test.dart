@@ -3,8 +3,10 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
+
+import 'package:dump_viz/async.dart';
+
 import 'package:unittest/unittest.dart';
-import '../web/async.dart';
 
 class StreamWrapper<A> {
   final List<A> list = [];

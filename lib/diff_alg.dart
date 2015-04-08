@@ -4,7 +4,7 @@
 
 library diff_alg;
 
-import '../infohelper.dart';
+import 'infohelper.dart';
 
 class DiffItem {
   final String kind;

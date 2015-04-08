@@ -4,10 +4,12 @@
 
 library dependency_view;
 
-import 'package:polymer/polymer.dart';
 import 'dart:html' hide Selection;
 
-import '../infohelper.dart';
+import 'package:polymer/polymer.dart';
+
+import 'package:dump_viz/infohelper.dart';
+
 import '../history.dart';
 
 @CustomTag('dependency-view')

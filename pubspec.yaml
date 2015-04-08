@@ -1,4 +1,4 @@
-name: DumpVis
+name: dump_viz
 description: A sample Polymer application
 dependencies:
   core_elements: any

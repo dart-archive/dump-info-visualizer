@@ -4,15 +4,17 @@
 
 library diff;
 
-import 'package:polymer/polymer.dart';
-import 'dart:html' hide Selection;
-import 'dart:convert';
 import 'dart:async';
+import 'dart:convert';
+import 'dart:html' hide Selection;
 
-import '../infohelper.dart';
+import 'package:polymer/polymer.dart';
+
+import 'package:dump_viz/async.dart';
+import 'package:dump_viz/diff_alg.dart';
+import 'package:dump_viz/infohelper.dart';
+
 import '../viewer.dart';
-import '../async.dart';
-import 'diff_alg.dart';
 
 @CustomTag('diff-view')
 class DiffView extends PolymerElement {

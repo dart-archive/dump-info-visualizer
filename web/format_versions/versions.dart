@@ -5,9 +5,11 @@
 library versions;
 
 import 'dart:html';
+
+import 'package:dump_viz/infohelper.dart';
+
 import '../polymer_lib/tree_table.dart';
 import '../polymer_lib/dependency_view.dart';
-import '../infohelper.dart';
 import '../history.dart';
 
 part 'version0.dart';
