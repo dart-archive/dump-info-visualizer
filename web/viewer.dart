@@ -96,7 +96,7 @@ main() {
   DiffView diffView = querySelector('diff-view');
 
 
-  List<PaperTab> tabs = querySelectorAll('paper-tab');
+  var tabs = querySelectorAll('paper-tab');
   for (PaperTab tab in tabs) {
     tab.onClick.listen((_){
       String link = tab.attributes['slide'];

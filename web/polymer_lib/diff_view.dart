@@ -10,7 +10,6 @@ import 'dart:convert';
 import 'dart:async';
 
 import '../infohelper.dart';
-import '../history.dart';
 import '../viewer.dart';
 import '../async.dart';
 import 'diff_alg.dart';

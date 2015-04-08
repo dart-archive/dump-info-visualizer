@@ -271,11 +271,7 @@ class ViewVersion1 {
     }
     row.data = cells;
   }
-
-  _depsVisible(String id) {
-    this.depView.target = id;
-  }
-
+  
   static _typeCell(String declaredType, String inferredType, {colspan: '1'}) {
     return _verticalCell(
         new SpanElement()
