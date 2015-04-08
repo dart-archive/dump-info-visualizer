@@ -78,7 +78,7 @@ class TreeTable extends PolymerElement {
    * Sets the titles for the columns of the table.
    */
   void columnInfo(List<String> names, List<String> helps, List<String> sizes) {
-    for (int i = 0; i < names.length; i ++) {
+    for (int i = 0; i < names.length; i++) {
       TableCellElement cell = new TableCellElement();
       cell.style.textAlign = 'center';
       cell.text = names[i];

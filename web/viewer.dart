@@ -21,8 +21,13 @@ import './history.dart' show HistoryState;
 
 part './dragdrop.dart';
 
-final List<String> slides =
-    const <String>['info', 'hier', 'dep', 'load', 'diff'];
+final List<String> slides = const <String>[
+  'info',
+  'hier',
+  'dep',
+  'load',
+  'diff'
+];
 final Duration animationTime = const Duration(milliseconds: 10);
 
 void _noSlide() {
@@ -65,8 +70,8 @@ void _switchSlide(String id, {bool fromMouse: false}) {
           'y': 0
         };
         ripple.jsElement.callMethod('downAction', [new JsObject.jsify(pos)]);
-        window.animationFrame.then((_) =>
-            ripple.jsElement.callMethod('upAction', []));
+        window.animationFrame
+            .then((_) => ripple.jsElement.callMethod('upAction', []));
       }
     }
   });
@@ -79,11 +84,10 @@ main() {
   _switchSlide('load');
 
   var dragDrop = new DragDropFile(
-      querySelector('#drag-target'),
-      querySelector('#file_upload'));
+      querySelector('#drag-target'), querySelector('#file_upload'));
 
   var refreshButton = querySelector('#refresh');
-  refreshButton.onClick.listen((e){
+  refreshButton.onClick.listen((e) {
     e.preventDefault();
     e.stopPropagation();
     dragDrop.reload();
@@ -95,10 +99,9 @@ main() {
   DependencyView dependencyView = querySelector('dependency-view');
   DiffView diffView = querySelector('diff-view');
 
-
   var tabs = querySelectorAll('paper-tab');
   for (PaperTab tab in tabs) {
-    tab.onClick.listen((_){
+    tab.onClick.listen((_) {
       String link = tab.attributes['slide'];
       HistoryState.switchTo(new HistoryState(link));
     });
@@ -117,10 +120,8 @@ main() {
     Map<String, dynamic> json = JSON.decode(jsonString);
     document.querySelector('core-toolbar').style.top = "0";
 
-    var info = new InfoHelper(
-        json['elements'],
-        json['holding'],
-        json['program']);
+    var info =
+        new InfoHelper(json['elements'], json['holding'], json['program']);
 
     diffView.currentlyLoaded = info;
 

@@ -14,30 +14,24 @@ import '../viewer.dart';
 import '../async.dart';
 import 'diff_alg.dart';
 
-
 @CustomTag('diff-view')
 class DiffView extends PolymerElement {
   UListElement list;
   InfoHelper currentlyLoaded;
 
-  DiffView.created(): super.created();
+  DiffView.created() : super.created();
 
   void ready() {
     InfoHelper strToHelper(String input) {
       Map<String, dynamic> json = JSON.decode(input);
-      return new InfoHelper(
-          json['elements'],
-          json['holding'],
-          json['program']);
+      return new InfoHelper(json['elements'], json['holding'], json['program']);
     }
     list = $['list'];
 
     var beforeFile = new DragDropFile(
-        $['before-drop'],
-        $['before-file-upload']).onFile.map(strToHelper);
+        $['before-drop'], $['before-file-upload']).onFile.map(strToHelper);
     var afterFile = new DragDropFile(
-        $['after-drop'],
-        $['after-file-upload']).onFile.map(strToHelper);
+        $['after-drop'], $['after-file-upload']).onFile.map(strToHelper);
     var beforeUseCurrent = $['before-use-current'];
     var afterUseCurrent = $['after-use-current'];
 
@@ -58,11 +52,11 @@ class DiffView extends PolymerElement {
     var e = new Element.tag('li')
       ..classes.add(row.kind)
       ..children.addAll([
-          new SpanElement()
-          ..text = row.path,
-          new SpanElement()
+        new SpanElement()..text = row.path,
+        new SpanElement()
           ..text = row.diff.toString()
-          ..style.float = "right"]);
+          ..style.float = "right"
+      ]);
     list.children.add(e);
   }
 

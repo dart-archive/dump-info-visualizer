@@ -44,7 +44,7 @@ class InfoHelper {
   final Map<String, String> _reverseJoinedPath = {};
 
   Iterable<Map<String, dynamic>> allOfType(String type) =>
-    _elementProperties[type].values;
+      _elementProperties[type].values;
 
   List<Selection> dependencies(String id) {
     if (_dependencies[id] != null) {
@@ -85,7 +85,7 @@ class InfoHelper {
 
   // Given an id, returns the node associated with it.
   dynamic elementById(String id) {
-    var split =  id.split("/");
+    var split = id.split("/");
     return _elementProperties[split[0]][split[1]];
   }
 
@@ -100,10 +100,9 @@ class InfoHelper {
   }
 
   InfoHelper(Map<String, Map<String, Map<String, dynamic>>> properties,
-             Map<String, List<String>> deps,
-             Map<String, dynamic> programProperties):
-               _elementProperties = properties,
-               _programProperties = programProperties{
+      Map<String, List<String>> deps, Map<String, dynamic> programProperties)
+      : _elementProperties = properties,
+        _programProperties = programProperties {
     // Set up dependencies
     for (Map<String, dynamic> section in properties.values) {
       for (var prop in section.values) {
@@ -119,9 +118,9 @@ class InfoHelper {
     deps.forEach((e, deps) {
       for (var dep in deps) {
         Selection selection = selectionFor(dep);
-        _reverseDependencies.putIfAbsent(selection.elementId, () =>
-            <Selection>[])
-              .add(selection..elementId = e);
+        _reverseDependencies
+            .putIfAbsent(selection.elementId, () => <Selection>[])
+            .add(selection..elementId = e);
       }
     });
 
@@ -149,7 +148,7 @@ class InfoHelper {
   }
 
   bool _parentsAllContained(String id, Set<String> container) =>
-    reverseDependencies(id).every((a) => container.contains(a.elementId));
+      reverseDependencies(id).every((a) => container.contains(a.elementId));
 
   Set<String> _triviallyReachedFrom(String id) {
     Queue<String> queue = new Queue<String>();
@@ -170,8 +169,7 @@ class InfoHelper {
     return owns;
   }
 
-  int triviallyOwnedSize(String id) =>
-    _triviallyReachedFrom(id)
+  int triviallyOwnedSize(String id) => _triviallyReachedFrom(id)
       .map((a) => properties(a)['size'])
       .reduce((a, b) => a + b);
 }

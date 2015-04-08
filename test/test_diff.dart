@@ -20,7 +20,7 @@ class FakeInfoHelper {
     elements['function'] = functions;
     elements['library'] = libraries;
 
-    Map<String, dynamic>  liba = { 'name' : "LibA" };
+    Map<String, dynamic> liba = {'name': "LibA"};
     libraries['0'] = liba;
     List<String> children = [];
     liba['children'] = children;
@@ -44,17 +44,16 @@ void main() {
     var one = [{'name': 'foo', 'size': 10}];
     var two = [{'name': 'foo', 'size': 20}];
     expect(diff(new FakeInfoHelper.fromFuncs(one).info,
-                new FakeInfoHelper.fromFuncs(two).info),
-           equals([new DiffItem('partial-add', 'LibA.foo', 10)]));
+            new FakeInfoHelper.fromFuncs(two).info),
+        equals([new DiffItem('partial-add', 'LibA.foo', 10)]));
   });
   test('add/remove', () {
     var one = [{'name': 'foo', 'size': 10}];
     var two = [{'name': 'bar', 'size': 20}];
     expect(diff(new FakeInfoHelper.fromFuncs(one).info,
-                new FakeInfoHelper.fromFuncs(two).info),
-           equals([
-             new DiffItem('full-add', 'LibA.bar', 20),
-             new DiffItem('full-remove', 'LibA.foo', -10)
-           ]));
+        new FakeInfoHelper.fromFuncs(two).info), equals([
+      new DiffItem('full-add', 'LibA.bar', 20),
+      new DiffItem('full-remove', 'LibA.foo', -10)
+    ]));
   });
 }

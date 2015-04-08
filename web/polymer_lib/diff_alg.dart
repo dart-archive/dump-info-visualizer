@@ -12,7 +12,7 @@ class DiffItem {
   final int diff;
 
   DiffItem(this.kind, this.path, this.diff);
-  bool operator==(other) {
+  bool operator ==(other) {
     return other.kind == kind && other.path == path && other.diff == diff;
   }
   int get hashCode {

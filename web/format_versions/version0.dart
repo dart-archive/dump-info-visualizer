@@ -11,30 +11,30 @@ void processData0(Map document, TreeTable tt) {
   // Information about the whole program.
   TableElement programInfoDiv = querySelector('#prog-info');
   programInfoDiv.children.addAll([
-        'Program Size: ' + prog['program_size'].toString() + ' bytes',
-        'Compile Time: ' + prog['compile_time'],
-        'Compile Duration: ' + prog['compile_duration']
-      ].map((t) => new HeadingElement.h3()..text = t));
+    'Program Size: ' + prog['program_size'].toString() + ' bytes',
+    'Compile Time: ' + prog['compile_time'],
+    'Compile Duration: ' + prog['compile_duration']
+  ].map((t) => new HeadingElement.h3()..text = t));
 
   tt.columnInfo(
-    // Names
-    ['Kind', 'Name', 'Bytes', 'Bytes R', '%', 'Type'],
-    // Help Info
-    [
-      '',
-      'The given name of the element',
-      'The direct size attributed to the element',
-      'The sum of the sizes of all the elements that can '
-          'only be reached from this element',
-      'The percentage of the direct size compared to the '
-          'program size',
-      'The given type of the element'
-    ],
-    // Sizes
-    ["200px", null, "100px", "100px", "70px", null]);
+      // Names
+      ['Kind', 'Name', 'Bytes', 'Bytes R', '%', 'Type'],
+      // Help Info
+      [
+    '',
+    'The given name of the element',
+    'The direct size attributed to the element',
+    'The sum of the sizes of all the elements that can '
+        'only be reached from this element',
+    'The percentage of the direct size compared to the '
+        'program size',
+    'The given type of the element'
+  ],
+      // Sizes
+      ["200px", null, "100px", "100px", "70px", null]);
   // A recursive function that builds up a tree of LogicalRows
-  LogicalRow buildTree(Map<String, dynamic> node, bool isTop,
-                       HtmlElement tbody, int level) {
+  LogicalRow buildTree(
+      Map<String, dynamic> node, bool isTop, HtmlElement tbody, int level) {
     if (node['size'] == null) {
       node['size'] = _computeSize(node, (a) => a);
     }
@@ -57,19 +57,14 @@ void processData0(Map document, TreeTable tt) {
 
   // The top level library nodes.
   for (var library in libs) {
-   buildTree(library, true, tt.tbody, 0).show();
+    buildTree(library, true, tt.tbody, 0).show();
   }
-
-
 }
 
 void _renderRow0(TreeTableRow row, LogicalRow logicalRow) {
   Map<String, dynamic> props = logicalRow.data;
   List<TableCellElement> cells = [];
-  cells.addAll([
-    _cell(props['kind']),
-    _cell(props['name'])
-  ]);
+  cells.addAll([_cell(props['kind']), _cell(props['name'])]);
   switch (props['kind']) {
     case 'function':
     case 'closure':
@@ -112,9 +107,7 @@ void _renderRow0(TreeTableRow row, LogicalRow logicalRow) {
       break;
     case 'code':
       cells.removeLast();
-      cells.addAll([
-        _cell(props['code'], colspan: '4', pre: true)
-      ]);
+      cells.addAll([_cell(props['code'], colspan: '4', pre: true)]);
   }
   row.data = cells;
 }

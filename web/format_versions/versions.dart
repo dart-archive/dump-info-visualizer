@@ -34,10 +34,9 @@ int _toInt(dynamic n) {
  */
 TableCellElement _cell(dynamic text,
     {String align: 'left', String colspan: '1', bool pre: false}) {
-
   TableCellElement element = new TableCellElement()
-      ..style.textAlign = align
-      ..attributes['colspan'] = colspan;
+    ..style.textAlign = align
+    ..attributes['colspan'] = colspan;
 
   if (pre) {
     PreElement pre = new PreElement();
@@ -67,9 +66,9 @@ TableCellElement _verticalCell(dynamic upper, dynamic lower,
     {String align: 'left', String colspan: '1'}) {
   DivElement div = new DivElement();
   div.children.addAll([
-      upper is SpanElement ? upper : _span(upper),
-      new BRElement(),
-      lower is SpanElement ? lower : _span(lower)
+    upper is SpanElement ? upper : _span(upper),
+    new BRElement(),
+    lower is SpanElement ? lower : _span(lower)
   ]);
   return _cell(div, align: align, colspan: colspan, pre: false);
 }
@@ -86,9 +85,9 @@ int _computeSize(Map<String, dynamic> info, Function fetchElement,
     return _toInt(info['size']);
   } else if (info.containsKey('children')) {
     return info['children']
-      .map(fetchElement)
-      .map((a) => _computeSize(a, fetchElement))
-      .fold(0, (a, b) => a + b);
+        .map(fetchElement)
+        .map((a) => _computeSize(a, fetchElement))
+        .fold(0, (a, b) => a + b);
   } else {
     return 0;
   }

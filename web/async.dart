@@ -25,7 +25,7 @@ Stream intermix(Stream a, Stream b) {
 
   b.listen((e) {
     _streamController.add(e);
-  }, onError: (e){
+  }, onError: (e) {
     _streamController.addError(e);
   }, onDone: () {
     if (otherDone) {

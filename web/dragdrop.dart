@@ -21,8 +21,8 @@ class DragDropFile {
     reader.onLoad.listen((e) {
       String fileContents = reader.result;
       // Substring because fileContents contains the mime type
-      var contents = window.atob(
-          fileContents.substring(fileContents.indexOf(',') + 1));
+      var contents =
+          window.atob(fileContents.substring(fileContents.indexOf(',') + 1));
       this._streamController.add(contents);
     });
     reader.readAsDataUrl(file);
@@ -32,7 +32,7 @@ class DragDropFile {
     this._streamController = new StreamController();
     this.onFile = _streamController.stream;
 
-    _fileUpload.onChange.listen((event){
+    _fileUpload.onChange.listen((event) {
       var file = (event.target as InputElement).files.first;
       loadFile(file);
     });

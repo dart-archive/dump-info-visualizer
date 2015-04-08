@@ -21,13 +21,13 @@ void main() {
     var c = intermix(a.stream, b.stream);
     var w = new StreamWrapper(c);
 
-    scheduleMicrotask(()=> a.add(5));
-    scheduleMicrotask(()=> b.add(6));
-    scheduleMicrotask(()=> a.add(7));
-    scheduleMicrotask(()=> b.add(8));
+    scheduleMicrotask(() => a.add(5));
+    scheduleMicrotask(() => b.add(6));
+    scheduleMicrotask(() => a.add(7));
+    scheduleMicrotask(() => b.add(8));
 
     var check = expectAsync(() {
-      expect(w.list, equals([5,6,7,8]));
+      expect(w.list, equals([5, 6, 7, 8]));
     });
 
     Timer.run(check);
@@ -39,14 +39,13 @@ void main() {
     var c = pairStream(a.stream, b.stream);
     var w = new StreamWrapper(c);
 
-
-    scheduleMicrotask(()=> a.add(5));
-    scheduleMicrotask(()=> b.add(6));
-    scheduleMicrotask(()=> a.add(7));
-    scheduleMicrotask(()=> b.add(8));
+    scheduleMicrotask(() => a.add(5));
+    scheduleMicrotask(() => b.add(6));
+    scheduleMicrotask(() => a.add(7));
+    scheduleMicrotask(() => b.add(8));
 
     var check = expectAsync(() {
-      expect(w.list, equals([[5,6], [7,6], [7,8]]));
+      expect(w.list, equals([[5, 6], [7, 6], [7, 8]]));
     });
 
     Timer.run(check);

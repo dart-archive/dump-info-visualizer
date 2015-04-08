@@ -34,7 +34,7 @@ class DependencyView extends PolymerElement {
 
   set dumpInfo(InfoHelper dumpInfo) {
     TableSectionElement getTbody(TableElement table) =>
-      table.querySelector('tbody');
+        table.querySelector('tbody');
 
     _dumpInfo = dumpInfo;
     ownersTable = getTbody($['in']);
@@ -48,22 +48,18 @@ class DependencyView extends PolymerElement {
     // TODO(TyOverby): Make a polymer element to abstract this mess
     return new TableRowElement()
       ..children.addAll([
-          // Name Column
-          new TableCellElement()
-            ..text = path.join('.'),
-          new TableCellElement()
-            ..text = mask,
-          // Stats Column
-          new TableCellElement()
-            ..children.add(
-              new SpanElement()
-                 ..text = '↖ ${_dumpInfo.reverseDependencies(id).length} | '
-                          '${_dumpInfo.dependencies(id).length} ↘'
-                 ..style.float = 'right'
-            )
-        ])
-        ..onClick.listen((_) =>
-              HistoryState.switchTo(new HistoryState('dep', depTarget: id)));
+        // Name Column
+        new TableCellElement()..text = path.join('.'),
+        new TableCellElement()..text = mask,
+        // Stats Column
+        new TableCellElement()
+          ..children.add(new SpanElement()
+            ..text = '↖ ${_dumpInfo.reverseDependencies(id).length} | '
+            '${_dumpInfo.dependencies(id).length} ↘'
+            ..style.float = 'right')
+      ])
+      ..onClick.listen(
+          (_) => HistoryState.switchTo(new HistoryState('dep', depTarget: id)));
   }
 
   void _populate(String id) {
@@ -75,11 +71,13 @@ class DependencyView extends PolymerElement {
     List<Selection> owned = _dumpInfo.dependencies(id);
 
     Iterable<TableRowElement> sortedRows(Iterable<Selection> ids) {
-      var sorted = ids.toList()..sort((sel1, sel2) =>
-          _dumpInfo.reverseDependencies(sel1.elementId).length -
-          _dumpInfo.reverseDependencies(sel2.elementId).length);
-      return sorted.map((s) => _generateRow(s.elementId, s.mask))
-                   .where((a) => a != null);
+      var sorted = ids.toList()
+        ..sort((sel1, sel2) => _dumpInfo
+                .reverseDependencies(sel1.elementId).length -
+            _dumpInfo.reverseDependencies(sel2.elementId).length);
+      return sorted
+          .map((s) => _generateRow(s.elementId, s.mask))
+          .where((a) => a != null);
     }
 
     ownersTable.children.addAll(sortedRows(owners));

@@ -22,16 +22,20 @@ abstract class HistoryState {
 
   factory HistoryState(String type, {String depTarget: null}) {
     switch (type) {
-      case 'info': return new _InfoHistoryState();
-      case 'hier': return new _HierHistoryState(_lastHierPos);
+      case 'info':
+        return new _InfoHistoryState();
+      case 'hier':
+        return new _HierHistoryState(_lastHierPos);
       case 'dep':
         var target = depTarget;
         if (target == null) {
           target = _lastDepFocus;
         }
         return new _DepHistoryState(target);
-      case 'diff': return new _DiffHistoryState(_lastDiffPos);
-      default: return null;
+      case 'diff':
+        return new _DiffHistoryState(_lastDiffPos);
+      default:
+        return null;
     }
   }
 
@@ -66,7 +70,8 @@ abstract class HistoryState {
         return new _DepHistoryState(json['focus']);
       case 'diff':
         return new _DiffHistoryState(json['pos']);
-      default: return null;
+      default:
+        return null;
     }
   }
 
@@ -86,9 +91,9 @@ class _InfoHistoryState implements HistoryState {
   void apply() {
     HistoryState._slideSwitcher('info');
   }
-  void finalize() { }
+  void finalize() {}
   dynamic toJson() {
-    return { 'kind': 'info' };
+    return {'kind': 'info'};
   }
 }
 
@@ -109,7 +114,7 @@ class _DiffHistoryState implements HistoryState {
     window.history.replaceState(this.toJson(), "", "");
   }
   dynamic toJson() {
-    return { 'kind': 'diff', 'pos': pos };
+    return {'kind': 'diff', 'pos': pos};
   }
 }
 
@@ -127,13 +132,13 @@ class _HierHistoryState implements HistoryState {
   }
 
   void finalize() {
-   pos = document.body.scrollTop;
-   HistoryState._lastHierPos = pos;
-   window.history.replaceState(this.toJson(), "", "");
+    pos = document.body.scrollTop;
+    HistoryState._lastHierPos = pos;
+    window.history.replaceState(this.toJson(), "", "");
   }
 
   dynamic toJson() {
-    return { 'kind': 'hier', 'pos': pos };
+    return {'kind': 'hier', 'pos': pos};
   }
 }
 
@@ -157,6 +162,6 @@ class _DepHistoryState implements HistoryState {
   }
 
   dynamic toJson() {
-    return { 'kind': 'dep', 'focus': focus };
+    return {'kind': 'dep', 'focus': focus};
   }
 }
