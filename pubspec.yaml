@@ -10,5 +10,7 @@ transformers:
 - polymer:
     entry_points: web/index.html
 - $dart2js:
-    commandLineOptions: [--dump-info]
-    minify: false
+    commandLineOptions:
+    - --trust-type-annotations
+    - --trust-primitives
+    - --dump-info
