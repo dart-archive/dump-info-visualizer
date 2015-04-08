@@ -1,8 +1,0 @@
-*
-!.gitignore
-!.nojekyll
-!build/
-!build/*
-!build/**/*
-!index.html
-!dump-info-viewer.png
