@@ -8,249 +8,141 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <!--
-/**
- * core-input is an unstyled single- or multi-line text field where user can
- * enter input.
- *
- * Example:
- *
- *     <core-input placeholder="Placeholder text here"></core-input>
- *
- *     <core-input multiline placeholder="Enter multiple lines here"></core-input>
- *
- * The text input's value is considered "committed" if the user hits the `enter`
- * key or blurs the input after changing the value. The "change" event is fired
- * when the value becomes committed, and the committed value is stored in the
- * "value" property. The current value of the input is stored in the "inputValue"
- * property.
- *
- * core-input also can optionally validate the value by providing it with a
- * regular expression to match against, or a validation function. The
- * "input-invalid" event is fired if the input value changes and is invalid.
- * The "invalid" property is also available for observation.
- *
- * Example:
- *
- *     // valid only if the value is a number
- *     <core-input validate="^[0-9]*$" on-input-invalid="{{inputInvalidAction}}"></core-input>
- *
- *     this.$.input.validate = /^[0-9]*$/;  // valid only if the value is a number
- *
- *     this.$.input2.validate = function(value) {
- *       return value === 'foo';  // valid only if the value is 'foo'
- *     }
- *
- * @group Polymer Core Elements
- * @element core-input
- * @homepage github.io
- */
 
-/**
- * Fired when the inputValue of is changed. This is the same event as the DOM
- * "input" event.
- *
- * @event input
- */
+`core-input` is an unstyled single-line input field. It extends the native
+`input` element.
 
-/**
- * Fired when the user commits the value of the input, either by the hitting the
- * `enter` key or blurring the input after the changing the inputValue. Also see the
- * DOM "change" event.
- *
- * @event change
- */
+Example:
 
-/**
- * Fired when the inputValue of this text input changes and fails validation.
- *
- * @event input-invalid
- * @param {Object} detail
- * @param {string} value The text input's inputValue.
- */
+    <input is="core-input">
+
+The input's value is considered "committed" if the user hits the "enter" key
+or blurs the input after changing the value. The committed value is stored in
+the `committedValue` property.
+
+If the input has `type = number`, this element will also prevent non-numeric characters
+from being typed into the text field.
+
+Accessibility
+-------------
+
+The following ARIA attributes are set automatically:
+
+- `aria-label`: set to the `placeholder` attribute
+- `aria-disabled`: set if `disabled` is true
+
+@group Polymer Core Elements
+@element core-input
+@extends input
+@homepage github.io
 -->
 <link href="../polymer/polymer.html" rel="import">
 
-<polymer-element name="core-input" attributes="value inputValue placeholder disabled multiline rows validate invalid">
+<style shim-shadowdom>
+  /* FIXME consider theming */
 
-  <template>
+  html /deep/ input[is=core-input] {
+    width: 20em;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    outline: none;
+  }
+</style>
 
-    <link href="core-input.css" rel="stylesheet">
+<polymer-element name="core-input" extends="input">
 
-    <template if="{{multiline}}">
-      <textarea id="input" value="{{inputValue}}" rows="{{rows}}" fit?="{{rows === 'fit'}}" disabled?="{{disabled}}" placeholder="{{placeholder}}" aria-labelledby="placeholder" aria-invalid="{{invalid}}" on-change="{{inputChangeAction}}" on-focus="{{focusAction}}" on-blur="{{blurAction}}"></textarea>
-    </template>
+<script>
 
-    <template if="{{!multiline}}">
-      <input id="input" value="{{inputValue}}" disabled?="{{disabled}}" placeholder="{{placeholder}}" aria-labelledby="placeholder" aria-invalid="{{invalid}}" on-change="{{inputChangeAction}}" on-focus="{{focusAction}}" on-blur="{{blurAction}}">
-    </template>
+  Polymer('core-input', {
 
-  </template>
-
-  <script>
-
-    Polymer('core-input', {
+    publish: {
 
       /**
-       * Placeholder text that hints to the user what can be entered in
-       * the input.
+       * The "committed" value of the input, ie. the input value when the user
+       * hits the "enter" key or blurs the input after changing the value. You
+       * can bind to this value instead of listening for the "change" event.
+       * Setting this property has no effect on the input value.
        *
-       * @attribute placeholder
+       * @attribute committedValue
        * @type string
        * @default ''
        */
-      placeholder: '',
+      committedValue: '',
 
       /**
-       * If true, this input cannot be focused and the user cannot change
-       * its value.
+       * Set to true to prevent invalid input from being entered.
        *
-       * @attribute disabled
+       * @attribute preventInvalidInput
        * @type boolean
        * @default false
        */
-      disabled: false,
+      preventInvalidInput: false
 
-      /**
-       * If true, this input accepts multi-line input like a `<textarea>`
-       *
-       * @attribute multiline
-       * @type boolean
-       * @default false
-       */
-      multiline: false,
+    },
 
-      /**
-       * (multiline only) The height of this text input in rows. The input
-       * will scroll internally if more input is entered beyond the size
-       * of the component. This property is meaningless if multiline is
-       * false. You can also set this property to "fit" and size the
-       * component with CSS to make the input fit the CSS size.
-       *
-       * @attribute rows
-       * @type number|'fit'
-       * @default 'fit'
-       */
-      rows: 'fit',
+    previousValidInput: '',
 
-      /**
-       * The current value of this input.
-       *
-       * @attribute inputValue
-       * @type string
-       * @default ''
-       */
-      inputValue: '',
+    eventDelegates: {
+      input: 'inputAction',
+      change: 'changeAction'
+    },
 
-      /**
-       * The value of the input committed by the user, either by changing the
-       * inputValue and blurring the input, or by hitting the `enter` key.
-       *
-       * @attribute value
-       * @type string
-       * @default ''
-       */
-      value: '',
+    ready: function() {
+      /* set ARIA attributes */
+      this.disabledHandler();
+      this.placeholderHandler();
+    },
 
-      /**
-       * If this property is not null, the text input's inputValue will be
-       * validated. You can validate the value with either a regular expression
-       * or a custom function.
-       *
-       * To use a regular expression, set this property to a RegExp object or
-       * a string containing the regular expression to match against. To use a
-       * custom validator, set this property to a function with the signature
-       * function(value) that returns a boolean. The input is valid if the
-       * function returns true.
-       *
-       * Example:
-       *
-       *     // valid only if the value is a number
-       *     <core-input validate="^[0-9]*$"></core-input> 
-       * 
-       *     // valid only if the value is a number
-       *     this.$.input.validate = /^[0-9]*$/;
-       *
-       *     this.$.input2.validate = function(value) {
-       *         // valid only if the value is 'foo'
-       *         return value === 'foo';  
-       *     }
-       *
-       * @attribute validate
-       * @type string|RegExp|Function(value)
-       * @default null
-       */
-      validate: null,
-
-      /**
-       * If this property is true, the text input's inputValue failed validation.
-       *
-       * @attribute invalid
-       * @type boolean
-       * @default false
-       */
-      invalid: false,
-
-      validateValue: function() {
-        var valid = true;
-        if (!this.inputValue) {
-          valid = true;
-        } else if (typeof this.validate === 'string') {
-          valid = new RegExp(this.validate).exec(this.inputValue);
-        } else if (this.validate.exec) {
-          valid = this.validate.exec(this.inputValue);
-        } else if (this.validate instanceof Function) {
-          valid = this.validate.call(this.inputValue);
-        }
-        this.invalid = !valid;
-      },
-
-      invalidChanged: function() {
-        this.classList.toggle('invalid', this.invalid);
-        if (this.invalid) {
-          this.fire('input-invalid', {value: this.inputValue});
-        }
-      },
-
-      inputValueChanged: function() {
-        if (this.validate) {
-          this.validateValue();
-        }
-
-        if (!this.inputValue) {
-          this.value = '';
-        }
-      },
-
-      valueChanged: function() {
-        this.inputValue = this.value;
-      },
-
-      inputChangeAction: function() {
-        this.value = this.inputValue;
-        if (!window.ShadowDOMPolyfill) {
-          // re-fire non-bubbling event
-          this.fire('change', null, this, false);
-        }
-      },
-
-      focusAction: function() {
-        // re-fire non-bubbling event
-        this.fire('focus', null, this, false);
-      },
-
-      blurAction: function() {
-        // re-fire non-bubbling event
-        this.fire('blur', null, this, false);
+    attributeChanged: function(attr, old) {
+      if (this[attr + 'Handler']) {
+        this[attr + 'Handler'](old);
       }
+    },
 
-    });
+    disabledHandler: function() {
+      if (this.disabled) {
+        this.setAttribute('aria-disabled', '');
+      } else {
+        this.removeAttribute('aria-disabled');
+      }
+    },
 
-    CoreInput = function() {
-      return document.createElement('core-input');
-    };
-    CoreInput.validate = {
-      number: /^[0-9]*$/
-    };
-  </script>
+    placeholderHandler: function() {
+      if (this.placeholder) {
+        this.setAttribute('aria-label', this.placeholder);
+      } else {
+        this.removeAttribute('aria-label');
+      }
+    },
+
+    /**
+     * Commits the `value` to `committedValue`
+     *
+     * @method commit
+     */
+    commit: function() {
+      this.committedValue = this.value;
+    },
+
+    changeAction: function() {
+      this.commit();
+    },
+
+    inputAction: function(e) {
+      if (this.preventInvalidInput) {
+        if (!e.target.validity.valid) {
+          e.target.value = this.previousValidInput;
+        } else {
+          this.previousValidInput = e.target.value;
+        }
+      }
+    }
+
+  });
+
+</script>
 
 </polymer-element>

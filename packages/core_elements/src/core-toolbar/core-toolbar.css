@@ -17,6 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   height: 64px;
   /* typography */
   font-size: 1.3em;
+  /* background */
+  background-color: #CFD8DC;
 }
 
 :host(.animate) {
@@ -33,25 +35,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 }
 
 .toolbar-tools {
+  position: relative;
   height: 64px;
   padding: 0 8px;
   pointer-events: none;
 }
 
 /* narrow layout */
-:host(.narrow) {
+:host(.core-narrow),
+:host-context(.core-narrow) {
   height: 56px;
 }
 
-:host(.narrow.medium-tall) {
+polyfill-next-selector { content: ':host.core-narrow.medium-tall, .core-narrow :host.medium-tall'; }
+:host(.core-narrow.medium-tall),
+:host-context(.core-narrow):host(.medium-tall) {
   height: 112px;
 }
 
-:host(.narrow.tall) {
+polyfill-next-selector { content: ':host.core-narrow.tall, .core-narrow :host.tall'; }
+:host(.core-narrow.tall),
+:host-context(.core-narrow):host(.tall) {
   height: 168px;
 }
 
-:host(.narrow) .toolbar-tools {
+polyfill-next-selector { content: ':host.core-narrow .toolbar-tools, .core-narrow :host .toolbar-tools'; }
+:host(.core-narrow) .toolbar-tools,
+:host-context(.core-narrow) .toolbar-tools {
   height: 56px;
   padding: 0;
 }
@@ -77,33 +87,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   left: 0;
 }
 
-/* shows bottom bar only when in normal height (!tall && !medium-tall) */
-:host(.animate.no-overlap) > #topBar, 
-:host(.animate.no-overlap) > #middleBar {
-  transition: -webkit-transform 0.18s ease-in;
-  transition: transform 0.18s ease-in;
-}
-
-:host(.no-overlap:not(.medium-tall):not(.tall)) > #topBar {
-  -webkit-transform: translateY(-100%);
-  transform: translateY(-100%);
-}
-
-:host(.no-overlap:not(.medium-tall):not(.tall)) > #middleBar {
-  -webkit-transform: translateY(-200%);
-  transform: translateY(-200%);
-}
-
 /* make elements (e.g. buttons) respond to mouse/touch events */
-polyfill-next-selector { content: '.toolbar-tools > *'; }
-::content > * {
+polyfill-next-selector { content: '.toolbar-tools > *:not([disabled])'; }
+::content > *:not([disabled]) {
   pointer-events: auto;
 }
 
 /* elements spacing */
 polyfill-next-selector { content: '.toolbar-tools > *'; }
 ::content > * {
-  margin: 0px 8px;
+  margin: 0 8px;
 }
 
 /* misc helpers */

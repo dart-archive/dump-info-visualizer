@@ -51,7 +51,10 @@ You can also provide a javascript function instead of keyframes to the animation
 behaves essentially the same as `requestAnimationFrame`:
 
     var animation = new CoreAnimation();
-    animation.
+    animation.customEffect = function(timeFraction, target, animation) {
+      // do something custom
+    };
+    animation.play();
 
 Elements that are targets to a `core-animation` are given the `core-animation-target` class.
 
@@ -59,7 +62,7 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
 @status beta
 @homepage github.io
 -->
-<polymer-element name="core-animation" constructor="CoreAnimation" attributes="target keyframes sample composite duration fill easing iterationStart iterationCount delay direction autoplay targetSelector">
+<polymer-element name="core-animation" constructor="CoreAnimation" attributes="target keyframes customEffect composite duration fill easing iterationStart iterationCount delay direction autoplay targetSelector">
   <script>
     (function() {
 
@@ -77,7 +80,7 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
        /**
         *
         * Fired when the web animation object changes.
-        * 
+        *
         * @event core-animation-change
         */
 
@@ -101,10 +104,11 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
           keyframes: {value: null, reflect: true},
 
           /**
-           * A custom animation function. Either provide this or `keyframes`.
+           * A custom animation function. Either provide this or `keyframes`. The signature
+           * of the callback is `EffectsCallback(timeFraction, target, animation)`
            *
            * @property customEffect
-           * @type Function
+           * @type Function(number, Object, Object)
            */
           customEffect: {value: null, reflect: true},
 
@@ -139,11 +143,11 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
 
           /**
            * Controls the effect the animation has on the target when it's not playing.
-           * The possible values are "none", "forwards", "backwards", "both" or "auto". 
+           * The possible values are "none", "forwards", "backwards", "both" or "auto".
            *
            * "none" means the animation has no effect when it's not playing.
            *
-           * "forward" applies the value at the end of the animation after it's finished.
+           * "forwards" applies the value at the end of the animation after it's finished.
            *
            * "backwards" applies the value at the start of the animation to the target
            * before it starts playing and has no effect when the animation finishes.
@@ -161,9 +165,7 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
            * counterparts.
            *
            * @property easing
-           * @type "linear"|"ease"|"ease-in"|"ease-out"|"ease-in-out"|
-           *       "cubic-bezier(<number>, <number>, <number>, <number>)"|
-           *       "step-start"|"step-middle"|"step-end"
+           * @type string
            * @default "linear"
            */
           easing: {value: 'linear', reflect: true},
@@ -184,7 +186,7 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
            *
            * @property endDelay
            * @type number
-           * #defualt 0
+           * @default 0
            */
           endDelay: {value: 0, reflect: true},
 
@@ -427,7 +429,7 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
             frames = this.keyframes;
           } else if (!this.customEffect) {
             var children = this.querySelectorAll('core-animation-keyframe');
-            if (children.length === 0) {
+            if (children.length === 0 && this.shadowRoot) {
               children = this.shadowRoot.querySelectorAll('core-animation-keyframe');
             }
             Array.prototype.forEach.call(children, function(c) {
@@ -437,7 +439,8 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
           if (this.customEffect) {
             effect = this.customEffect;
           } else {
-            effect = new KeyframeEffect(frames, this.composite);
+            // effect = new KeyframeEffect(frames, this.composite);
+            effect = frames;
           }
           return effect;
         },

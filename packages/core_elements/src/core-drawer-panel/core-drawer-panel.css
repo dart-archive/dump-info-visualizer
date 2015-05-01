@@ -14,21 +14,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   left: 0;
   width: 100%;
   height: 100%;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-#drawer {
+core-selector > #drawer {
   position: absolute;
   top: 0;
   left: 0;
-  /* FIXME(ffu): remove hard-coded drawer panel width */
-  width: 256px;
   height: 100%;
+  will-change: transform;
   box-sizing: border-box;
-  -mox-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
-.transition #drawer {
+.transition > #drawer {
   transition: -webkit-transform ease-in-out 0.3s, width ease-in-out 0.3s;
   transition: transform ease-in-out 0.3s, width ease-in-out 0.3s;
 }
@@ -36,14 +35,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 /*
 right-drawer: make drawer on the right side
 */
-:host(.right-drawer) #drawer {
+.right-drawer > #drawer {
   left: auto;
   right: 0;
-}
-
-:host(.right-drawer) .transition #drawer {
-  transition: -webkit-transform ease-in-out 0.3s, width ease-in-out 0.3s;
-  transition: transform ease-in-out 0.3s, width ease-in-out 0.3s;
 }
 
 polyfill-next-selector { content: ':host [drawer]'; }
@@ -57,25 +51,22 @@ polyfill-next-selector { content: ':host [drawer]'; }
   -moz-box-sizing: border-box;
 }
 
-#main {
+core-selector > #main {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 256px;
-  overflow: auto;
 }
 
-.transition #main {
+.transition > #main {
   transition: left ease-in-out 0.3s, padding ease-in-out 0.3s;
 }
 
-:host(.right-drawer) #main {
+.right-drawer > #main {
   left: 0;
-  right: 256px;
 }
 
-:host(.right-drawer) .transition #main {
+.right-drawer.transition > #main {
   transition: right ease-in-out 0.3s, padding ease-in-out 0.3s;
 }
 
@@ -96,20 +87,17 @@ polyfill-next-selector { content: '#main > [main]'; }
   transition: opacity ease-in-out 0.38s, visibility ease-in-out 0.38s;
 }
 
-/*
-no-peek: helper class to make drawer panel 100% width in narrow layout
-*/
-:host(.no-peek) .narrow-layout > #drawer {
-  width: 100%;
+#edgeSwipeOverlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 20px;
 }
 
-:host(.no-peek) .narrow-layout > #drawer:not(.core-selected) {
-  left: -100%;
-}
-
-:host(.no-peek.right-drawer) .narrow-layout > #drawer:not(.core-selected) {
+.right-drawer > #main > #edgeSwipeOverlay {
+  right: 0;
   left: auto;
-  right: -100%;
 }
 
 /*
@@ -119,20 +107,24 @@ narrow layout
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
+.right-drawer.narrow-layout > #drawer.core-selected {
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
 polyfill-next-selector { content: ':host .narrow-layout > #drawer > [drawer]'; }
 .narrow-layout > #drawer > ::content[select="[drawer]"] > * {
   border: 0;
 }
 
 .narrow-layout > #drawer:not(.core-selected) {
-  -webkit-transform: translate3d(-100%, 0, 0);
-  transform: translate3d(-100%, 0, 0);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
-:host(.right-drawer) .narrow-layout > #drawer:not(.core-selected) {
+.right-drawer.narrow-layout > #drawer:not(.core-selected) {
   left: auto;
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 .narrow-layout > #main {
@@ -140,13 +132,14 @@ polyfill-next-selector { content: ':host .narrow-layout > #drawer > [drawer]'; }
   padding: 0;
 }
 
-:host(.right-drawer) .narrow-layout > #main {
+.right-drawer.narrow-layout > #main {
   left: 0;
   right: 0;
   padding: 0;
 }
 
-.narrow-layout > #main:not(.core-selected) #scrim {
+.narrow-layout > #main:not(.core-selected) > #scrim,
+.dragging #scrim {
   visibility: visible;
   opacity: 1;
 }
@@ -159,4 +152,9 @@ polyfill-next-selector { content: ':host .narrow-layout > #main > [main]'; }
   right: 0;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
+}
+
+polyfill-next-selector { content: 'core-selector:not(.narrow-layout) [core-drawer-toggle]'; }
+core-selector:not(.narrow-layout) ::content [core-drawer-toggle] {
+  display: none;
 }

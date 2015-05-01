@@ -8,71 +8,69 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <!--
-`paper-input` is a single- or multi-line text field where user can enter input.
-It can optionally have a label.
+
+Material Design: <a href="http://www.google.com/design/spec/components/text-fields.html#text-fields-single-line-text-field">Single line text field</a>
+
+`paper-input` is a single-line text field for user input. It is a convenience element composed of
+a `paper-input-decorator` and a `input is="core-input"`.
 
 Example:
 
     <paper-input label="Your Name"></paper-input>
-    <paper-input multiline label="Enter multiple lines here"></paper-input>
+
+If you need more control over the `input` element, use `paper-input-decorator`.
+
+Theming
+-------
+
+`paper-input` can be styled similarly to `paper-input-decorator`.
+
+Form submission
+---------------
+
+Unlike inputs using `paper-input-decorator` directly, `paper-input` does not work out of
+the box with the native `form` element. This is because the native `form` is not aware of
+shadow DOM and does not treat `paper-input` as a form element.
+
+Use `paper-input-decorator` directly, or see
+<a href="https://github.com/garstasio/ajax-form">`ajax-form`</a> for a possible solution
+to submitting a `paper-input`.
+
+Validation
+----------
+
+Use `paper-input-decorator` if you would like to implement validation.
 
 @group Paper Elements
 @element paper-input
-@extends core-input
 @homepage github.io
 -->
 <link href="../polymer/polymer.html" rel="import">
 <link href="../core-input/core-input.html" rel="import">
 
-<polymer-element name="paper-input" extends="core-input" attributes="label floatingLabel maxRows error" on-down="{{downAction}}" on-up="{{upAction}}">
+<link href="paper-input-decorator.html" rel="import">
 
-  <template>
+<polymer-element name="paper-input">
 
-    <link href="paper-input.css" rel="stylesheet">
+<template>
 
-    <div id="floatedLabel" class="hidden"><span id="floatedLabelSpan">{{label}}</span></div>
+  <style>
+    :host {
+      display: inline-block;
+    }
+  </style>
 
-    <div id="container" on-transitionend="{{transitionEndAction}}" on-webkitTransitionEnd="{{transitionEndAction}}">
+  <paper-input-decorator id="decorator" label="{{label}}" floatingLabel="{{floatingLabel}}" value="{{value}}" disabled?="{{disabled}}">
+    <input is="core-input" id="input" value="{{value}}" committedValue="{{committedValue}}" on-change="{{changeAction}}" disabled?="{{disabled}}">
+  </paper-input-decorator>
 
-      <div id="label"><span id="labelSpan">{{label}}</span></div>
+</template>
 
-      <div id="inputContainer">
+<script>
 
-        <div id="inputClone">
-          <span id="inputCloneSpan" aria-hidden="true">&nbsp;</span>
-        </div>
+  Polymer('paper-input', {
 
-        <template if="{{multiline}}">
-          <div id="minInputHeight"></div>
-          <div id="maxInputHeight"></div>
-        </template>
-
-        <shadow></shadow>
-
-      </div>
-
-      <div id="underlineContainer">
-        <div id="underline"></div>
-        <div id="underlineHighlight" class="focusedColor"></div>
-      </div>
-
-      <div id="caret">
-        <div id="caretInner" class="focusedColor"></div>
-      </div>
-
-    </div>
-
-    <div id="errorContainer">
-      <div id="error" role="alert" aria-hidden="{{!invalid}}">{{error}}</div>
-      <div id="errorIcon"></div>
-    </div>
-
-  </template>
-
-  <script>
-
-    Polymer('paper-input', {
-
+    publish: {
       /**
        * The label for this input. It normally appears as grey text inside
        * the text input and disappears once the user enters text.
@@ -94,245 +92,54 @@ Example:
       floatingLabel: false,
 
       /**
-       * (multiline only) If set to a non-zero value, the height of this
-       * text input will grow with the value changes until it is maxRows
-       * rows tall. If the maximum size does not fit the value, the text
-       * input will scroll internally.
+       * Set to true to style the element as disabled.
        *
-       * @attribute maxRows
-       * @type number
-       * @default 0
+       * @attribute disabled
+       * @type boolean
+       * @default false
        */
-      maxRows: 0,
+      disabled: {value: false, reflect: true},
 
-      focused: false,
-      pressed: false,
+      /**
+       * The current value of the input.
+       *
+       * @attribute value
+       * @type String
+       * @default ''
+       */
+      value: '',
 
-      attached: function() {
-        if (this.multiline) {
-          this.resizeInput();
-          window.requestAnimationFrame(function() {
-            this.$.underlineContainer.classList.add('animating');
-          }.bind(this));
-        }
-      },
+      /**
+       * The most recently committed value of the input.
+       *
+       * @attribute committedValue
+       * @type String
+       * @default ''
+       */
+      committedValue: ''
 
-      resizeInput: function() {
-        var height = this.$.inputClone.getBoundingClientRect().height;
-        var bounded = this.maxRows > 0 || this.rows > 0;
-        if (bounded) {
-          var minHeight = this.$.minInputHeight.getBoundingClientRect().height;
-          var maxHeight = this.$.maxInputHeight.getBoundingClientRect().height;
-          height = Math.max(minHeight, Math.min(height, maxHeight));
-        }
-        this.$.inputContainer.style.height = height + 'px';
-        this.$.underlineContainer.style.top = height + 'px';
-      },
+    },
 
-      rowsChanged: function() {
-        if (this.multiline && !isNaN(parseInt(this.rows))) {
-          this.$.minInputHeight.innerHTML = '';
-          for (var i = 0; i < this.rows; i++) {
-            this.$.minInputHeight.appendChild(document.createElement('br'));
-          }
-          this.resizeInput();
-        }
-      },
+    /**
+     * Focuses the `input`.
+     *
+     * @method focus
+     */
+    focus: function() {
+      this.$.input.focus();
+    },
 
-      maxRowsChanged: function() {
-        if (this.multiline && !isNaN(parseInt(this.maxRows))) {
-          this.$.maxInputHeight.innerHTML = '';
-          for (var i = 0; i < this.maxRows; i++) {
-            this.$.maxInputHeight.appendChild(document.createElement('br'));
-          }
-          this.resizeInput();
-        }
-      },
+    valueChanged: function() {
+      this.$.decorator.updateLabelVisibility(this.value);
+    },
 
-      inputValueChanged: function() {
-        this.super();
+    changeAction: function(e) {
+      // re-fire event that does not bubble across shadow roots
+      this.fire('change', null, this);
+    }
 
-        if (this.multiline) {
-          var escaped = this.inputValue.replace(/\n/gm, '<br>');
-          if (!escaped || escaped.lastIndexOf('<br>') === escaped.length - 4) {
-            escaped += '&nbsp';
-          }
-          this.$.inputCloneSpan.innerHTML = escaped;
-          this.resizeInput();
-        }
+  });
 
-        if (!this.floatingLabel) {
-          this.$.label.classList.toggle('hidden', this.inputValue);
-        }
-
-        if (this.floatingLabel && !this.focused) {
-          this.$.label.classList.toggle('hidden', this.inputValue);
-          this.$.floatedLabel.classList.toggle('hidden', !this.inputValue);
-        }
-      },
-
-      labelChanged: function() {
-        if (this.floatingLabel && this.$.floatedLabel && this.$.label) {
-          var toRect = this.$.floatedLabelSpan.getBoundingClientRect();
-          var fromRect = this.$.labelSpan.getBoundingClientRect();
-          this.$.label.cachedTransform = 'scale(' + (toRect.width / fromRect.width) + ') ' +
-            'translateY(' + (toRect.bottom - fromRect.bottom) + 'px)'
-        }
-      },
-
-      placeholderChanged: function() {
-        this.label = this.placeholder;
-      },
-
-      focusAction: function(e) {
-        if (!this.pressed) {
-          if (this.floatingLabel) {
-            this.$.floatedLabel.classList.remove('hidden');
-            this.$.floatedLabel.classList.add('focused');
-            this.$.floatedLabel.classList.add('focusedColor');
-          }
-          this.$.label.classList.add('hidden');
-          this.$.underlineHighlight.classList.add('focused');
-          this.$.caret.classList.add('focused');
-          this.$.input.focus();
-        }
-        this.focused = true;
-      },
-
-      blurAction: function() {
-        this.$.underlineHighlight.classList.remove('focused');
-        this.$.caret.classList.remove('focused');
-        if (this.floatingLabel) {
-          this.$.floatedLabel.classList.remove('focused');
-          this.$.floatedLabel.classList.remove('focusedColor');
-          if (!this.inputValue) {
-            this.$.floatedLabel.classList.add('hidden');
-          }
-        }
-        if (!this.inputValue) {
-          this.$.label.classList.remove('hidden');
-          this.$.label.classList.add('animating');
-          this.async(function() {
-            this.$.label.style.webkitTransform = 'none';
-          });
-        }
-        this.focused = false;
-      },
-
-      downAction: function(e) {
-        if (this.disabled) {
-          return;
-        }
-
-        if (this.focused) {
-          return;
-        }
-
-        this.pressed = true;
-        var rect = this.$.underline.getBoundingClientRect();
-        var right = e.x - rect.left;
-        this.$.underlineHighlight.style.webkitTransformOriginX = right + 'px';
-        this.$.underlineHighlight.classList.remove('focused');
-        this.underlineAsync = this.async(function() {
-          this.$.underlineHighlight.classList.add('pressed');
-        }, null, 200);
-
-        // No caret animation if there is text in the input.
-        if (!this.inputValue) {
-          var width = this.$.inputCloneSpan.getBoundingClientRect().width;
-          if (width < right) {
-            this.$.caret.style.left = width + 'px';
-            this.$.caret.classList.remove('focused');
-          }
-        }
-      },
-
-      upAction: function(e) {
-        if (this.disabled) {
-          return;
-        }
-
-        if (!this.pressed) {
-          return;
-        }
-
-        // if a touchevent caused the up, the synthentic mouseevents will blur
-        // the input, make sure to prevent those from being generated.
-        if (e._source === 'touch') {
-          e.preventDefault();
-        }
-
-        if (this.underlineAsync) {
-          clearTimeout(this.underlineAsync);
-          this.underlineAsync = null;
-        }
-
-        // Focus the input here to bring up the virtual keyboard.
-        this.$.input.focus();
-        this.pressed = false;
-        this.animating = true;
-
-        this.$.underlineHighlight.classList.remove('pressed');
-        this.$.underlineHighlight.classList.add('animating');
-        this.async(function() {
-          this.$.underlineHighlight.classList.add('focused');
-        });
-
-        // No caret animation if there is text in the input.
-        if (!this.inputValue) {
-          this.$.caret.classList.add('animating');
-          this.async(function() {
-            this.$.caret.classList.add('focused');
-          }, null, 100);
-        }
-
-        if (this.floatingLabel) {
-          this.$.label.classList.add('focusedColor');
-          this.$.label.classList.add('animating');
-          this.$.label.style.webkitTransform = this.$.label.cachedTransform;
-        }
-      },
-
-      keypressAction: function() {
-        if (this.animating) {
-          this.transitionEndAction();
-        }
-      },
-
-      transitionEndAction: function(e) {
-        this.animating = false;
-        if (this.pressed) {
-          return;
-        }
-
-        if (this.focused) {
-
-          if (this.floatingLabel || this.inputValue) {
-            this.$.label.classList.add('hidden');
-          }
-
-          if (this.floatingLabel) {
-            this.$.label.classList.remove('focusedColor');
-            this.$.label.classList.remove('animating');
-            this.$.floatedLabel.classList.remove('hidden');
-            this.$.floatedLabel.classList.add('focused');
-            this.$.floatedLabel.classList.add('focusedColor');
-          }
-
-          this.async(function() {
-            this.$.underlineHighlight.classList.remove('animating');
-            this.$.caret.classList.remove('animating');
-          }, null, 100);
-
-        } else {
-
-          this.$.label.classList.remove('animating');
-
-        }
-      }
-
-    });
-
-  </script>
+</script>
 
 </polymer-element>

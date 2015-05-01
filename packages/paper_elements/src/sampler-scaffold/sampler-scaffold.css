@@ -23,7 +23,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 core-toolbar {
   background-color: #5264ae;
   color: #fff;
-  fill: #fff;
   font-size: 20px;
   font-weight: 400;
 }
@@ -38,15 +37,6 @@ core-toolbar::shadow #bottomBar {
 
 .main-label {
   padding: 0 0 20px 60px;
-}
-
-/* adjust drawerPanel drawer's width instead of using the default */
-#drawerPanel::shadow #drawer {
-  width: 320px;
-}
-
-#drawerPanel::shadow #main {
-  left: 320px;
 }
 
 /* menu */
@@ -73,7 +63,7 @@ polyfill-next-selector { content: 'core-menu#menu core-item.core-selected'; }
 /* card */
 #card {
   display: block;
-  margin: 64px 120px 60px 5px;
+  margin: 64px 120px 60px 0;
   background-color: #fff;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 2px;
@@ -85,8 +75,8 @@ polyfill-next-selector { content: 'core-menu#menu core-item.core-selected'; }
 }
 
 #card.move-up {
-  transition: -webkit-transform 0.38s ease-out;
-  transition: transform 0.38s ease-out;
+  transition: -webkit-transform 0.38s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition: transform 0.38s cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 polyfill-next-selector { content: '.sourceButton';}
@@ -98,7 +88,7 @@ polyfill-next-selector { content: '.sourceButton';}
 polyfill-next-selector { content: '.sourceButton:not(.fallback)';}
 ::content .sourceButton:not(.fallback) {
   background-color: #fcfcfc;
-  fill: #666464;
+  color: #666464;
   bottom: -28px;
   right: 24px;
 }
@@ -134,7 +124,7 @@ polyfill-next-selector { content: '#drawerPanel:not([narrow]) .menuButton';}
 #frame {
   display: block;
   width: 100%;
-  min-height: 500px;
+  min-height: 600px;
   border: none;
 }
 
@@ -154,6 +144,7 @@ polyfill-next-selector { content: '#drawerPanel:not([narrow]) .menuButton';}
 }
 
 #drawerPanel[narrow] #frame {
+  position: absolute;
   min-height: 100%;
 }
 
