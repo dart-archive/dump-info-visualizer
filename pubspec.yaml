@@ -1,5 +1,7 @@
 name: dump_viz
-description: A sample Polymer application
+author: Dart Team <misc@dartlang.org>
+homepage: https://github.com/dart-lang/dump-info-visualizer/
+description: A visualizer for the JSON data produced by the dart2js --dump-info command
 dependencies:
   core_elements: any
   paper_elements: any
