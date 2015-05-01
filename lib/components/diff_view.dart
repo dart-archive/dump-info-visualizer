@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library diff;
+library dump_viz.diff_view;
 
 import 'dart:async';
 import 'dart:convert';
@@ -10,11 +10,10 @@ import 'dart:html' hide Selection;
 
 import 'package:polymer/polymer.dart';
 
-import 'package:dump_viz/async.dart';
-import 'package:dump_viz/diff_alg.dart';
-import 'package:dump_viz/infohelper.dart';
-
-import '../viewer.dart';
+import '../async.dart';
+import '../diff_alg.dart';
+import '../dragdrop.dart';
+import '../infohelper.dart';
 
 @CustomTag('diff-view')
 class DiffView extends PolymerElement {

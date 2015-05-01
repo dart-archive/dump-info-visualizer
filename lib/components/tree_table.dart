@@ -6,6 +6,7 @@ library tree_table;
 
 import 'dart:collection' show Queue;
 import 'dart:html';
+
 import 'package:observe/observe.dart';
 import 'package:polymer/polymer.dart';
 

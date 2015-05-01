@@ -2,7 +2,7 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library viewer;
+library dump_viz.viewer;
 
 import 'dart:async';
 import 'dart:convert';
@@ -13,17 +13,15 @@ import 'package:paper_elements/paper_ripple.dart';
 import 'package:paper_elements/paper_tab.dart';
 import 'package:polymer/polymer.dart';
 
+import 'package:dump_viz/components/dependency_view.dart';
+import 'package:dump_viz/components/diff_view.dart';
+import 'package:dump_viz/components/tree_table.dart';
+import 'package:dump_viz/dragdrop.dart';
+import 'package:dump_viz/history.dart' show HistoryState;
 import 'package:dump_viz/infohelper.dart';
-
-import './format_versions/versions.dart';
-import './polymer_lib/tree_table.dart';
-import './polymer_lib/dependency_view.dart';
-import './polymer_lib/diff_view.dart';
-import './history.dart' show HistoryState;
+import 'package:dump_viz/src/versions.dart';
 
 export 'package:polymer/init.dart';
-
-part './dragdrop.dart';
 
 final List<String> slides = const <String>[
   'info',
