@@ -5,7 +5,7 @@
 import 'package:dump_viz/infohelper.dart';
 import 'package:dump_viz/diff_alg.dart';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 class FakeInfoHelper {
   InfoHelper info;

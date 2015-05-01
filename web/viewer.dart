@@ -21,6 +21,8 @@ import './polymer_lib/dependency_view.dart';
 import './polymer_lib/diff_view.dart';
 import './history.dart' show HistoryState;
 
+export 'package:polymer/init.dart';
+
 part './dragdrop.dart';
 
 final List<String> slides = const <String>[
@@ -79,8 +81,8 @@ void _switchSlide(String id, {bool fromMouse: false}) {
   });
 }
 
-main() {
-  initPolymer();
+@whenPolymerReady
+void init() {
   HistoryState.setup(_switchSlide, animationTime);
   _noSlide();
   _switchSlide('load');
@@ -99,7 +101,7 @@ main() {
 
   TreeTable treeTable = querySelector('tree-table');
   DependencyView dependencyView = querySelector('dependency-view');
-  DiffView diffView = querySelector('diff-view');
+  var diffView = querySelector('diff-view') as DiffView;
 
   var tabs = querySelectorAll('paper-tab');
   for (PaperTab tab in tabs) {
@@ -110,7 +112,7 @@ main() {
   }
 
   // Sort by chosen sorting methods.
-  var select = querySelector('#sort') as SelectElement;
+  var select = querySelector('select#sort') as SelectElement;
   var sortby = 'name';
   select.onChange.listen((e) {
     sortby = select.options[select.selectedIndex].value;

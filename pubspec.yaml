@@ -3,11 +3,11 @@ author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/dump-info-visualizer/
 description: A visualizer for the JSON data produced by the dart2js --dump-info command
 dependencies:
-  core_elements: any
-  paper_elements: any
-  polymer: '>=0.11.0 <0.12.0'
+  core_elements: '^0.7.1+2'
+  paper_elements: '^0.7.1'
+  polymer: '^0.16.3+1'
 dev_dependencies:
-  unittest: any
+  test: '^0.12.0'
 transformers:
 - polymer:
     entry_points: web/index.html

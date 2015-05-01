@@ -8,12 +8,11 @@ BSD-style license that can be found in the LICENSE file.
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="import" href="packages/paper_elements/roboto.html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dump Info Visualizer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="viewer.css">
-    <script src="packages/web_components/platform.js"></script>
-    <script src="packages/web_components/dart_support.js"></script>
+
+    <link rel="import" href="packages/paper_elements/roboto.html">
     <link rel="import" href="polymer_lib/tree_table.html">
     <link rel="import" href="polymer_lib/dependency_view.html">
     <link rel="import" href="polymer_lib/diff_view.html">
@@ -22,7 +21,7 @@ BSD-style license that can be found in the LICENSE file.
     <link rel="import" href="packages/paper_elements/paper_tab.html">
     <link rel="import" href="packages/paper_elements/paper_tabs.html">
   </head>
-  <body>
+  <body unresolved>
     <core-toolbar>
       <a id="refresh" href="">⟳</a>
       <paper-tabs selected="-10">
@@ -95,6 +94,6 @@ BSD-style license that can be found in the LICENSE file.
     </div>
 
     <!-- entry point dart file -->
-    <script type="application/dart" src="./viewer.dart"></script>
+    <script type="application/dart" src="viewer.dart"></script>
   </body>
 </html>

@@ -6,7 +6,7 @@ import 'dart:async';
 
 import 'package:dump_viz/async.dart';
 
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
 class StreamWrapper<A> {
   final List<A> list = [];
