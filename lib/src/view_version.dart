@@ -9,6 +9,7 @@ import 'dart:html';
 import 'dependency_view.dart';
 import 'history.dart';
 import 'infohelper.dart';
+import 'logical_row.dart';
 import 'tree_table.dart';
 import 'util.dart';
 

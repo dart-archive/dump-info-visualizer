@@ -5,6 +5,7 @@ library dump_viz.process_data;
 
 import 'dart:html';
 
+import 'logical_row.dart';
 import 'tree_table.dart';
 import 'util.dart';
 
