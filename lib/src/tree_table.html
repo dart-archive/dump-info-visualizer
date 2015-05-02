@@ -13,20 +13,22 @@ BSD-style license that can be found in the LICENSE file.
         table-layout: fixed;
         border-size: 0;
       }
+
       thead > td {
         font-size: 1.5em;
         font-weight: bold;
         vertical-align: middle;
       }
+
       tr:nth-child(odd) {
-        background: rgba(0,188,212, 0.2);
+        background: rgba(0, 188, 212, 0.2);
       }
     </style>
     <table id="inner_table">
-        <thead id="inner_table_head">
-        </thead>
-        <tbody id="inner_table_body">
-        </tbody>
+      <thead id="inner_table_head">
+      </thead>
+      <tbody id="inner_table_body">
+      </tbody>
     </table>
   </template>
 </polymer-element>
@@ -37,27 +39,33 @@ BSD-style license that can be found in the LICENSE file.
       td {
         padding: 5px;
         height: 10px;
-        overflow:hidden;
+        overflow: hidden;
         font-family: RobotoDraft;
       }
-      td>table td {
+
+      td > table td {
         padding: 0px;
       }
+
       #first-cell {
         padding: 5px;
-        overflow:hidden;
+        overflow: hidden;
         position: relative;
       }
+
       pre {
         margin: 0px;
         overflow: auto;
       }
+
       #arrow {
         min-width: 100px;
         padding: 8px;
       }
+
       #content {
       }
+
       #first-cell {
         display: table-cell;
         vertical-align: middle;
@@ -71,8 +79,8 @@ BSD-style license that can be found in the LICENSE file.
      -->
     <div id="first-cell" class="odd">
       <nobr>
-         <span id="arrow"></span>
-         <span id="content"></span>
+        <span id="arrow"></span>
+        <span id="content"></span>
       </nobr>
     </div>
     <!-- The rest of the <td>s will be inserted here -->

@@ -26,16 +26,16 @@ BSD-style license that can be found in the LICENSE file.
       <a id="refresh" href="">⟳</a>
       <paper-tabs selected="-10">
         <paper-tab id="info-tab" slide="info" offset="0">
-            PROGRAM INFO
+          PROGRAM INFO
         </paper-tab>
         <paper-tab id="hier-tab" slide="hier" offset="1">
-            HIERARCHY
+          HIERARCHY
         </paper-tab>
         <paper-tab id="dep-tab" slide="dep" offset="2">
-            DEPENDENCIES
+          DEPENDENCIES
         </paper-tab>
         <paper-tab id="diff-tab" slide="diff" offset="3">
-            DIFF
+          DIFF
         </paper-tab>
         <!--
         TODO(tyoverby): Enable this when graphviz graphs are added.
@@ -46,10 +46,10 @@ BSD-style license that can be found in the LICENSE file.
       </paper-tabs>
     </core-toolbar>
     <div id="dummy-toolbar"></div>
-    <div class = "slidecontainer">
+    <div class="slidecontainer">
 
       <!-- Whole Program Information -->
-      <div id="info-slide" class = "slide">
+      <div id="info-slide" class="slide">
         <table id="prog-info"></table>
       </div>
 
@@ -59,9 +59,9 @@ BSD-style license that can be found in the LICENSE file.
           <h2>
             Sort
             <select name="sort" id="sort">
-              <option value="name"> Name </option>
-              <option value="kind"> Kind </option>
-              <option value="size"> Size </option>
+              <option value="name"> Name</option>
+              <option value="kind"> Kind</option>
+              <option value="size"> Size</option>
             </select>
           </h2>
 
@@ -72,23 +72,23 @@ BSD-style license that can be found in the LICENSE file.
 
       <!-- Dependency Viewer -->
       <div id="dep-slide" class="slide">
-          <dependency-view></dependency-view>
+        <dependency-view></dependency-view>
       </div>
 
       <div id="diff-slide" class="slide">
-          <diff-view></diff-view>
+        <diff-view></diff-view>
       </div>
 
 
       <!-- File Loading Slide
         This slide can not be returned to-->
       <div id="load-slide" class="slide">
-          <!-- drag and drop file input -->
-          <div id="drag-target">
-            Drop .info.json file here
-            <br/><br/>
-            <input id="file_upload" type="file"/>
-          </div>
+        <!-- drag and drop file input -->
+        <div id="drag-target">
+          Drop .info.json file here
+          <br/><br/>
+          <input id="file_upload" type="file"/>
+        </div>
       </div>
 
     </div>
