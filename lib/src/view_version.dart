@@ -2,7 +2,16 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-part of versions;
+library dump_viz.view_version;
+
+import 'dart:html';
+
+import '../components/dependency_view.dart';
+import '../components/tree_table.dart';
+import '../history.dart';
+import '../infohelper.dart';
+
+import 'util.dart';
 
 class ViewVersion {
   final InfoHelper model;
@@ -43,7 +52,7 @@ class ViewVersion {
     LogicalRow buildTree(String id, bool isTop, HtmlElement tbody, int level) {
       Map<String, dynamic> node = model.elementById(id);
       if (node['size'] == null) {
-        node['size'] = _computeSize(node, model.elementById);
+        node['size'] = computeSize(node, model.elementById);
       }
       node['size_percent'] =
           (100 * node['size'] / programSize).toStringAsFixed(2) + '%';
@@ -143,21 +152,21 @@ class ViewVersion {
       case 'method':
         // Side Effects
         row.addChild(renderSelfWith(() => [
-          _cell('side effects'),
-          _cell(node['sideEffects'], colspan: '5')
+          cell('side effects'),
+          cell(node['sideEffects'], colspan: '5')
         ]));
         // Modifiers
         if (node.containsKey('modifiers')) {
           (node['modifiers'] as Map<String, bool>).forEach((k, v) {
             if (v) {
               row.addChild(renderSelfWith(
-                  () => [_cell('modifier'), _cell(k, colspan: '5')]));
+                  () => [cell('modifier'), cell(k, colspan: '5')]));
             }
           });
         }
         // Return type
         row.addChild(renderSelfWith(() => [
-          _cell('return type'),
+          cell('return type'),
           _typeCell(node['returnType'], node['inferredReturnType'],
               colspan: '5')
         ]));
@@ -168,32 +177,30 @@ class ViewVersion {
                 ? "unavailable"
                 : param['declaredType'];
             row.addChild(renderSelfWith(() => [
-              _cell('parameter'),
-              _cell(param['name']),
+              cell('parameter'),
+              cell(param['name']),
               _typeCell(declaredType, param['type'], colspan: '4')
             ]));
           }
         }
         // Code
         if (node['code'] != null && node['code'].length != 0) {
-          row.addChild(renderSelfWith(() => [
-            _cell('code'),
-            _cell(node['code'], colspan: '5', pre: true)
-          ], sortPriority: -1));
+          row.addChild(renderSelfWith(
+              () => [cell('code'), cell(node['code'], colspan: '5', pre: true)],
+              sortPriority: -1));
         }
         break;
       case 'field':
         // Code
         if (node['code'] != null && node['code'].length != 0) {
-          row.addChild(renderSelfWith(() => [
-            _cell('code'),
-            _cell(node['code'], colspan: '5', pre: true)
-          ], sortPriority: -1));
+          row.addChild(renderSelfWith(
+              () => [cell('code'), cell(node['code'], colspan: '5', pre: true)],
+              sortPriority: -1));
         }
         // Types
         if (node['inferredType'] != null && node['type'] != null) {
           row.addChild(renderSelfWith(() => [
-            _cell('type'),
+            cell('type'),
             _typeCell(node['type'], node['inferredType'], colspan: '5')
           ]));
         }
@@ -202,9 +209,9 @@ class ViewVersion {
       case 'library':
         // Show how much of the size we can't account for.
         row.addChild(renderSelfWith(() => [
-          _cell('scaffolding'),
-          _cell('(unaccounted for)'),
-          _cell(node['size'] - _computeSize(node, fetch, force: true),
+          cell('scaffolding'),
+          cell('(unaccounted for)'),
+          cell(node['size'] - computeSize(node, fetch, force: true),
               align: 'right')
         ]));
         break;
@@ -213,7 +220,7 @@ class ViewVersion {
 
   void _renderRow1(TreeTableRow row, LogicalRow logicalRow) {
     Map<String, dynamic> props = logicalRow.data;
-    List<TableCellElement> cells = [_cell(props['kind']),];
+    List<TableCellElement> cells = [cell(props['kind']),];
 
     switch (props['kind']) {
       case 'function':
@@ -234,36 +241,36 @@ class ViewVersion {
 
         cells.addAll([
           new TableCellElement()..children.addAll([span, anchor]),
-          _cell(props['size'], align: 'right'),
-          _cell(model.triviallyOwnedSize(props['id']), align: 'right'),
-          _cell(props['size_percent'], align: 'right'),
-          _cell(props['type'], pre: true)
+          cell(props['size'], align: 'right'),
+          cell(model.triviallyOwnedSize(props['id']), align: 'right'),
+          cell(props['size_percent'], align: 'right'),
+          cell(props['type'], pre: true)
         ]);
         break;
       case 'library':
         cells.addAll([
-          _cell(props['name']),
-          _cell(props['size'], align: 'right'),
-          _cell(''),
-          _cell(props['size_percent'], align: 'right'),
-          _cell('')
+          cell(props['name']),
+          cell(props['size'], align: 'right'),
+          cell(''),
+          cell(props['size_percent'], align: 'right'),
+          cell('')
         ]);
         break;
       case 'typedef':
         cells.addAll([
-          _cell(props['name']),
-          _cell('0', align: 'right'),
-          _cell('0', align: 'right'),
-          _cell('0.00%', align: 'right')
+          cell(props['name']),
+          cell('0', align: 'right'),
+          cell('0', align: 'right'),
+          cell('0.00%', align: 'right')
         ]);
         break;
       case 'class':
         cells.addAll([
-          _cell(props['name']),
-          _cell(props['size'], align: 'right'),
-          _cell(''),
-          _cell(props['size_percent'], align: 'right'),
-          _cell(props['name'], pre: true)
+          cell(props['name']),
+          cell(props['size'], align: 'right'),
+          cell(''),
+          cell(props['size_percent'], align: 'right'),
+          cell(props['name'], pre: true)
         ]);
         break;
       default:
@@ -279,4 +286,26 @@ class ViewVersion {
       ..appendText('declared: ')
       ..append(_span(declaredType, cssClass: 'preSpan')), colspan: colspan);
   }
+}
+
+TableCellElement _verticalCell(dynamic upper, dynamic lower,
+    {String align: 'left', String colspan: '1'}) {
+  DivElement div = new DivElement();
+  div.children.addAll([
+    upper is SpanElement ? upper : _span(upper),
+    new BRElement(),
+    lower is SpanElement ? lower : _span(lower)
+  ]);
+  return cell(div, align: align, colspan: colspan, pre: false);
+}
+
+SpanElement _span(dynamic contents, {String cssClass}) {
+  SpanElement span = new SpanElement();
+  if (cssClass != null) span.classes.add(cssClass);
+  if (contents is Node) {
+    span.append(contents);
+  } else {
+    span.appendText('$contents');
+  }
+  return span;
 }

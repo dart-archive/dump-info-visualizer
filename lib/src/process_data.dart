@@ -1,8 +1,13 @@
 // Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+library dump_viz.process_data;
 
-part of versions;
+import 'dart:html';
+
+import '../components/tree_table.dart';
+
+import 'util.dart';
 
 void processData(Map document, TreeTable tt) {
   var libs = document['libs'];
@@ -36,7 +41,7 @@ void processData(Map document, TreeTable tt) {
   LogicalRow buildTree(
       Map<String, dynamic> node, bool isTop, HtmlElement tbody, int level) {
     if (node['size'] == null) {
-      node['size'] = _computeSize(node, (a) => a);
+      node['size'] = computeSize(node, (a) => a);
     }
     node['size_percent'] =
         (100 * node['size'] / prog['program_size']).toStringAsFixed(2) + '%';
@@ -64,7 +69,7 @@ void processData(Map document, TreeTable tt) {
 void _renderRow(TreeTableRow row, LogicalRow logicalRow) {
   Map<String, dynamic> props = logicalRow.data;
   List<TableCellElement> cells = [];
-  cells.addAll([_cell(props['kind']), _cell(props['name'])]);
+  cells.addAll([cell(props['kind']), cell(props['name'])]);
   switch (props['kind']) {
     case 'function':
     case 'closure':
@@ -72,42 +77,40 @@ void _renderRow(TreeTableRow row, LogicalRow logicalRow) {
     case 'method':
     case 'field':
       cells.addAll([
-        _cell(props['size'], align: 'right'),
-        _cell(props['size_percent'], align: 'right'),
-        _cell(props['type'], pre: true)
+        cell(props['size'], align: 'right'),
+        cell(props['size_percent'], align: 'right'),
+        cell(props['type'], pre: true)
       ]);
       break;
     case 'library':
       cells.addAll([
-        _cell(props['size'], align: 'right'),
-        _cell(props['size_percent'], align: 'right'),
-        _cell('')
+        cell(props['size'], align: 'right'),
+        cell(props['size_percent'], align: 'right'),
+        cell('')
       ]);
       break;
     case 'typedef':
       cells.addAll([
-        _cell('0', align: 'right'),
-        _cell('0.000%', align: 'right'),
-        _cell(props['type'], pre: true)
+        cell('0', align: 'right'),
+        cell('0.000%', align: 'right'),
+        cell(props['type'], pre: true)
       ]);
       break;
     case 'class':
       cells.addAll([
-        _cell(props['size'], align: 'right'),
-        _cell(props['size_percent'], align: 'right'),
-        _cell(props['name'], pre: true)
+        cell(props['size'], align: 'right'),
+        cell(props['size_percent'], align: 'right'),
+        cell(props['name'], pre: true)
       ]);
       break;
     case 'inferred':
       cells.removeLast();
-      cells.addAll([
-        _cell(props['desc']),
-        _cell(props['type'], colspan: '3', pre: true)
-      ]);
+      cells.addAll(
+          [cell(props['desc']), cell(props['type'], colspan: '3', pre: true)]);
       break;
     case 'code':
       cells.removeLast();
-      cells.addAll([_cell(props['code'], colspan: '4', pre: true)]);
+      cells.addAll([cell(props['code'], colspan: '4', pre: true)]);
   }
   row.data = cells;
 }
