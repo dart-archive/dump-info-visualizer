@@ -4,7 +4,7 @@
 
 import 'dart:async';
 
-import 'package:dump_viz/async.dart';
+import 'package:dump_viz/src/async.dart';
 
 import 'package:test/test.dart';
 

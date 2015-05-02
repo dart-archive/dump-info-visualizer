@@ -6,11 +6,10 @@ library dump_viz.view_version;
 
 import 'dart:html';
 
-import '../components/dependency_view.dart';
-import '../components/tree_table.dart';
-import '../history.dart';
-import '../infohelper.dart';
-
+import 'dependency_view.dart';
+import 'history.dart';
+import 'infohelper.dart';
+import 'tree_table.dart';
 import 'util.dart';
 
 class ViewVersion {

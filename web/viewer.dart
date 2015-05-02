@@ -13,14 +13,7 @@ import 'package:paper_elements/paper_ripple.dart';
 import 'package:paper_elements/paper_tab.dart';
 import 'package:polymer/polymer.dart';
 
-import 'package:dump_viz/components/dependency_view.dart';
-import 'package:dump_viz/components/diff_view.dart';
-import 'package:dump_viz/components/tree_table.dart';
-import 'package:dump_viz/dragdrop.dart';
-import 'package:dump_viz/history.dart' show HistoryState;
-import 'package:dump_viz/infohelper.dart';
-import 'package:dump_viz/src/process_data.dart';
-import 'package:dump_viz/src/view_version.dart';
+import 'package:dump_viz/dump_viz.dart';
 
 export 'package:polymer/init.dart';
 

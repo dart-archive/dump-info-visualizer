@@ -7,7 +7,7 @@ library dump_viz.history;
 import 'dart:async';
 import 'dart:html';
 
-import 'components/dependency_view.dart';
+import 'dependency_view.dart';
 
 abstract class HistoryState {
   /// Apply this history state and modify the view.

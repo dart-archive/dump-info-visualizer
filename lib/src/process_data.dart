@@ -5,8 +5,7 @@ library dump_viz.process_data;
 
 import 'dart:html';
 
-import '../components/tree_table.dart';
-
+import 'tree_table.dart';
 import 'util.dart';
 
 void processData(Map document, TreeTable tt) {

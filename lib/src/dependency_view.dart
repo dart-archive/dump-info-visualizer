@@ -8,9 +8,8 @@ import 'dart:html' hide Selection;
 
 import 'package:polymer/polymer.dart';
 
-import 'package:dump_viz/infohelper.dart';
-
-import '../history.dart';
+import 'history.dart';
+import 'infohelper.dart';
 
 @CustomTag('dependency-view')
 class DependencyView extends PolymerElement {
