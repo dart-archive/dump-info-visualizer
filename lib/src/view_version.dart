@@ -4,7 +4,7 @@
 
 part of versions;
 
-class ViewVersion1 {
+class ViewVersion {
   final InfoHelper model;
   final TreeTable treeTable;
   final DependencyView depView;
@@ -12,7 +12,7 @@ class ViewVersion1 {
   final Function switchToHierTab;
   final Function switchToDepsTab;
 
-  ViewVersion1(this.model, this.treeTable, this.depView, this.switchToHierTab,
+  ViewVersion(this.model, this.treeTable, this.depView, this.switchToHierTab,
       this.switchToDepsTab) {
     depView.dumpInfo = this.model;
   }

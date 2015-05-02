@@ -4,7 +4,7 @@
 
 part of versions;
 
-void processData0(Map document, TreeTable tt) {
+void processData(Map document, TreeTable tt) {
   var libs = document['libs'];
   var prog = document['program'];
 
@@ -41,7 +41,7 @@ void processData0(Map document, TreeTable tt) {
     node['size_percent'] =
         (100 * node['size'] / prog['program_size']).toStringAsFixed(2) + '%';
 
-    var row = new LogicalRow(node, _renderRow0, tbody, level);
+    var row = new LogicalRow(node, _renderRow, tbody, level);
     if (isTop) {
       tt.addTopLevel(row);
     }
@@ -61,7 +61,7 @@ void processData0(Map document, TreeTable tt) {
   }
 }
 
-void _renderRow0(TreeTableRow row, LogicalRow logicalRow) {
+void _renderRow(TreeTableRow row, LogicalRow logicalRow) {
   Map<String, dynamic> props = logicalRow.data;
   List<TableCellElement> cells = [];
   cells.addAll([_cell(props['kind']), _cell(props['name'])]);

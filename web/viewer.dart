@@ -134,13 +134,13 @@ void init() {
     }
 
     if (!json.containsKey('dump_version')) {
-      processData0(json, treeTable);
+      processData(json, treeTable);
     } else {
       switch (json['dump_version'] as dynamic) {
         case 1:
         case 2:
         case 3:
-          var view = new ViewVersion1(info, treeTable, dependencyView,
+          var view = new ViewVersion(info, treeTable, dependencyView,
               () => HistoryState.switchTo(new HistoryState('hier')),
               () => HistoryState.switchTo(new HistoryState('dep')));
           view.display();

@@ -11,8 +11,8 @@ import '../components/tree_table.dart';
 import '../history.dart';
 import '../infohelper.dart';
 
-part 'version0.dart';
-part 'version1.dart';
+part 'process_data.dart';
+part 'view_version.dart';
 
 //
 // Common utilities.
