@@ -1,8 +1,9 @@
 // Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
+library dump_viz.test.diff_test;
 
-import 'package:dump_viz/src/infohelper.dart';
+import 'package:dump_viz/src/info_helper.dart';
 import 'package:dump_viz/src/diff_alg.dart';
 
 import 'package:test/test.dart';

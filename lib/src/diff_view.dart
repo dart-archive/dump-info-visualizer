@@ -13,7 +13,7 @@ import 'package:polymer/polymer.dart';
 import 'async.dart';
 import 'diff_alg.dart';
 import 'dragdrop.dart';
-import 'infohelper.dart';
+import 'info_helper.dart';
 
 @CustomTag('diff-view')
 class DiffView extends PolymerElement {

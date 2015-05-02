@@ -2,9 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-library diff_alg;
+library dump_viz.diff_alg;
 
-import 'infohelper.dart';
+import 'info_helper.dart';
 
 class DiffItem {
   final String kind;
