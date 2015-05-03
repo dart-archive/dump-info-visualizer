@@ -91,8 +91,8 @@ void init() {
 
   bool alreadyLoaded = false;
 
-  TreeTable treeTable = querySelector('tree-table');
-  DependencyView dependencyView = querySelector('dependency-view');
+  var treeTable = querySelector('tree-table') as TreeTable;
+  var dependencyView = querySelector('dependency-view') as DependencyView;
   var diffView = querySelector('diff-view') as DiffView;
 
   var tabs = querySelectorAll('paper-tab');

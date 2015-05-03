@@ -73,7 +73,6 @@ class LogicalRow {
   }
 
   void hide() {
-    //this.parentElement.children.remove(this.getElement());
     this.getElement().remove();
     if (this.open) {
       this.children.forEach((child) => child.hide());
