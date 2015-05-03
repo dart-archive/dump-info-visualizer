@@ -8,7 +8,7 @@ import 'dart:html' hide Selection;
 
 import 'package:polymer/polymer.dart';
 
-import 'history.dart';
+import 'history_state.dart';
 import 'info_helper.dart';
 
 @CustomTag('dependency-view')

@@ -7,7 +7,7 @@ library dump_viz.view_version;
 import 'dart:html';
 
 import 'dependency_view.dart';
-import 'history.dart';
+import 'history_state.dart';
 import 'info_helper.dart';
 import 'logical_row.dart';
 import 'tree_table.dart';

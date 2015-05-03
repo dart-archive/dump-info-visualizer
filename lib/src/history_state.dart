@@ -12,6 +12,7 @@ import 'dependency_view.dart';
 abstract class HistoryState {
   /// Apply this history state and modify the view.
   void apply();
+
   /// Called when a HistoryState is about to be
   /// moved out of.
   void finalize();
@@ -49,7 +50,7 @@ abstract class HistoryState {
     HistoryState._animationTime = animationTime;
   }
 
-  static switchTo(HistoryState newState, {fromPop: false}) {
+  static void switchTo(HistoryState newState, {fromPop: false}) {
     if (_currentState != null) {
       _currentState.finalize();
     }
@@ -89,10 +90,13 @@ abstract class HistoryState {
 
 class _InfoHistoryState implements HistoryState {
   String get asUrl => "slide=info";
+
   void apply() {
     HistoryState._slideSwitcher('info');
   }
+
   void finalize() {}
+
   dynamic toJson() {
     return {'kind': 'info'};
   }
@@ -103,17 +107,20 @@ class _DiffHistoryState implements HistoryState {
   _DiffHistoryState(this.pos);
 
   String get asUrl => "slide=diff";
+
   void apply() {
     HistoryState._slideSwitcher('diff');
     new Timer(HistoryState._animationTime * 3, () {
       document.body.scrollTop = pos;
     });
   }
+
   void finalize() {
     pos = document.body.scrollTop;
     HistoryState._lastDiffPos = pos;
     window.history.replaceState(this.toJson(), "", "");
   }
+
   dynamic toJson() {
     return {'kind': 'diff', 'pos': pos};
   }
