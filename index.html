@@ -141,13 +141,9 @@ body /deep/ .preSpan {
     
     
   </head>
-  <body unresolved=""><div hidden=""><link href="//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css">
+  <body unresolved=""><div hidden=""><script src="packages/web_components/interop_support.js"></script>
 
-
-
-
-
-
+<!-- Dart note: load polymer for Dart and JS from the same place -->
 <style shim-shadowdom="">
 /*******************************
           Flex Layout
@@ -432,257 +428,6 @@ html /deep/ [segment], html /deep/ segment {
 <script>
 // This empty script tag is necessary to work around dartbug.com/19650
 </script>
-
-<script>
-// This empty script tag is necessary to work around dartbug.com/19650
-</script>
-
-<polymer-element name="tree-table">
-  <template>
-    <style>
-      #inner_table {
-        width: 100%;
-        table-layout: fixed;
-        border-size: 0;
-      }
-      thead > td {
-        font-size: 1.5em;
-        font-weight: bold;
-        vertical-align: middle;
-      }
-      tr:nth-child(odd) {
-        background: rgba(0,188,212, 0.2);
-      }
-    </style>
-    <table id="inner_table">
-        <thead id="inner_table_head">
-        </thead>
-        <tbody id="inner_table_body">
-        </tbody>
-    </table>
-  </template>
-</polymer-element>
-
-<polymer-element name="tree-table-row" extends="tr">
-  <template>
-    <style>
-      td {
-        padding: 5px;
-        height: 10px;
-        overflow:hidden;
-        font-family: RobotoDraft;
-      }
-      td>table td {
-        padding: 0px;
-      }
-      #first-cell {
-        padding: 5px;
-        overflow:hidden;
-        position: relative;
-      }
-      pre {
-        margin: 0px;
-        overflow: auto;
-      }
-      #arrow {
-        min-width: 100px;
-        padding: 8px;
-      }
-      #content {
-      }
-      #first-cell {
-        display: table-cell;
-        vertical-align: middle;
-      }
-    </style>
-    <!--
-      The first column in a row.  This column is special because it contains
-      the open/close arrow and is padded for a visual tree structure.  It is
-      a div because the Polymer transformer wont let me use <td> outside of a
-      <tr>.
-     -->
-    <div id="first-cell" class="odd">
-      <nobr>
-         <span id="arrow"></span>
-         <span id="content"></span>
-      </nobr>
-    </div>
-    <!-- The rest of the <td>s will be inserted here -->
-  </template>
-</polymer-element>
-
-
-<polymer-element name="dependency-view">
-  <template>
-    <style>
-      table {
-        padding: 5px;
-        box-shadow: 0px 2px 5px rgba(0,0,0,0.26);
-        position: relative;
-        border-bottom-left-radius: 2px;
-        border-bottom-right-radius: 2px;
-      }
-
-      table tr {
-        padding: 2.5px;
-        cursor:  pointer;
-      }
-
-      td {
-        min-width: 100px;
-      }
-
-      table thead {
-        font-weight: bold;
-        font-size: 1.3em;
-      }
-
-      #in {
-        width: 100%;
-      }
-
-      #current {
-        width: 96%;
-        left: 2%;
-      }
-
-      #out {
-        width: 92%;
-        left: 4%;
-      }
-      #information {
-        font-size: 1.2em;
-      }
-    </style>
-    <div id="information">
-      In order to use the dependency view, first find an element to focus on
-      in the hierarchy view and click on the <img src="deps_icon.svg"> symbol.
-    </div>
-    <div id="tables" style="display:none;">
-      <table id="in">
-        <thead>
-          <tr><td>Uses Current Element</td></tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-      <table id="current">
-        <thead><tr><td>Current Element</td></tr></thead>
-        <tbody></tbody>
-      </table>
-      <table id="out">
-        <thead><tr><td>Current Element Uses</td></tr></thead>
-        <tbody></tbody>
-      </table>
-    </div>
-  </template>
-</polymer-element>
-
-
-<polymer-element name="diff-view">
-    <template>
-        <style>
-            #selection {
-                width: 100%;
-                float: left;
-                display: block;
-            }
-            ul {
-                float: left;
-                display: block;
-                width:100%;
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-            }
-            li {
-                padding: 3px;
-                padding-left: 10px;
-            }
-            .full-add {
-                background-color: rgba(0,255,0,1.0);
-            }
-            .full-add::before {
-                content: "+ added ";
-            }
-
-            .partial-add {
-                background-color: rgba(0,255,0,0.5);
-            }
-            .partial-add::before {
-                content: "+ bigger ";
-            }
-
-            .full-remove {
-                background-color: rgba(255,0,0,1.0);
-            }
-            .full-remove::before {
-                content: "- removed ";
-            }
-
-            .partial-remove {
-                background-color: rgba(255,0,0,0.5);
-            }
-            .partial-remove::before {
-                content: "- smaller ";
-            }
-
-            #before, #after {
-                width: 45%;
-                float:left;
-                margin: 5px;
-                padding: 10px;
-            }
-            #before-drop, #after-drop {
-                background-color: rgba(0,0,0,0.1);
-                width: 45%;
-                height: 80px;
-                color: rgba(0,0,0, 0.5);
-                float: left;
-                height: 100px;
-            }
-            #before-use-current, #after-use-current {
-                width: 50%;
-                float: left;
-            }
-            button {
-                height: 80px;
-            }
-        </style>
-        <div id="selection">
-            <h2> Select two files to diff </h2>
-            <div id="before">
-                <h3> BEFORE </h3>
-                <div id="before-drop">
-                    <h2>
-                        Drop File Here
-                    </h2>
-                    <br>
-                    <input id="before-file-upload" type="file">
-                </div>
-                <div id="before-use-current">
-                    <button id="before-current-btn"> Use current file </button>
-                </div>
-            </div>
-            <div id="after">
-                <h3> AFTER </h3>
-                <div id="after-drop">
-                    <h2>Drop File Here</h2>
-                    <br>
-                    <input id="after-file-upload" type="file">
-                </div>
-                <div id="after-use-current">
-                    <button id="after-current-btn"> Use current file </button>
-                </div>
-            </div>
-        </div>
-        <ul id="list">
-        </ul>
-    </template>
-</polymer-element>
-
-<script src="packages/web_components/interop_support.js"></script>
-
-<!-- Dart note: load polymer for Dart and JS from the same place -->
 
 <script>
 // This empty script is here to workaround issue
@@ -3739,21 +3484,308 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
 
 
 
+<link href="//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<script>
+// This empty script tag is necessary to work around dartbug.com/19650
+</script>
+
+<polymer-element name="dependency-view">
+  <template>
+    <style>
+      table {
+        padding: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.26);
+        position: relative;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+
+      table tr {
+        padding: 2.5px;
+        cursor: pointer;
+      }
+
+      td {
+        min-width: 100px;
+      }
+
+      table thead {
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+
+      #in {
+        width: 100%;
+      }
+
+      #current {
+        width: 96%;
+        left: 2%;
+      }
+
+      #out {
+        width: 92%;
+        left: 4%;
+      }
+
+      #information {
+        font-size: 1.2em;
+      }
+    </style>
+    <div id="information">
+      In order to use the dependency view, first find an element to focus on
+      in the hierarchy view and click on the <img src="packages/dump_viz/src/deps_icon.svg"> symbol.
+    </div>
+    <div id="tables" style="display:none;">
+      <table id="in">
+        <thead>
+          <tr>
+            <td>Uses Current Element</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <table id="current">
+        <thead>
+          <tr>
+            <td>Current Element</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <table id="out">
+        <thead>
+          <tr>
+            <td>Current Element Uses</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </template>
+</polymer-element>
+
+
+<polymer-element name="diff-view">
+  <template>
+    <style>
+      #selection {
+        width: 100%;
+        float: left;
+        display: block;
+      }
+
+      ul {
+        float: left;
+        display: block;
+        width: 100%;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        padding: 3px;
+        padding-left: 10px;
+      }
+
+      .full-add {
+        background-color: rgba(0, 255, 0, 1.0);
+      }
+
+      .full-add::before {
+        content: "+ added ";
+      }
+
+      .partial-add {
+        background-color: rgba(0, 255, 0, 0.5);
+      }
+
+      .partial-add::before {
+        content: "+ bigger ";
+      }
+
+      .full-remove {
+        background-color: rgba(255, 0, 0, 1.0);
+      }
+
+      .full-remove::before {
+        content: "- removed ";
+      }
+
+      .partial-remove {
+        background-color: rgba(255, 0, 0, 0.5);
+      }
+
+      .partial-remove::before {
+        content: "- smaller ";
+      }
+
+      #before, #after {
+        width: 45%;
+        float: left;
+        margin: 5px;
+        padding: 10px;
+      }
+
+      #before-drop, #after-drop {
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 45%;
+        height: 80px;
+        color: rgba(0, 0, 0, 0.5);
+        float: left;
+        height: 100px;
+      }
+
+      #before-use-current, #after-use-current {
+        width: 50%;
+        float: left;
+      }
+
+      button {
+        height: 80px;
+      }
+    </style>
+    <div id="selection">
+      <h2> Select two files to diff </h2>
+
+      <div id="before">
+        <h3> BEFORE </h3>
+
+        <div id="before-drop">
+          <h2>
+            Drop File Here
+          </h2>
+          <br>
+          <input id="before-file-upload" type="file">
+        </div>
+        <div id="before-use-current">
+          <button id="before-current-btn"> Use current file</button>
+        </div>
+      </div>
+      <div id="after">
+        <h3> AFTER </h3>
+
+        <div id="after-drop">
+          <h2>Drop File Here</h2>
+          <br>
+          <input id="after-file-upload" type="file">
+        </div>
+        <div id="after-use-current">
+          <button id="after-current-btn"> Use current file</button>
+        </div>
+      </div>
+    </div>
+    <ul id="list">
+    </ul>
+  </template>
+</polymer-element>
+
+
+<polymer-element name="tree-table">
+  <template>
+    <style>
+      #inner_table {
+        width: 100%;
+        table-layout: fixed;
+        border-size: 0;
+      }
+
+      thead > td {
+        font-size: 1.5em;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+
+      tr:nth-child(odd) {
+        background: rgba(0, 188, 212, 0.2);
+      }
+    </style>
+    <table id="inner_table">
+      <thead id="inner_table_head">
+      </thead>
+      <tbody id="inner_table_body">
+      </tbody>
+    </table>
+  </template>
+</polymer-element>
+
+<polymer-element name="tree-table-row" extends="tr">
+  <template>
+    <style>
+      td {
+        padding: 5px;
+        height: 10px;
+        overflow: hidden;
+        font-family: RobotoDraft;
+      }
+
+      td > table td {
+        padding: 0px;
+      }
+
+      #first-cell {
+        padding: 5px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      pre {
+        margin: 0px;
+        overflow: auto;
+      }
+
+      #arrow {
+        min-width: 100px;
+        padding: 8px;
+      }
+
+      #content {
+      }
+
+      #first-cell {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    </style>
+    <!--
+      The first column in a row.  This column is special because it contains
+      the open/close arrow and is padded for a visual tree structure.  It is
+      a div because the Polymer transformer wont let me use <td> outside of a
+      <tr>.
+     -->
+    <div id="first-cell" class="odd">
+      <nobr>
+        <span id="arrow"></span>
+        <span id="content"></span>
+      </nobr>
+    </div>
+    <!-- The rest of the <td>s will be inserted here -->
+  </template>
+</polymer-element>
+
 </div>
     <core-toolbar>
       <a id="refresh" href="">⟳</a>
       <paper-tabs selected="-10">
         <paper-tab id="info-tab" slide="info" offset="0">
-            PROGRAM INFO
+          PROGRAM INFO
         </paper-tab>
         <paper-tab id="hier-tab" slide="hier" offset="1">
-            HIERARCHY
+          HIERARCHY
         </paper-tab>
         <paper-tab id="dep-tab" slide="dep" offset="2">
-            DEPENDENCIES
+          DEPENDENCIES
         </paper-tab>
         <paper-tab id="diff-tab" slide="diff" offset="3">
-            DIFF
+          DIFF
         </paper-tab>
         <!--
         TODO(tyoverby): Enable this when graphviz graphs are added.
@@ -3777,9 +3809,9 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
           <h2>
             Sort
             <select name="sort" id="sort">
-              <option value="name"> Name </option>
-              <option value="kind"> Kind </option>
-              <option value="size"> Size </option>
+              <option value="name"> Name</option>
+              <option value="kind"> Kind</option>
+              <option value="size"> Size</option>
             </select>
           </h2>
 
@@ -3790,23 +3822,23 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
 
       <!-- Dependency Viewer -->
       <div id="dep-slide" class="slide">
-          <dependency-view></dependency-view>
+        <dependency-view></dependency-view>
       </div>
 
       <div id="diff-slide" class="slide">
-          <diff-view></diff-view>
+        <diff-view></diff-view>
       </div>
 
 
       <!-- File Loading Slide
         This slide can not be returned to-->
       <div id="load-slide" class="slide">
-          <!-- drag and drop file input -->
-          <div id="drag-target">
-            Drop .info.json file here
-            <br><br>
-            <input id="file_upload" type="file">
-          </div>
+        <!-- drag and drop file input -->
+        <div id="drag-target">
+          Drop .info.json file here
+          <br><br>
+          <input id="file_upload" type="file">
+        </div>
       </div>
 
     </div>

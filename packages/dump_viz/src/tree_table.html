@@ -1,0 +1,89 @@
+<!--
+Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+for details. All rights reserved. Use of this source code is governed by a
+BSD-style license that can be found in the LICENSE file.
+-->
+
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<polymer-element name="tree-table">
+  <template>
+    <style>
+      #inner_table {
+        width: 100%;
+        table-layout: fixed;
+        border-size: 0;
+      }
+
+      thead > td {
+        font-size: 1.5em;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+
+      tr:nth-child(odd) {
+        background: rgba(0, 188, 212, 0.2);
+      }
+    </style>
+    <table id="inner_table">
+      <thead id="inner_table_head">
+      </thead>
+      <tbody id="inner_table_body">
+      </tbody>
+    </table>
+  </template>
+</polymer-element>
+
+<polymer-element name="tree-table-row" extends="tr">
+  <template>
+    <style>
+      td {
+        padding: 5px;
+        height: 10px;
+        overflow: hidden;
+        font-family: RobotoDraft;
+      }
+
+      td > table td {
+        padding: 0px;
+      }
+
+      #first-cell {
+        padding: 5px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      pre {
+        margin: 0px;
+        overflow: auto;
+      }
+
+      #arrow {
+        min-width: 100px;
+        padding: 8px;
+      }
+
+      #content {
+      }
+
+      #first-cell {
+        display: table-cell;
+        vertical-align: middle;
+      }
+    </style>
+    <!--
+      The first column in a row.  This column is special because it contains
+      the open/close arrow and is padded for a visual tree structure.  It is
+      a div because the Polymer transformer wont let me use <td> outside of a
+      <tr>.
+     -->
+    <div id="first-cell" class="odd">
+      <nobr>
+        <span id="arrow"></span>
+        <span id="content"></span>
+      </nobr>
+    </div>
+    <!-- The rest of the <td>s will be inserted here -->
+  </template>
+</polymer-element>
+<script type="application/dart" src="tree_table.dart"></script>

@@ -1,0 +1,83 @@
+<!--
+Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+for details. All rights reserved. Use of this source code is governed by a
+BSD-style license that can be found in the LICENSE file.
+-->
+
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<polymer-element name="dependency-view">
+  <template>
+    <style>
+      table {
+        padding: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.26);
+        position: relative;
+        border-bottom-left-radius: 2px;
+        border-bottom-right-radius: 2px;
+      }
+
+      table tr {
+        padding: 2.5px;
+        cursor: pointer;
+      }
+
+      td {
+        min-width: 100px;
+      }
+
+      table thead {
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+
+      #in {
+        width: 100%;
+      }
+
+      #current {
+        width: 96%;
+        left: 2%;
+      }
+
+      #out {
+        width: 92%;
+        left: 4%;
+      }
+
+      #information {
+        font-size: 1.2em;
+      }
+    </style>
+    <div id="information">
+      In order to use the dependency view, first find an element to focus on
+      in the hierarchy view and click on the <img src="deps_icon.svg"> symbol.
+    </div>
+    <div id="tables" style="display:none;">
+      <table id="in">
+        <thead>
+          <tr>
+            <td>Uses Current Element</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <table id="current">
+        <thead>
+          <tr>
+            <td>Current Element</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <table id="out">
+        <thead>
+          <tr>
+            <td>Current Element Uses</td>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </template>
+</polymer-element>
+<script type="application/dart" src="dependency_view.dart"></script>
