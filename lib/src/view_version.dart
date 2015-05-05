@@ -232,8 +232,9 @@ class ViewVersion {
           HistoryState
               .switchTo(new HistoryState('dep', depTarget: props['id']));
         });
-        anchor.children
-            .add(new ImageElement(src: 'deps_icon.svg')..style.float = 'right');
+        anchor.children.add(
+            new ImageElement(src: 'packages/dump_viz/src/deps_icon.svg')
+          ..style.float = 'right');
 
         cells.addAll([
           new TableCellElement()..children.addAll([span, anchor]),
