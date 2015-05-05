@@ -12,6 +12,20 @@ import 'logical_row.dart';
 import 'tree_table.dart';
 import 'util.dart';
 
+const _columnNames = const ['Kind', 'Name', 'Bytes', 'Bytes R', '%', 'Type'];
+
+const _columnHelp = const [
+  '',
+  'The given name of the element',
+  'The direct size attributed to the element',
+  'The sum of the sizes of all the elements that can '
+      'only be reached from this element',
+  'The percentage of the direct size compared to the program size',
+  'The given type of the element'
+];
+
+const _columnSizes = const ["200px", null, "100px", "100px", "70px", null];
+
 class ViewVersion {
   final InfoHelper model;
   final TreeTable treeTable;
@@ -19,22 +33,7 @@ class ViewVersion {
   ViewVersion(this.model, this.treeTable);
 
   void display() {
-    treeTable.columnInfo(
-        // Names
-        ['Kind', 'Name', 'Bytes', 'Bytes R', '%', 'Type'],
-        // Help Info
-        [
-      '',
-      'The given name of the element',
-      'The direct size attributed to the element',
-      'The sum of the sizes of all the elements that can '
-          'only be reached from this element',
-      'The percentage of the direct size compared to the '
-          'program size',
-      'The given type of the element'
-    ],
-        // Sizes
-        ["200px", null, "100px", "100px", "70px", null]);
+    treeTable.columnInfo(_columnNames, _columnHelp, _columnSizes);
 
     _setupProgramwideInfo();
 

@@ -14,6 +14,9 @@ import 'logical_row.dart';
 
 typedef void RenderFunction(TreeTableRow ttr, LogicalRow logicalRow);
 
+/// The amount of padding to be added to each level in the tree.
+const int _PADDING_SIZE = 25;
+
 /**
  * A Polymer TreeTable element.
  */
@@ -136,9 +139,6 @@ class TreeTable extends PolymerElement {
     }
   }
 }
-
-/// The amount of padding to be added to each level in the tree.
-final int _PADDING_SIZE = 25;
 
 /**
  * A TreeTableRow element.  TreeTableRows are only to be inserted into
