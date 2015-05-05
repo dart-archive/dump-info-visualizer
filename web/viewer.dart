@@ -17,18 +17,18 @@ import 'package:dump_viz/dump_viz.dart';
 
 export 'package:polymer/init.dart';
 
-final List<String> slides = const <String>[
+const List<String> _slides = const <String>[
   'info',
   'hier',
   'dep',
   'load',
   'diff'
 ];
-final Duration animationTime = const Duration(milliseconds: 10);
+const Duration _animationTime = const Duration(milliseconds: 10);
 
 void _noSlide() {
   // Disable all of the slides and tabs
-  for (String id in slides) {
+  for (String id in _slides) {
     var slide = document.querySelector('#$id-slide');
     slide.style.opacity = '0';
     //slide.style.left = '100px';
@@ -49,7 +49,7 @@ void _switchSlide(String id, {bool fromMouse: false}) {
   slide.style.maxHeight = 'none';
   slide.style.zIndex = '1';
 
-  new Timer(animationTime, () {
+  new Timer(_animationTime, () {
     slide.style.opacity = '1';
     slide.style.left = '0px';
     var tab = document.querySelector('#$id-tab');
@@ -75,7 +75,7 @@ void _switchSlide(String id, {bool fromMouse: false}) {
 
 @whenPolymerReady
 void init() {
-  HistoryState.setup(_switchSlide, animationTime);
+  HistoryState.setup(_switchSlide, _animationTime);
   _noSlide();
   _switchSlide('load');
 
