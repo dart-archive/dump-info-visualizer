@@ -47,7 +47,7 @@ class LogicalRow {
   // Stored comparator for the sorting function.
   // Because the tree is generated lazily, this needs to be stored to
   // be called on generation of future children.
-  Function sortComparator;
+  LogicalRowComparer sortComparator;
 
   LogicalRow(this.data, this.renderFunction, this.parentElement, this.level);
 
@@ -116,9 +116,11 @@ class LogicalRow {
     }
   }
 
-  void sort(Function comparator) {
+  void sort(LogicalRowComparer comparator) {
     sortComparator = comparator;
     this.children.sort(comparator);
     this.children.forEach((child) => child.sort(comparator));
   }
 }
+
+typedef int LogicalRowComparer(LogicalRow a, LogicalRow b);
