@@ -127,23 +127,21 @@ void init() {
       HistoryState.switchTo(new HistoryState('info'));
     }
 
-    if (!json.containsKey('dump_version')) {
-      processData(json, treeTable);
-    } else {
-      switch (json['dump_version'] as dynamic) {
-        case 1:
-        case 2:
-        case 3:
-          var view = new ViewVersion(info, treeTable, dependencyView,
-              () => HistoryState.switchTo(new HistoryState('hier')),
-              () => HistoryState.switchTo(new HistoryState('dep')));
-          view.display();
-          treeTable.sort(sortby);
-          treeTable.reset();
-          break;
-        default:
-          window.alert('Unknown dump-info version');
-      }
+    var dumpVersion = json['dump_version'];
+
+    switch (dumpVersion) {
+      case 1:
+      case 2:
+      case 3:
+        var view = new ViewVersion(info, treeTable, dependencyView,
+            () => HistoryState.switchTo(new HistoryState('hier')),
+            () => HistoryState.switchTo(new HistoryState('dep')));
+        view.display();
+        treeTable.sort(sortby);
+        treeTable.reset();
+        break;
+      default:
+        window.alert('Unknown dump-info version: $dumpVersion');
     }
 
     // Sort by name as default
