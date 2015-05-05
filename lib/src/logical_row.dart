@@ -9,19 +9,19 @@ class LogicalRow {
   bool open = false;
 
   // A pointer into the data
-  Map<String, dynamic> data;
+  final Map<String, dynamic> data;
 
   String get id => data['id'];
 
   // A list of 'soon to be children' row functions.
   // This is the key part of having the entire data
   // structure be lazily evaluated.
-  List<GenerateRowFunction> generatorFns = [];
+  final List<GenerateRowFunction> generatorFns = <GenerateRowFunction>[];
 
   // After the generatorFns array is processed when this
   // node is expanded, this children array will be filled with
   // [LogicalRow]s
-  List<LogicalRow> children = [];
+  final List<LogicalRow> children = <LogicalRow>[];
 
   // If this row is sortable.  An example of a non-sortable row
   // would be the 'code' and 'parameters' rows of a function
@@ -33,7 +33,7 @@ class LogicalRow {
 
   // A function that is called when this tree needs to be rendered
   // into the DOM.
-  RenderFunction renderFunction;
+  final RenderFunction renderFunction;
 
   // The actual rendered row.
   TreeTableRow rowElement;
@@ -42,7 +42,7 @@ class LogicalRow {
   HtmlElement parentElement;
 
   // The depth of this row in the overall tree.
-  int level;
+  final int level;
 
   // Stored comparator for the sorting function.
   // Because the tree is generated lazily, this needs to be stored to
@@ -61,7 +61,7 @@ class LogicalRow {
     open = !open;
     if (open) {
       if (children.isEmpty) {
-        children = generatorFns.map((a) => a()).toList();
+        children.addAll(generatorFns.map((a) => a()));
         // Resort because more children were generated.
         sort(sortComparator);
       }
