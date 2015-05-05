@@ -1,0 +1,32 @@
+<!--
+Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+for details. All rights reserved. Use of this source code is governed by a
+BSD-style license that can be found in the LICENSE file.
+-->
+
+<link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="tree_table.html">
+
+<polymer-element name="hierarchy-view">
+  <template>
+    <style>
+
+    </style>
+    <div>
+      <h2>
+        Sort
+        <select name="sort" id="sort">
+          <option value="name"> Name</option>
+          <option value="kind"> Kind</option>
+          <option value="size"> Size</option>
+        </select>
+      </h2>
+
+      <!-- main hierarcy table -->
+      <tree-table></tree-table>
+    </div>
+
+
+  </template>
+</polymer-element>
+<script type="application/dart" src="hierarchy_view.dart"></script>

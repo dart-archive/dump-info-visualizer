@@ -19,7 +19,7 @@ BSD-style license that can be found in the LICENSE file.
 
     <link rel="import" href="packages/dump_viz/src/dependency_view.html">
     <link rel="import" href="packages/dump_viz/src/diff_view.html">
-    <link rel="import" href="packages/dump_viz/src/tree_table.html">
+    <link rel="import" href="packages/dump_viz/src/hierarchy_view.html">
   </head>
   <body unresolved>
     <core-toolbar>
@@ -55,19 +55,7 @@ BSD-style license that can be found in the LICENSE file.
 
       <!-- Hierarchy View -->
       <div id="hier-slide" class="slide">
-        <div>
-          <h2>
-            Sort
-            <select name="sort" id="sort">
-              <option value="name"> Name</option>
-              <option value="kind"> Kind</option>
-              <option value="size"> Size</option>
-            </select>
-          </h2>
-
-          <!-- main hierarcy table -->
-          <tree-table></tree-table>
-        </div>
+        <hierarchy-view></hierarchy-view>
       </div>
 
       <!-- Dependency Viewer -->

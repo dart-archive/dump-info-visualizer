@@ -91,9 +91,9 @@ void init() {
 
   bool alreadyLoaded = false;
 
-  var treeTable = querySelector('tree-table') as TreeTable;
   var dependencyView = querySelector('dependency-view') as DependencyView;
   var diffView = querySelector('diff-view') as DiffView;
+  var hierarchyView = querySelector('hierarchy-view') as HierarchyView;
 
   var tabs = querySelectorAll('paper-tab');
   for (PaperTab tab in tabs) {
@@ -102,14 +102,6 @@ void init() {
       HistoryState.switchTo(new HistoryState(link));
     });
   }
-
-  // Sort by chosen sorting methods.
-  var select = querySelector('select#sort') as SelectElement;
-  var sortby = 'name';
-  select.onChange.listen((e) {
-    sortby = select.options[select.selectedIndex].value;
-    treeTable.sort(sortby);
-  });
 
   // When a file is loaded
   dragDrop.onFile.listen((String jsonString) {
@@ -122,29 +114,20 @@ void init() {
     diffView.currentlyLoaded = info;
 
     if (alreadyLoaded) {
-      treeTable.clear();
+      hierarchyView.clear();
     } else {
       HistoryState.switchTo(new HistoryState('info'));
     }
 
-    var dumpVersion = json['dump_version'];
+    var dumpVersion = json['dump_version'] as num;
 
-    switch (dumpVersion) {
-      case 1:
-      case 2:
-      case 3:
-        dependencyView.dumpInfo = info;
-        var view = new ViewVersion(info, treeTable);
-        view.display();
-        treeTable.sort(sortby);
-        treeTable.reset();
-        break;
-      default:
-        window.alert('Unknown dump-info version: $dumpVersion');
+    if (dumpVersion < 1 || dumpVersion > 3) {
+      window.alert('Unknown dump-info version: $dumpVersion');
+      return;
     }
 
-    // Sort by name as default
-    treeTable.sort(sortby);
+    dependencyView.dumpInfo = info;
+    hierarchyView.dumpInfo = info;
 
     alreadyLoaded = true;
   });
