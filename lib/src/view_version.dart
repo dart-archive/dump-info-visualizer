@@ -49,7 +49,7 @@ class ViewVersion {
       node['size_percent'] =
           (100 * node['size'] / programSize).toStringAsFixed(2) + '%';
 
-      var row = new LogicalRow(node, _renderRow1, tbody, level);
+      var row = new LogicalRow(node, _renderRow, tbody, level);
       _addMetadata(node, row, tbody, level + 1, model.elementById);
 
       if (isTop) {
@@ -72,24 +72,10 @@ class ViewVersion {
     }
   }
 
-  void mapToTable(TableElement table, Map<String, dynamic> map) {
-    map.forEach((k, v) {
-      TableRowElement row = table.addRow();
-      row.addCell()..text = k;
-      if (v is String) {
-        row.addCell()..text = v;
-      } else if (v is Element) {
-        row.addCell()..children.add(v);
-      } else {
-        throw new ArgumentError("Unexpected value in map: $v");
-      }
-    });
-  }
-
   void _setupProgramwideInfo() {
     TableElement programInfoTable = querySelector('#prog-info') as TableElement;
     programInfoTable.children.clear();
-    mapToTable(programInfoTable, {
+    _mapToTable(programInfoTable, {
       'Program Size': model.size.toString() + ' bytes',
       'Compile Time': model.compilationMoment,
       'Compile Duration': model.compilationDuration,
@@ -210,7 +196,7 @@ class ViewVersion {
     }
   }
 
-  void _renderRow1(TreeTableRow row, LogicalRow logicalRow) {
+  void _renderRow(TreeTableRow row, LogicalRow logicalRow) {
     Map<String, dynamic> props = logicalRow.data;
     List<TableCellElement> cells = [cell(props['kind']),];
 
@@ -271,15 +257,14 @@ class ViewVersion {
     }
     row.data = cells;
   }
-
-  static _typeCell(String declaredType, String inferredType, {colspan: '1'}) {
-    return _verticalCell(new SpanElement()
-      ..appendText('inferred: ')
-      ..append(_span(inferredType, cssClass: 'preSpan')), new SpanElement()
-      ..appendText('declared: ')
-      ..append(_span(declaredType, cssClass: 'preSpan')), colspan: colspan);
-  }
 }
+
+TableCellElement _typeCell(String declaredType, String inferredType,
+    {colspan: '1'}) => _verticalCell(new SpanElement()
+  ..appendText('inferred: ')
+  ..append(_span(inferredType, cssClass: 'preSpan')), new SpanElement()
+  ..appendText('declared: ')
+  ..append(_span(declaredType, cssClass: 'preSpan')), colspan: colspan);
 
 TableCellElement _verticalCell(dynamic upper, dynamic lower,
     {String align: 'left', String colspan: '1'}) {
@@ -301,4 +286,18 @@ SpanElement _span(dynamic contents, {String cssClass}) {
     span.appendText('$contents');
   }
   return span;
+}
+
+void _mapToTable(TableElement table, Map<String, dynamic> map) {
+  map.forEach((k, v) {
+    TableRowElement row = table.addRow();
+    row.addCell()..text = k;
+    if (v is String) {
+      row.addCell()..text = v;
+    } else if (v is Element) {
+      row.addCell()..children.add(v);
+    } else {
+      throw new ArgumentError("Unexpected value in map: $v");
+    }
+  });
 }
