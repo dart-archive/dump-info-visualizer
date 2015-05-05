@@ -12,6 +12,7 @@ transformers:
 - polymer:
     entry_points: web/index.html
 - $dart2js:
+    $include: "**/*.polymer.bootstrap.dart"
     commandLineOptions:
     - --trust-type-annotations
     - --trust-primitives
