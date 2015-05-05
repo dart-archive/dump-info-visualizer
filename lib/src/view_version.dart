@@ -16,11 +16,7 @@ class ViewVersion {
   final InfoHelper model;
   final TreeTable treeTable;
 
-  final Function switchToHierTab;
-  final Function switchToDepsTab;
-
-  ViewVersion(
-      this.model, this.treeTable, this.switchToHierTab, this.switchToDepsTab);
+  ViewVersion(this.model, this.treeTable);
 
   void display() {
     treeTable.columnInfo(

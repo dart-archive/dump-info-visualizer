@@ -134,9 +134,7 @@ void init() {
       case 2:
       case 3:
         dependencyView.dumpInfo = info;
-        var view = new ViewVersion(info, treeTable,
-            () => HistoryState.switchTo(new HistoryState('hier')),
-            () => HistoryState.switchTo(new HistoryState('dep')));
+        var view = new ViewVersion(info, treeTable);
         view.display();
         treeTable.sort(sortby);
         treeTable.reset();
