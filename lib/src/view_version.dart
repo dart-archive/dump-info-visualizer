@@ -6,7 +6,6 @@ library dump_viz.view_version;
 
 import 'dart:html';
 
-import 'dependency_view.dart';
 import 'history_state.dart';
 import 'info_helper.dart';
 import 'logical_row.dart';
@@ -16,15 +15,12 @@ import 'util.dart';
 class ViewVersion {
   final InfoHelper model;
   final TreeTable treeTable;
-  final DependencyView depView;
 
   final Function switchToHierTab;
   final Function switchToDepsTab;
 
-  ViewVersion(this.model, this.treeTable, this.depView, this.switchToHierTab,
-      this.switchToDepsTab) {
-    depView.dumpInfo = this.model;
-  }
+  ViewVersion(
+      this.model, this.treeTable, this.switchToHierTab, this.switchToDepsTab);
 
   void display() {
     treeTable.columnInfo(

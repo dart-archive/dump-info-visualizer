@@ -133,7 +133,8 @@ void init() {
       case 1:
       case 2:
       case 3:
-        var view = new ViewVersion(info, treeTable, dependencyView,
+        dependencyView.dumpInfo = info;
+        var view = new ViewVersion(info, treeTable,
             () => HistoryState.switchTo(new HistoryState('hier')),
             () => HistoryState.switchTo(new HistoryState('dep')));
         view.display();
