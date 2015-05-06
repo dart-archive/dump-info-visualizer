@@ -16,16 +16,13 @@ import 'view_version.dart';
 class HierarchyView extends PolymerElement {
   HierarchyView.created() : super.created() {}
 
-  TreeTable _treeTable;
-  SelectElement _select;
+  TreeTable get _treeTable => $['treeTable'];
+  SelectElement get _select => $['selectSort'];
 
   void ready() {
     super.ready();
 
-    _treeTable = shadowRoot.querySelector('tree-table');
-
     // Sort by chosen sorting methods.
-    _select = shadowRoot.querySelector('select#sort') as SelectElement;
     _select.value = 'name';
 
     _select.onChange.listen((e) {
