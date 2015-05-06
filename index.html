@@ -3689,6 +3689,7 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
 </polymer-element>
 
 
+
 <polymer-element name="tree-table">
   <template>
     <style>
@@ -3771,6 +3772,31 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
   </template>
 </polymer-element>
 
+
+
+<polymer-element name="hierarchy-view">
+  <template>
+    <style>
+
+    </style>
+    <div>
+      <h2>
+        Sort
+        <select name="sort" id="sort">
+          <option value="name"> Name</option>
+          <option value="kind"> Kind</option>
+          <option value="size"> Size</option>
+        </select>
+      </h2>
+
+      <!-- main hierarcy table -->
+      <tree-table></tree-table>
+    </div>
+
+
+  </template>
+</polymer-element>
+
 </div>
     <core-toolbar>
       <a id="refresh" href="">⟳</a>
@@ -3805,19 +3831,7 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
 
       <!-- Hierarchy View -->
       <div id="hier-slide" class="slide">
-        <div>
-          <h2>
-            Sort
-            <select name="sort" id="sort">
-              <option value="name"> Name</option>
-              <option value="kind"> Kind</option>
-              <option value="size"> Size</option>
-            </select>
-          </h2>
-
-          <!-- main hierarcy table -->
-          <tree-table></tree-table>
-        </div>
+        <hierarchy-view></hierarchy-view>
       </div>
 
       <!-- Dependency Viewer -->
