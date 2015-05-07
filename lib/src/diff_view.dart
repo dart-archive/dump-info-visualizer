@@ -12,12 +12,12 @@ import 'package:polymer/polymer.dart';
 
 import 'async.dart';
 import 'diff_alg.dart';
-import 'drag_drop_file.dart';
+import 'drag_drop_view.dart';
 import 'info_helper.dart';
 
 @CustomTag('diff-view')
 class DiffView extends PolymerElement {
-  UListElement list;
+  UListElement get _list => $['list'];
   InfoHelper currentlyLoaded;
 
   DiffView.created() : super.created();
@@ -27,12 +27,9 @@ class DiffView extends PolymerElement {
       Map<String, dynamic> json = JSON.decode(input);
       return new InfoHelper(json['elements'], json['holding'], json['program']);
     }
-    list = $['list'];
 
-    var beforeFile = new DragDropFile(
-        $['before-drop'], $['before-file-upload']).onFile.map(strToHelper);
-    var afterFile = new DragDropFile(
-        $['after-drop'], $['after-file-upload']).onFile.map(strToHelper);
+    var beforeFile = ($['before-drop'] as DragDropView).onFile.map(strToHelper);
+    var afterFile = ($['after-drop'] as DragDropView).onFile.map(strToHelper);
     var beforeUseCurrent = $['before-use-current'];
     var afterUseCurrent = $['after-use-current'];
 
@@ -58,11 +55,11 @@ class DiffView extends PolymerElement {
           ..text = row.diff.toString()
           ..style.float = "right"
       ]);
-    list.children.add(e);
+    _list.children.add(e);
   }
 
   void _diff(InfoHelper before, InfoHelper after) {
-    list.children.clear();
+    _list.children.clear();
     for (DiffItem diffItem in diff(before, after)) {
       _addRow(diffItem);
     }

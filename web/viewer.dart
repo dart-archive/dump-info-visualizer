@@ -26,6 +26,19 @@ const List<String> _slides = const <String>[
 ];
 const Duration _animationTime = const Duration(milliseconds: 10);
 
+const _localStorageKey = 'dump_viz.last_file';
+
+bool get hasCache => window.localStorage.containsKey(_localStorageKey);
+
+String _getCache() {
+  if (!hasCache) {
+    throw 'No value stored!';
+  }
+  return window.localStorage[_localStorageKey];
+}
+
+String _setCache(String value) => window.localStorage[_localStorageKey] = value;
+
 void _noSlide() {
   // Disable all of the slides and tabs
   for (String id in _slides) {
@@ -73,24 +86,20 @@ void _switchSlide(String id, {bool fromMouse: false}) {
   });
 }
 
+ButtonElement get _useLastButton => querySelector('#useLast') as ButtonElement;
+
+ButtonElement get _clearCacheButton =>
+    querySelector('#clearCache') as ButtonElement;
+
 @whenPolymerReady
 void init() {
   HistoryState.setup(_switchSlide, _animationTime);
   _noSlide();
   _switchSlide('load');
 
-  var dragDrop = new DragDropFile(
-      querySelector('#drag-target'), querySelector('#file_upload'));
-
-  var refreshButton = querySelector('#refresh');
-  refreshButton.onClick.listen((e) {
-    e.preventDefault();
-    e.stopPropagation();
-    dragDrop.reload();
-  });
-
   bool alreadyLoaded = false;
 
+  var dragDrop = querySelector('drag-drop-view') as DragDropView;
   var dependencyView = querySelector('dependency-view') as DependencyView;
   var diffView = querySelector('diff-view') as DiffView;
   var hierarchyView = querySelector('hierarchy-view') as HierarchyView;
@@ -103,9 +112,15 @@ void init() {
     });
   }
 
-  // When a file is loaded
-  dragDrop.onFile.listen((String jsonString) {
-    Map<String, dynamic> json = JSON.decode(jsonString);
+  void loadJson(String jsonString) {
+    var json;
+    try {
+      json = JSON.decode(jsonString) as Map<String, dynamic>;
+    } catch (e) {
+      window.console.error("Error parsing json");
+      window.console.error(e);
+      return;
+    }
     document.querySelector('core-toolbar').style.top = "0";
 
     var info =
@@ -130,5 +145,33 @@ void init() {
     hierarchyView.dumpInfo = info;
 
     alreadyLoaded = true;
+    _updateButton();
+  }
+
+  // When a file is loaded
+  dragDrop.onFile.listen((json) {
+    try {
+      _setCache(json);
+    } catch (e) {
+      window.console.error('Could not populate cache. May be too big. Try the clear button.');
+      window.console.error(e);
+    }
+    loadJson(json);
   });
+
+  _clearCacheButton.onClick.listen((_) {
+    window.localStorage.clear();
+    _updateButton();
+  });
+
+  _useLastButton.onClick.listen((_) {
+    loadJson(_getCache());
+  });
+
+  _updateButton();
+}
+
+void _updateButton() {
+  _useLastButton.disabled = !hasCache;
+  _clearCacheButton.disabled = window.localStorage.isEmpty;
 }

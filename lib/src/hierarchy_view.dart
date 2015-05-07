@@ -14,7 +14,7 @@ import 'view_version.dart';
 
 @CustomTag('hierarchy-view')
 class HierarchyView extends PolymerElement {
-  HierarchyView.created() : super.created() {}
+  HierarchyView.created() : super.created();
 
   TreeTable get _treeTable => $['treeTable'];
   SelectElement get _select => $['selectSort'];

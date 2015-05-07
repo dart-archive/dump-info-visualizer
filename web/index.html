@@ -19,11 +19,11 @@ BSD-style license that can be found in the LICENSE file.
 
     <link rel="import" href="packages/dump_viz/src/dependency_view.html">
     <link rel="import" href="packages/dump_viz/src/diff_view.html">
+    <link rel="import" href="packages/dump_viz/src/drag_drop_view.html">
     <link rel="import" href="packages/dump_viz/src/hierarchy_view.html">
   </head>
   <body unresolved>
     <core-toolbar>
-      <a id="refresh" href="">⟳</a>
       <paper-tabs selected="-10">
         <paper-tab id="info-tab" slide="info" offset="0">
           PROGRAM INFO
@@ -71,12 +71,9 @@ BSD-style license that can be found in the LICENSE file.
       <!-- File Loading Slide
         This slide can not be returned to-->
       <div id="load-slide" class="slide">
-        <!-- drag and drop file input -->
-        <div id="drag-target">
-          Drop .info.json file here
-          <br/><br/>
-          <input id="file_upload" type="file"/>
-        </div>
+        <drag-drop-view></drag-drop-view>
+        <button id="useLast" disabled>Use cache</button>
+        <button id="clearCache" disabled>Clear cache</button>
       </div>
 
     </div>

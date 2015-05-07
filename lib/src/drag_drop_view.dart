@@ -7,18 +7,21 @@ library dump_viz.dragdrop;
 import 'dart:async';
 import 'dart:html';
 
-class DragDropFile {
-  final Element _dropZone;
-  final Element _fileUpload;
+import 'package:polymer/polymer.dart';
+
+@CustomTag('drag-drop-view')
+class DragDropView extends PolymerElement {
+  Element get _dropZone => $['drag-target'];
+  Element get _fileUpload => $['file_upload'];
+
+  DragDropView.created() : super.created();
 
   final StreamController<String> _streamController =
       new StreamController<String>();
 
   Stream<String> get onFile => _streamController.stream;
 
-  File _selectedFile;
-
-  DragDropFile(this._dropZone, this._fileUpload) {
+  void ready() {
     _fileUpload.onChange.listen((event) {
       var file = (event.target as InputElement).files.first;
       _loadFile(file);
@@ -39,27 +42,23 @@ class DragDropFile {
   }
 
   void hide() {
-    this._dropZone.style.display = 'none';
+    _dropZone.style.display = 'none';
   }
 
   void show() {
-    this._dropZone.style.display = 'block';
-  }
-
-  void reload() {
-    _loadFile(_selectedFile);
+    _dropZone.style.display = 'block';
   }
 
   void _loadFile(File file) {
-    _selectedFile = file;
-    document.title = file.name + " - Dump Info Viewer";
     FileReader reader = new FileReader();
-    reader.onLoad.listen((e) {
+
+    reader.onLoad.first.then((_) {
       String fileContents = reader.result;
       // Substring because fileContents contains the mime type
       var contents =
           window.atob(fileContents.substring(fileContents.indexOf(',') + 1));
-      this._streamController.add(contents);
+      _dropZone.style.backgroundColor = '';
+      _streamController.add(contents);
     });
     reader.readAsDataUrl(file);
   }
