@@ -9,13 +9,10 @@ BSD-style license that can be found in the LICENSE file.
 
 <polymer-element name="hierarchy-view">
   <template>
-    <style>
-
-    </style>
     <div>
       <h2>
         Sort
-        <select name="sort" id="sort">
+        <select name="sort" id="selectSort">
           <option value="name"> Name</option>
           <option value="kind"> Kind</option>
           <option value="size"> Size</option>
@@ -23,10 +20,8 @@ BSD-style license that can be found in the LICENSE file.
       </h2>
 
       <!-- main hierarcy table -->
-      <tree-table></tree-table>
+      <tree-table id="treeTable"></tree-table>
     </div>
-
-
   </template>
 </polymer-element>
 <script type="application/dart" src="hierarchy_view.dart"></script>

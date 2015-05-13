@@ -5,6 +5,7 @@ BSD-style license that can be found in the LICENSE file.
 -->
 
 <link rel="import" href="../../../packages/polymer/polymer.html">
+<link rel="import" href="drag_drop_view.html">
 <polymer-element name="diff-view">
   <template>
     <style>
@@ -70,7 +71,6 @@ BSD-style license that can be found in the LICENSE file.
       #before-drop, #after-drop {
         background-color: rgba(0, 0, 0, 0.1);
         width: 45%;
-        height: 80px;
         color: rgba(0, 0, 0, 0.5);
         float: left;
         height: 100px;
@@ -91,13 +91,7 @@ BSD-style license that can be found in the LICENSE file.
       <div id="before">
         <h3> BEFORE </h3>
 
-        <div id="before-drop">
-          <h2>
-            Drop File Here
-          </h2>
-          <br/>
-          <input id="before-file-upload" type="file"/>
-        </div>
+        <drag-drop-view id="before-drop"></drag-drop-view>
         <div id="before-use-current">
           <button id="before-current-btn"> Use current file</button>
         </div>
@@ -105,11 +99,7 @@ BSD-style license that can be found in the LICENSE file.
       <div id="after">
         <h3> AFTER </h3>
 
-        <div id="after-drop">
-          <h2>Drop File Here</h2>
-          <br/>
-          <input id="after-file-upload" type="file"/>
-        </div>
+        <drag-drop-view id="after-drop"></drag-drop-view>
         <div id="after-use-current">
           <button id="after-current-btn"> Use current file</button>
         </div>

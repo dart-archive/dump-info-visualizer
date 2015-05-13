@@ -14,18 +14,12 @@ h1, p {
   color: #333;
 }
 
-#refresh {
-  font-size: 40px;
-  position: relative;
-  top: -5px;
-  text-decoration:none;
-  color: white;
+#load-slide {
+  text-align: center;
 }
-#refresh:hover {
-  color: grey;
-}
-#refresh:visited {
-  color: white;
+
+#load-slide button {
+  margin: 1em;
 }
 
 #sample_container_id {
@@ -35,15 +29,6 @@ h1, p {
   border: 1px solid #ccc;
   background-color: #fff;
 }
-
-#drag-target {
-  text-align: center;
-  color: rgb(150,150,150);
-  font-size: 4em;
-  height: 100px;
-  padding: 50px;
-}
-
 
 paper-tabs {
   width: 600px;

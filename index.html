@@ -22,18 +22,12 @@ h1, p {
   color: #333;
 }
 
-#refresh {
-  font-size: 40px;
-  position: relative;
-  top: -5px;
-  text-decoration:none;
-  color: white;
+#load-slide {
+  text-align: center;
 }
-#refresh:hover {
-  color: grey;
-}
-#refresh:visited {
-  color: white;
+
+#load-slide button {
+  margin: 1em;
 }
 
 #sample_container_id {
@@ -43,15 +37,6 @@ h1, p {
   border: 1px solid #ccc;
   background-color: #fff;
 }
-
-#drag-target {
-  text-align: center;
-  color: rgb(150,150,150);
-  font-size: 4em;
-  height: 100px;
-  padding: 50px;
-}
-
 
 paper-tabs {
   width: 600px;
@@ -137,6 +122,7 @@ body /deep/ .preSpan {
     
     
 
+    
     
     
     
@@ -3573,6 +3559,36 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
 </polymer-element>
 
 
+
+
+<polymer-element name="drag-drop-view">
+  <template>
+    <style>
+      #drag-target {
+        color: rgb(150,150,150);
+        font-size: 120%;
+        line-height: 100%;
+        padding: 10px;
+        background: #EEE;
+      }
+
+      #content {
+        margin: 0 auto;
+        width: 300px;
+      }
+    </style>
+    <!-- drag and drop file input -->
+    <div id="drag-target">
+      <div id="content">
+        Drop .info.json file here
+        <br>
+        <input id="file_upload" type="file">
+      </div>
+    </div>
+  </template>
+</polymer-element>
+
+
 <polymer-element name="diff-view">
   <template>
     <style>
@@ -3638,7 +3654,6 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
       #before-drop, #after-drop {
         background-color: rgba(0, 0, 0, 0.1);
         width: 45%;
-        height: 80px;
         color: rgba(0, 0, 0, 0.5);
         float: left;
         height: 100px;
@@ -3659,13 +3674,7 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
       <div id="before">
         <h3> BEFORE </h3>
 
-        <div id="before-drop">
-          <h2>
-            Drop File Here
-          </h2>
-          <br>
-          <input id="before-file-upload" type="file">
-        </div>
+        <drag-drop-view id="before-drop"></drag-drop-view>
         <div id="before-use-current">
           <button id="before-current-btn"> Use current file</button>
         </div>
@@ -3673,11 +3682,7 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
       <div id="after">
         <h3> AFTER </h3>
 
-        <div id="after-drop">
-          <h2>Drop File Here</h2>
-          <br>
-          <input id="after-file-upload" type="file">
-        </div>
+        <drag-drop-view id="after-drop"></drag-drop-view>
         <div id="after-use-current">
           <button id="after-current-btn"> Use current file</button>
         </div>
@@ -3776,13 +3781,10 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
 
 <polymer-element name="hierarchy-view">
   <template>
-    <style>
-
-    </style>
     <div>
       <h2>
         Sort
-        <select name="sort" id="sort">
+        <select name="sort" id="selectSort">
           <option value="name"> Name</option>
           <option value="kind"> Kind</option>
           <option value="size"> Size</option>
@@ -3790,16 +3792,13 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
       </h2>
 
       <!-- main hierarcy table -->
-      <tree-table></tree-table>
+      <tree-table id="treeTable"></tree-table>
     </div>
-
-
   </template>
 </polymer-element>
 
 </div>
     <core-toolbar>
-      <a id="refresh" href="">⟳</a>
       <paper-tabs selected="-10">
         <paper-tab id="info-tab" slide="info" offset="0">
           PROGRAM INFO
@@ -3847,12 +3846,9 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
       <!-- File Loading Slide
         This slide can not be returned to-->
       <div id="load-slide" class="slide">
-        <!-- drag and drop file input -->
-        <div id="drag-target">
-          Drop .info.json file here
-          <br><br>
-          <input id="file_upload" type="file">
-        </div>
+        <drag-drop-view></drag-drop-view>
+        <button id="useLast" disabled="">Use cache</button>
+        <button id="clearCache" disabled="">Clear cache</button>
       </div>
 
     </div>

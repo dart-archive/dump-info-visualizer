@@ -1,0 +1,35 @@
+<!--
+Copyright (c) 2014, the Dart project authors.  Please see the AUTHORS file
+for details. All rights reserved. Use of this source code is governed by a
+BSD-style license that can be found in the LICENSE file.
+-->
+
+<link rel="import" href="../../../packages/polymer/polymer.html">
+
+<polymer-element name="drag-drop-view">
+  <template>
+    <style>
+      #drag-target {
+        color: rgb(150,150,150);
+        font-size: 120%;
+        line-height: 100%;
+        padding: 10px;
+        background: #EEE;
+      }
+
+      #content {
+        margin: 0 auto;
+        width: 300px;
+      }
+    </style>
+    <!-- drag and drop file input -->
+    <div id="drag-target">
+      <div id="content">
+        Drop .info.json file here
+        <br/>
+        <input id="file_upload" type="file"/>
+      </div>
+    </div>
+  </template>
+</polymer-element>
+<script type="application/dart" src="drag_drop_view.dart"></script>
