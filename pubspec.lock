@@ -28,7 +28,7 @@ packages:
   collection:
     description: collection
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   core_elements:
     description: core_elements
     source: hosted
@@ -40,7 +40,7 @@ packages:
   csslib:
     description: csslib
     source: hosted
-    version: "0.12.0"
+    version: "0.12.0+1"
   dart_style:
     description: dart_style
     source: hosted
@@ -64,7 +64,7 @@ packages:
   logging:
     description: logging
     source: hosted
-    version: "0.9.3"
+    version: "0.11.1"
   matcher:
     description: matcher
     source: hosted
@@ -76,7 +76,7 @@ packages:
   observe:
     description: observe
     source: hosted
-    version: "0.13.1"
+    version: "0.13.1+1"
   paper_elements:
     description: paper_elements
     source: hosted
@@ -88,7 +88,7 @@ packages:
   polymer:
     description: polymer
     source: hosted
-    version: "0.16.3+1"
+    version: "0.16.3+2"
   polymer_expressions:
     description: polymer_expressions
     source: hosted
@@ -96,7 +96,7 @@ packages:
   polymer_interop:
     description: polymer_interop
     source: hosted
-    version: "0.1.0+2"
+    version: "0.1.1"
   pool:
     description: pool
     source: hosted
@@ -104,15 +104,15 @@ packages:
   pub_semver:
     description: pub_semver
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   quiver:
     description: quiver
     source: hosted
-    version: "0.21.0"
+    version: "0.21.3+1"
   shelf:
     description: shelf
     source: hosted
-    version: "0.6.1+1"
+    version: "0.6.1+2"
   shelf_static:
     description: shelf_static
     source: hosted
@@ -124,7 +124,7 @@ packages:
   smoke:
     description: smoke
     source: hosted
-    version: "0.3.3"
+    version: "0.3.3+1"
   source_maps:
     description: source_maps
     source: hosted
@@ -148,7 +148,7 @@ packages:
   test:
     description: test
     source: hosted
-    version: "0.12.0"
+    version: "0.12.1"
   utf:
     description: utf
     source: hosted
@@ -160,7 +160,7 @@ packages:
   web_components:
     description: web_components
     source: hosted
-    version: "0.11.4"
+    version: "0.11.4+1"
   when:
     description: when
     source: hosted
