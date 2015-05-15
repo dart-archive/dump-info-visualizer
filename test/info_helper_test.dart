@@ -24,9 +24,9 @@ void main() {
   });
 
   test("basics", () {
-    var info = new InfoHelper(
-        _content['elements'], _content['holding'], _content['program']);
+    var info = new InfoHelper.fromJson(_content);
 
+    expect(info.dumpVersion, 3);
     expect(info.size, 361309);
     expect(info.joinedPaths, hasLength(5147));
   });

@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 class FakeInfoHelper {
   InfoHelper info;
   FakeInfoHelper() {
-    info = new InfoHelper({}, {}, {});
+    info = new InfoHelper(3, {}, {}, {});
   }
   FakeInfoHelper.fromFuncs(List funcs) {
     int i = 0;
@@ -33,7 +33,7 @@ class FakeInfoHelper {
       func['id'] = 'function/$i';
       i++;
     }
-    info = new InfoHelper(elements, {}, {});
+    info = new InfoHelper(3, elements, {}, {});
   }
 }
 

@@ -123,8 +123,7 @@ void init() {
     }
     document.querySelector('core-toolbar').style.top = "0";
 
-    var info =
-        new InfoHelper(json['elements'], json['holding'], json['program']);
+    var info = new InfoHelper.fromJson(json);
 
     diffView.currentlyLoaded = info;
 
@@ -134,7 +133,7 @@ void init() {
       HistoryState.switchTo(new HistoryState('info'));
     }
 
-    var dumpVersion = json['dump_version'] as num;
+    var dumpVersion = info.dumpVersion as num;
 
     if (dumpVersion < 1 || dumpVersion > 3) {
       window.alert('Unknown dump-info version: $dumpVersion');

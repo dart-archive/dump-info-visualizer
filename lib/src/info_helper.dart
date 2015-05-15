@@ -13,6 +13,8 @@ class Selection {
 }
 
 class InfoHelper {
+  final int dumpVersion;
+
   // A Map of type (kind -> (id -> element properties)) that
   // stores the properties of elements.
   final Map<String, Map<String, Map<String, dynamic>>> _elementProperties;
@@ -101,7 +103,11 @@ class InfoHelper {
     }
   }
 
-  InfoHelper(Map<String, Map<String, Map<String, dynamic>>> properties,
+  factory InfoHelper.fromJson(Map<String, dynamic> json) => new InfoHelper(
+      json['dump_version'], json['elements'], json['holding'], json['program']);
+
+  InfoHelper(this.dumpVersion,
+      Map<String, Map<String, Map<String, dynamic>>> properties,
       Map<String, List<String>> deps, Map<String, dynamic> programProperties)
       : _elementProperties = properties,
         _programProperties = programProperties {

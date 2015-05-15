@@ -91,5 +91,5 @@ class DiffView extends PolymerElement {
 
 InfoHelper _strToHelper(String input) {
   Map<String, dynamic> json = JSON.decode(input);
-  return new InfoHelper(json['elements'], json['holding'], json['program']);
+  return new InfoHelper.fromJson(json);
 }
