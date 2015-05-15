@@ -24,8 +24,8 @@ class DiffItem {
   }
 }
 
-Iterable<DiffItem> diff(InfoHelper before, InfoHelper after) {
-  List<DiffItem> changedElements = [];
+List<DiffItem> diff(InfoHelper before, InfoHelper after) {
+  List<DiffItem> changedElements = <DiffItem>[];
   for (String path in before.joinedPaths) {
     String beforeId = before.idFromJoinedPath(path);
     int beforeSize = before.sizeOf(beforeId);

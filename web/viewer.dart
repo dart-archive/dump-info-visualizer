@@ -153,7 +153,8 @@ void init() {
     try {
       _setCache(json);
     } catch (e) {
-      window.console.error('Could not populate cache. May be too big. Try the clear button.');
+      window.console.error(
+          'Could not populate cache. May be too big. Try the clear button.');
       window.console.error(e);
     }
     loadJson(json);

@@ -4,13 +4,11 @@
 
 library dump_viz.diff_view;
 
-import 'dart:async';
 import 'dart:convert';
 import 'dart:html' hide Selection;
 
 import 'package:polymer/polymer.dart';
 
-import 'async.dart';
 import 'diff_alg.dart';
 import 'drag_drop_view.dart';
 import 'info_helper.dart';
@@ -22,28 +20,60 @@ class DiffView extends PolymerElement {
 
   DiffView.created() : super.created();
 
+  InfoHelper _beforeContent;
+  InfoHelper _afterContent;
+
+  DragDropView get _beforeView => $['before-drop'] as DragDropView;
+  DragDropView get _afterView => $['after-drop'] as DragDropView;
+
+  ButtonElement get _beforeUseCurrent =>
+      $['before-current-btn'] as ButtonElement;
+  ButtonElement get _afterUseCurrent => $['after-current-btn'] as ButtonElement;
+
   void ready() {
-    InfoHelper strToHelper(String input) {
-      Map<String, dynamic> json = JSON.decode(input);
-      return new InfoHelper(json['elements'], json['holding'], json['program']);
+    assert(currentlyLoaded != null);
+
+    _beforeView.onFile.map(_strToHelper).listen((InfoHelper ih) {
+      _update(ih, null);
+    });
+
+    _afterView.onFile.map(_strToHelper).listen((InfoHelper ih) {
+      _update(null, ih);
+    });
+
+    _beforeUseCurrent.onClick.listen((_) {
+      _update(currentlyLoaded, null);
+    });
+
+    _afterUseCurrent.onClick.listen((_) {
+      _update(null, currentlyLoaded);
+    });
+  }
+
+  void _update(InfoHelper before, InfoHelper after) {
+    if (before != null) {
+      _beforeContent = before;
     }
 
-    var beforeFile = ($['before-drop'] as DragDropView).onFile.map(strToHelper);
-    var afterFile = ($['after-drop'] as DragDropView).onFile.map(strToHelper);
-    var beforeUseCurrent = $['before-use-current'];
-    var afterUseCurrent = $['after-use-current'];
+    if (after != null) {
+      _afterContent = after;
+    }
 
-    Stream<InfoHelper> beforeCurrent =
-        beforeUseCurrent.onClick.map((_) => currentlyLoaded);
-    Stream<InfoHelper> afterCurrent =
-        afterUseCurrent.onClick.map((_) => currentlyLoaded);
+    _diff();
+  }
 
-    Stream<InfoHelper> before = intermix(beforeCurrent, beforeFile);
-    Stream<InfoHelper> after = intermix(afterCurrent, afterFile);
-    Stream<List<InfoHelper>> bothLoaded = pairStream(before, after);
-    bothLoaded.listen((helpers) {
-      _diff(helpers[0], helpers[1]);
-    });
+  void _diff() {
+    _list.children.clear();
+
+    if (_beforeContent == null || _afterContent == null) {
+      return;
+    }
+
+    var diffItems = diff(_beforeContent, _afterContent);
+
+    for (DiffItem diffItem in diffItems) {
+      _addRow(diffItem);
+    }
   }
 
   void _addRow(DiffItem row) {
@@ -57,11 +87,9 @@ class DiffView extends PolymerElement {
       ]);
     _list.children.add(e);
   }
+}
 
-  void _diff(InfoHelper before, InfoHelper after) {
-    _list.children.clear();
-    for (DiffItem diffItem in diff(before, after)) {
-      _addRow(diffItem);
-    }
-  }
+InfoHelper _strToHelper(String input) {
+  Map<String, dynamic> json = JSON.decode(input);
+  return new InfoHelper(json['elements'], json['holding'], json['program']);
 }
