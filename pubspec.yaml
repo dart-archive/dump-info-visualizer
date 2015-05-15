@@ -5,6 +5,7 @@ description: A visualizer for the JSON data produced by the dart2js --dump-info 
 dependencies:
   core_elements: '^0.7.1+2'
   paper_elements: '^0.7.1'
+  path: '^1.3.5'
   polymer: '^0.16.3+1'
 dev_dependencies:
   test: '^0.12.0'

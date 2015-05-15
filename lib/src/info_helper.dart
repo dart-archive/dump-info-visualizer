@@ -49,11 +49,11 @@ class InfoHelper {
       _elementProperties[type].values;
 
   List<Selection> dependencies(String id) {
-    if (_dependencies[id] != null) {
-      return _dependencies[id];
-    } else {
-      return const [];
+    var deps = _dependencies[id];
+    if (deps == null) {
+      return const <Selection>[];
     }
+    return deps;
   }
 
   List<Selection> reverseDependencies(String id) {
