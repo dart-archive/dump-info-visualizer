@@ -8,7 +8,7 @@ import 'dart:collection' show Queue;
 
 class Selection {
   String elementId;
-  String mask;
+  final String mask;
   Selection(this.elementId, this.mask);
 }
 
