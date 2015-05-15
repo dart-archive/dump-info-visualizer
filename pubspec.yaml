@@ -2,6 +2,8 @@ name: dump_viz
 author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/dart-lang/dump-info-visualizer/
 description: A visualizer for the JSON data produced by the dart2js --dump-info command
+environment:
+  sdk: '>=1.11.0-dev <2.0.0'
 dependencies:
   core_elements: '^0.7.1+2'
   paper_elements: '^0.7.1'
