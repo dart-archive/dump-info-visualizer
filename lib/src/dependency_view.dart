@@ -71,18 +71,18 @@ class DependencyView extends PolymerElement {
     List<Selection> owners = _dumpInfo.reverseDependencies(id);
     List<Selection> owned = _dumpInfo.dependencies(id);
 
-    Iterable<TableRowElement> sortedRows(Iterable<Selection> ids) {
-      var sorted = ids.toList()
-        ..sort((sel1, sel2) => _dumpInfo
-                .reverseDependencies(sel1.elementId).length -
-            _dumpInfo.reverseDependencies(sel2.elementId).length);
-      return sorted
-          .map((s) => _generateRow(s.elementId, s.mask))
-          .where((a) => a != null);
-    }
-
-    ownersTable.children.addAll(sortedRows(owners));
+    ownersTable.children.addAll(_sortedRows(owners));
     currentTable.children.add(_generateRow(id, ""));
-    ownedTable.children.addAll(sortedRows(owned));
+    ownedTable.children.addAll(_sortedRows(owned));
+  }
+
+  Iterable<TableRowElement> _sortedRows(Iterable<Selection> ids) {
+    var sorted = ids.toList()
+      ..sort(
+          (sel1, sel2) => _dumpInfo.reverseDependencies(sel1.elementId).length -
+              _dumpInfo.reverseDependencies(sel2.elementId).length);
+    return sorted
+        .map((s) => _generateRow(s.elementId, s.mask))
+        .where((a) => a != null);
   }
 }
