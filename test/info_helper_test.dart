@@ -27,7 +27,7 @@ void main() {
     var info = new InfoHelper.fromJson(_content);
 
     expect(info.dumpVersion, 3);
-    expect(info.size, 361309);
-    expect(info.joinedPaths, hasLength(5147));
+    expect(info.size, 929444);
+    expect(info.joinedPaths, hasLength(5148));
   });
 }
