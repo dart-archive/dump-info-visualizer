@@ -103,6 +103,7 @@ void init() {
   var dependencyView = querySelector('dependency-view') as DependencyView;
   var diffView = querySelector('diff-view') as DiffView;
   var hierarchyView = querySelector('hierarchy-view') as HierarchyView;
+  var programInfoView = querySelector('program-info-view') as ProgramInfoView;
 
   var tabs = querySelectorAll('paper-tab');
   for (PaperTab tab in tabs) {
@@ -142,6 +143,7 @@ void init() {
 
     dependencyView.dumpInfo = info;
     hierarchyView.dumpInfo = info;
+    programInfoView.dumpInfo = info;
 
     alreadyLoaded = true;
     _updateButton();
