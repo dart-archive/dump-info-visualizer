@@ -38,7 +38,7 @@ class ProgramInfoView extends PolymerElement {
   void _setupProgramwideInfo() {
     _treeTable.children.clear();
     var map = {
-      'Program Size': _model.size.toString() + ' bytes',
+      'Program Size': '${_model.size}  bytes',
       'Compile Time': _model.compilationMoment,
       'Compile Duration': _model.compilationDuration,
       'noSuchMethod Enabled': new SpanElement()
@@ -53,7 +53,7 @@ class ProgramInfoView extends PolymerElement {
     };
 
     map.forEach((k, v) {
-      TableRowElement row = _treeTable.addRow();
+      var row = _treeTable.addRow();
       row.addCell()..text = k;
       if (v is String) {
         row.addCell()..text = v;
