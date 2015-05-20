@@ -126,6 +126,7 @@ body /deep/ .preSpan {
     
     
     
+    
   </head>
   <body unresolved=""><div hidden=""><script src="packages/web_components/interop_support.js"></script>
 
@@ -3797,6 +3798,15 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
   </template>
 </polymer-element>
 
+
+
+
+<polymer-element name="program-info-view">
+  <template>
+    <table id="prog-info"></table>
+  </template>
+</polymer-element>
+
 </div>
     <core-toolbar>
       <paper-tabs selected="-10">
@@ -3825,7 +3835,7 @@ polyfill-next-selector { content: '#tabsContent > *:not(#selectionBar)'; }
 
       <!-- Whole Program Information -->
       <div id="info-slide" class="slide">
-        <table id="prog-info"></table>
+        <program-info-view></program-info-view>
       </div>
 
       <!-- Hierarchy View -->
