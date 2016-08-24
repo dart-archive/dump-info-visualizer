@@ -51,7 +51,7 @@ class LogicalRow {
 
   LogicalRow(this.data, this.renderFunction, this.parentElement, this.level);
 
-  // Add a child function lazilly.
+  // Add a child function lazily.
   GenerateRowFunction addChild(GenerateRowFunction genRowFn) {
     this.generatorFns.add(genRowFn);
     return genRowFn;

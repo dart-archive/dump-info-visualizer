@@ -65,7 +65,7 @@ class HierarchyView extends PolymerElement {
 
     int programSize = _model.size;
 
-    // A helper function for lazilly constructing the tree
+    // A helper function for lazily constructing the tree
     LogicalRow buildTree(String id, bool isTop, HtmlElement tbody, int level) {
       Map<String, dynamic> node = _model.elementById(id);
       if (node['size'] == null) {
@@ -226,7 +226,7 @@ class HierarchyView extends PolymerElement {
         break;
       case 'library':
         cells.addAll([
-          _cell(props['name']),
+          _cell(props['canonicalUri']),
           _cell(props['size'], align: 'right'),
           _cell(''),
           _cell(props['size_percent'], align: 'right'),
