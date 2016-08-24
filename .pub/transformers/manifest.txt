@@ -1,0 +1,2 @@
+1.19.0-dev.7.2
+code_transformers/src/delete_file,initialize,initialize/build/loader_replacer,observe,polymer_interop/src/build/replace_polymer_js,smoke/src/default_transformer,web_components,web_components/build/mirrors_remover
