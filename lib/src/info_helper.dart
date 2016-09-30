@@ -81,8 +81,10 @@ class InfoHelper {
   Map<String, dynamic> properties(String id) => _idToProperties[id];
   List<String> path(String id) => _path[id];
 
-  String get compilationMoment => _programProperties['compilationMoment'];
-  String get compilationDuration => _programProperties['compilationDuration'];
+  String get compilationMoment =>
+      _programProperties['compilationMoment'].toString();
+  String get compilationDuration =>
+      _programProperties['compilationDuration'].toString();
   String get dart2jsVersion => _programProperties['dart2jsVersion'];
   int get size => _programProperties['size'];
   bool get noSuchMethodEnabled => _programProperties['noSuchMethodEnabled'];
@@ -106,9 +108,11 @@ class InfoHelper {
   factory InfoHelper.fromJson(Map<String, dynamic> json) => new InfoHelper(
       json['dump_version'], json['elements'], json['holding'], json['program']);
 
-  InfoHelper(this.dumpVersion,
+  InfoHelper(
+      this.dumpVersion,
       Map<String, Map<String, Map<String, dynamic>>> properties,
-      Map<String, List<String>> deps, Map<String, dynamic> programProperties)
+      Map<String, List<String>> deps,
+      Map<String, dynamic> programProperties)
       : _elementProperties = properties,
         _programProperties = programProperties {
     // Set up dependencies
