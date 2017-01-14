@@ -136,7 +136,7 @@ void init() {
 
     var dumpVersion = info.dumpVersion as num;
 
-    if (dumpVersion < 1 || dumpVersion > 4) {
+    if (dumpVersion < 1 || dumpVersion > 5) {
       window.alert('Unknown dump-info version: $dumpVersion');
       return;
     }
