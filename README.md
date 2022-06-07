@@ -1,4 +1,11 @@
-# Dump-Info visualizer
+## Repo deprecation notice
+
+**NOTE**: This repository has been deprecated; for information and tooling related to
+understanding the size of your compile web applications, see instead:
+
+https://github.com/dart-lang/sdk/tree/master/pkg/dart2js_info
+
+## Dump-Info visualizer
 
 A web based visualizer for the dart2js `--dump-info` option.
 
