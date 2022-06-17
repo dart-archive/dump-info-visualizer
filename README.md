@@ -1,7 +1,7 @@
 ## Repo deprecation notice
 
 **NOTE**: This repository has been deprecated; for information and tooling related to
-understanding the size of your compile web applications, see instead:
+understanding the size of your compiled web applications, see instead:
 
 https://github.com/dart-lang/sdk/tree/master/pkg/dart2js_info
 
